@@ -262,6 +262,30 @@ a.store:hover { border-color: var(--gold); }
 .way p { margin: 0; color: var(--muted); font-size: 15px; }
 .way.quiet { background: transparent; border: 1px solid var(--line); }
 
+/* Shipping calculator */
+.ship { width: 100%; margin-top: 18px; background: var(--surface); border-radius: 22px; padding: clamp(18px, 3vw, 28px); display: grid; gap: 18px; }
+.ship h3 { font-family: var(--font-display); font-weight: 800; font-size: 1.35rem; margin: 0; }
+.ship-from { margin: -10px 0 0; color: var(--muted); font-size: 15px; }
+.ship-row { display: grid; gap: 16px; grid-template-columns: 2fr 1fr; align-items: end; }
+@media (max-width: 560px) { .ship-row { grid-template-columns: 1fr; } }
+.field { display: grid; gap: 6px; min-width: 0; }
+.field label { font-weight: 800; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.field select {
+  width: 100%; font: 700 16px var(--font-body); color: var(--ink); background: var(--bg);
+  border: 2px solid var(--line); border-radius: 14px; padding: 12px 14px;
+}
+.stepper { display: flex; align-items: center; border: 2px solid var(--line); border-radius: 14px; background: var(--bg); overflow: hidden; }
+.stepper button { border: 0; background: transparent; width: 48px; height: 48px; font-size: 22px; font-weight: 800; cursor: pointer; }
+.stepper button:disabled { opacity: .35; cursor: default; }
+.stepper output { flex: 1; text-align: center; font-weight: 800; font-size: 1.1rem; font-variant-numeric: tabular-nums; }
+.ship-out { display: grid; gap: 4px; padding: 16px 18px; border-radius: 16px; background: var(--gold-soft); }
+.ship-line { display: flex; justify-content: space-between; gap: 12px; font-variant-numeric: tabular-nums; }
+.ship-line b { font-size: 1.05rem; }
+.ship-line.total { border-top: 1px solid var(--line); margin-top: 6px; padding-top: 8px; font-size: 1.15rem; font-weight: 800; }
+.ship-note { margin: 0; font-size: 14px; color: var(--muted); }
+.ship-hint { font-size: 14px; color: var(--muted); }
+.ship-hint a { color: var(--ink); font-weight: 800; }
+
 footer { border-top: 1px solid var(--line); }
 footer .inner { padding-block: 28px 40px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 14px; }
 .social { display: flex; flex-wrap: wrap; gap: 16px; }
@@ -381,6 +405,26 @@ footer .inner { padding-block: 28px 40px; display: flex; flex-wrap: wrap; justif
       <h2 data-t="buy.title"></h2>
       <p data-t="buy.intro"></p>
       <div class="ways" id="ways"></div>
+      <div class="ship" id="shipping">
+        <h3 data-t="ship.title"></h3>
+        <p class="ship-from" data-t="ship.from"></p>
+        <div class="ship-row">
+          <div class="field">
+            <label for="ship-zone" data-t="ship.country"></label>
+            <select id="ship-zone"></select>
+          </div>
+          <div class="field">
+            <label id="ship-qty-label" data-t="ship.qty"></label>
+            <div class="stepper" role="group" aria-labelledby="ship-qty-label">
+              <button type="button" id="ship-minus" aria-label="−">−</button>
+              <output id="ship-qty" aria-live="polite">1</output>
+              <button type="button" id="ship-plus" aria-label="+">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="ship-out" id="ship-out" aria-live="polite"></div>
+        <p class="ship-note" id="ship-note"></p>
+      </div>
     </div>
   </div>
 </section>
@@ -408,6 +452,29 @@ footer .inner { padding-block: 28px 40px; display: flex; flex-wrap: wrap; justif
 // { img: "img/activity/ramadan.webp", price: "€4.99", url: "https://payhip.com/b/....",
 //   title: { en: "...", ru: "...", fr: "..." }, about: { en: "...", ru: "...", fr: "..." } }
 const ACTIVITY = [];
+
+// Price of one printed book, as a number (e.g. 12.9). Leave null to show shipping only.
+const BOOK_PRICE = null;
+
+// Shipping from France. Cost = first + extra × (books − 1). freeFrom: free shipping from this many books (or null).
+// Keep these the same as in your Payhip shipping settings.
+const SHIPPING = {
+  maxBooks: 10,
+  zones: [
+    { id: "fr", first: 5.00, extra: 1.50, days: "2–4", freeFrom: null,
+      name: { en: "France", ru: "Франция", fr: "France" } },
+    { id: "eu", first: 9.00, extra: 2.50, days: "4–8", freeFrom: null,
+      name: { en: "EU (Belgium, Germany, Spain, Italy…)", ru: "ЕС (Бельгия, Германия, Испания, Италия…)", fr: "UE (Belgique, Allemagne, Espagne, Italie…)" } },
+    { id: "uk", first: 9.00, extra: 2.50, days: "4–8", freeFrom: null,
+      name: { en: "United Kingdom", ru: "Великобритания", fr: "Royaume-Uni" } },
+    { id: "eu2", first: 11.00, extra: 3.00, days: "5–10", freeFrom: null,
+      name: { en: "Switzerland & rest of Europe", ru: "Швейцария и другие страны Европы", fr: "Suisse et reste de l'Europe" } },
+    { id: "na", first: 14.00, extra: 4.00, days: "7–14", freeFrom: null,
+      name: { en: "USA & Canada", ru: "США и Канада", fr: "États-Unis et Canada" } },
+    { id: "world", first: 16.00, extra: 4.50, days: "8–20", freeFrom: null,
+      name: { en: "Rest of the world", ru: "Остальные страны", fr: "Reste du monde" } },
+  ],
+};
 
 // Link to your whole shop page (Payhip), and to the series on Amazon.
 const SHOP = { payhip: "", amazon: "" };
@@ -498,6 +565,13 @@ const BOOKS = [
 /* ===== Interface text ===== */
 const T = {
   en: {
+    "ship.title": "Shipping calculator", "ship.from": "Books are posted from France by the author.",
+    "ship.country": "Your country", "ship.qty": "Books", "ship.cost": "Shipping", "ship.free": "Free",
+    "ship.days": "Delivery time", "ship.daysUnit": "working days", "ship.books": "Books", "ship.total": "Total",
+    "ship.freeFrom": "Free shipping from {n} books.",
+    "ship.uk": "Printed books have 0% VAT in the UK, so there is usually nothing extra to pay on delivery.",
+    "ship.pdf": "PDF activity books have no shipping.",
+    "ship.hint": "Shipping from {p}.", "ship.calc": "Calculate for your country →",
     "nav.activity": "Activity books", "soon": "Coming soon",
     "act.eyebrow": "Printable PDFs", "act.title": "Activity books for little Muslims",
     "act.intro": "Colouring pages, puzzles and simple activities with the animal friends. Buy, download straight away and print at home as many times as you like.",
@@ -548,6 +622,13 @@ const T = {
     "footer.top": "Back to top",
   },
   ru: {
+    "ship.title": "Калькулятор доставки", "ship.from": "Книги отправляет автор из Франции.",
+    "ship.country": "Ваша страна", "ship.qty": "Книг", "ship.cost": "Доставка", "ship.free": "Бесплатно",
+    "ship.days": "Срок доставки", "ship.daysUnit": "рабочих дней", "ship.books": "Книги", "ship.total": "Итого",
+    "ship.freeFrom": "Бесплатная доставка от {n} книг.",
+    "ship.uk": "На печатные книги в Великобритании НДС 0 %, поэтому при получении обычно ничего доплачивать не нужно.",
+    "ship.pdf": "PDF-тетради доставлять не нужно.",
+    "ship.hint": "Доставка от {p}.", "ship.calc": "Рассчитать для вашей страны →",
     "nav.activity": "Тетради", "soon": "Скоро",
     "act.eyebrow": "PDF для печати", "act.title": "Тетради с заданиями для маленьких мусульман",
     "act.intro": "Раскраски, головоломки и простые задания с друзьями-животными. Покупаете, сразу скачиваете и печатаете дома сколько угодно раз.",
@@ -598,6 +679,13 @@ const T = {
     "footer.top": "Наверх",
   },
   fr: {
+    "ship.title": "Calculateur de livraison", "ship.from": "Les livres sont envoyés depuis la France par l'autrice.",
+    "ship.country": "Votre pays", "ship.qty": "Livres", "ship.cost": "Livraison", "ship.free": "Offerte",
+    "ship.days": "Délai de livraison", "ship.daysUnit": "jours ouvrés", "ship.books": "Livres", "ship.total": "Total",
+    "ship.freeFrom": "Livraison offerte dès {n} livres.",
+    "ship.uk": "Les livres imprimés sont à 0 % de TVA au Royaume-Uni : en général, rien à payer à la réception.",
+    "ship.pdf": "Les cahiers PDF n'ont pas de frais de livraison.",
+    "ship.hint": "Livraison à partir de {p}.", "ship.calc": "Calculer pour votre pays →",
     "nav.activity": "Cahiers", "soon": "Bientôt",
     "act.eyebrow": "PDF à imprimer", "act.title": "Cahiers d'activités pour petits musulmans",
     "act.intro": "Coloriages, jeux et activités simples avec les amis animaux. Achetez, téléchargez tout de suite et imprimez à la maison autant de fois que vous voulez.",
@@ -700,6 +788,11 @@ function renderStatic() {
     <div class="way"><h3>${esc(t("way.pdf.h"))}</h3><p>${esc(t("way.pdf.p"))}</p><a class="btn btn-ghost" href="#activity">${esc(t("way.pdf.btn"))}</a></div>
     <div class="way quiet"><h3>${esc(t("way.amazon.h"))}</h3><p>${esc(t("way.amazon.p"))}</p>${link(SHOP.amazon, t("way.amazon.btn"), "btn btn-ghost")}</div>`;
 
+  const zoneSel = document.getElementById("ship-zone");
+  zoneSel.innerHTML = SHIPPING.zones.map(z => `<option value="${z.id}">${esc(z.name[lang])}</option>`).join("");
+  zoneSel.value = ship.zone;
+  renderShip();
+
   document.getElementById("acts").innerHTML = ACTIVITY.length
     ? `<div class="acts">${ACTIVITY.map(a => `
         <article class="act">
@@ -723,6 +816,35 @@ function renderStatic() {
   document.getElementById("social").innerHTML = social.join("");
 }
 
+/* ===== Shipping calculator ===== */
+const ship = { zone: SHIPPING.zones[0].id, qty: 1 };
+const money = n => new Intl.NumberFormat(lang === "en" ? "en-GB" : lang, { style: "currency", currency: "EUR" }).format(n);
+const shipCost = (z, q) => (z.freeFrom && q >= z.freeFrom) ? 0 : z.first + z.extra * (q - 1);
+const fromPrice = () => Math.min(...SHIPPING.zones.map(z => z.first));
+
+function renderShip() {
+  const z = SHIPPING.zones.find(x => x.id === ship.zone) || SHIPPING.zones[0];
+  const cost = shipCost(z, ship.qty);
+  document.getElementById("ship-qty").textContent = ship.qty;
+  document.getElementById("ship-minus").disabled = ship.qty <= 1;
+  document.getElementById("ship-plus").disabled = ship.qty >= SHIPPING.maxBooks;
+  let html = `<div class="ship-line"><span>${esc(t("ship.cost"))}</span><b>${cost === 0 ? esc(t("ship.free")) : money(cost)}</b></div>
+    <div class="ship-line"><span>${esc(t("ship.days"))}</span><b>${esc(z.days)} ${esc(t("ship.daysUnit"))}</b></div>`;
+  if (BOOK_PRICE) {
+    html += `<div class="ship-line"><span>${esc(t("ship.books"))} (${ship.qty} × ${money(BOOK_PRICE)})</span><b>${money(BOOK_PRICE * ship.qty)}</b></div>
+      <div class="ship-line total"><span>${esc(t("ship.total"))}</span><span>${money(BOOK_PRICE * ship.qty + cost)}</span></div>`;
+  }
+  document.getElementById("ship-out").innerHTML = html;
+  const notes = [];
+  if (z.freeFrom && ship.qty < z.freeFrom) notes.push(t("ship.freeFrom").replace("{n}", z.freeFrom));
+  if (z.id === "uk") notes.push(t("ship.uk"));
+  notes.push(t("ship.pdf"));
+  document.getElementById("ship-note").textContent = notes.join(" ");
+}
+document.getElementById("ship-zone").addEventListener("change", e => { ship.zone = e.target.value; renderShip(); });
+document.getElementById("ship-minus").addEventListener("click", () => { if (ship.qty > 1) { ship.qty--; renderShip(); } });
+document.getElementById("ship-plus").addEventListener("click", () => { if (ship.qty < SHIPPING.maxBooks) { ship.qty++; renderShip(); } });
+
 /* ===== Book detail ===== */
 const dlg = document.getElementById("detail");
 function openBook(id) {
@@ -734,6 +856,7 @@ function openBook(id) {
       <div class="buy-main"><strong>${esc(t("detail.print"))}</strong><span>${esc(t("detail.printNote"))}</span>
         ${printUrl ? `<a class="btn btn-gold" href="${esc(printUrl)}" target="_blank" rel="noopener">${esc(t("detail.buy"))}</a>`
                    : `<span class="soon">${esc(t("soon"))}</span>`}</div>
+      <span class="ship-hint">${esc(t("ship.hint").replace("{p}", money(fromPrice())))} <a href="#shipping" data-close>${esc(t("ship.calc"))}</a></span>
       ${amazonUrl ? `<p class="buy-alt">${esc(t("detail.amazon"))} <a href="${esc(amazonUrl)}" target="_blank" rel="noopener">${esc(t("detail.amazonLink"))}</a></p>` : ""}
     </div>`;
   document.getElementById("d-sheet").innerHTML = `
