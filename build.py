@@ -122,6 +122,7 @@ def coming_soon():
         for b in C["coming_soon"])
     if C["signup_form"]:
         form = f"""<form action="{e(C['signup_form'])}" method="POST">
+        <input type="hidden" name="_subject" value="New sign-up: Quran Animals new books">
         <input id="signup-email" aria-label="Your email" type="email" name="email" placeholder="Your email" required autocomplete="email">
         <button class="btn btn-gold" type="submit">Notify me</button>
       </form>"""
