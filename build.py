@@ -53,8 +53,8 @@ CURRENT = ' aria-current="page"'
 
 
 def nav(current):
-    items = [("/", "Home", "keep"), ("/books/", "Books", "keep"), ("/#quiz", "Quiz", ""),
-             ("/#gallery", "Gallery", ""), ("/#author", "Author", ""), ("/shop/", "Shop", "keep")]
+    items = [("/", "Home", ""), ("/books/", "Books", "keep"), ("/#quiz", "Quiz", ""),
+             ("/ramadan/", "Ramadan", "keep"), ("/#author", "Author", ""), ("/shop/", "Shop", "keep")]
     links = "\n        ".join(
         f'<a href="{href}" class="{cls}"{CURRENT if href == current else ""}>{label}</a>'
         for href, label, cls in items)
@@ -235,6 +235,13 @@ home = f"""<header class="hero" id="top">
     <blockquote>“{e(SITE['tagline'])}”</blockquote>
     <cite>— {e(SITE['author'])}</cite>
   </div>
+</div>
+
+<div class="inner" style="padding-top:40px">
+  <a class="ram-banner" href="/ramadan/">
+    <div><strong>Ramadan with the Quran Animals</strong><span>A good deed and a dua for every day. Fill Nur's honey jar!</span></div>
+    <span class="btn">Open the chart</span>
+  </a>
 </div>
 
 <section id="books">
@@ -438,6 +445,59 @@ shop = f"""<header class="inner" id="top" style="padding-block:48px 8px">
 page("/shop/", f"Shop · {SITE['series']}", "Buy the Quran Animals books on Amazon or directly from the author, and printable activity books for Muslim children.",
      shop, "/shop/", scripts='<script src="/assets/shop.js" defer></script>\n')
 
+# Ramadan
+R = C["ramadan"]
+friends = {b["id"]: {"name": b["name"], "slug": b["slug"], "ar": b["ar"], "tint": b["tint"], "tint_dark": b["tint_dark"]} for b in BOOKS}
+ram_data = {"start": R["start"], "deeds": R["deeds"], "duas": R["duas"], "last_ten": R["last_ten_dua"], "friends": friends}
+fd = R["iftar_dua"]
+ramadan = f"""<header class="ram-hero" id="top">
+  <div class="inner">
+    <div>
+      <div class="eyebrow">Ramadan 1448 · for children</div>
+      <h1>Ramadan with the Quran Animals</h1>
+      <p class="lede">One good deed and one dua for every day of Ramadan. Tap “I did it!” after each good deed and watch Nur's honey jar fill up.</p>
+      <span class="ram-count" id="ram-count"></span>
+      <div class="ram-start"><label for="ram-start">Ramadan is expected to start {e(R['start_label'])}, depending on the moon sighting. Our Ramadan starts on:</label>
+        <input type="date" id="ram-start"></div>
+    </div>
+    <div class="moon" aria-hidden="true"></div>
+  </div>
+</header>
+<section id="ram-app">
+  <div class="inner">
+    <div class="ram-main">
+      <div class="day-card" id="ram-day" aria-live="polite"></div>
+      <div class="jar-card" id="ram-jar"></div>
+    </div>
+    <h2 style="margin-top:48px">All 30 days</h2>
+    <p class="sec-intro">Tap a day to see its good deed and dua. A star means it's done.</p>
+    <div class="ram-grid" id="ram-grid"></div>
+    <p class="soon" style="margin-top:16px">Progress is saved on this device only.</p>
+  </div>
+  <script type="application/json" id="ram-data">{json.dumps(ram_data, ensure_ascii=False)}</script>
+</section>
+<section class="band">
+  <div class="inner">
+    <div class="iftar">
+      <p class="label">Every evening</p>
+      <h3>Dua for breaking the fast</h3>
+      <p class="dua-ar" lang="ar" dir="rtl">{fd['ar']}</p>
+      <p class="dua-tr">{e(fd['tr'])}</p>
+      <p class="dua-en">“{e(fd['en'])}”</p>
+      <p class="dua-ref">{e(fd['ref'])}</p>
+    </div>
+    <div class="signup" style="max-width:760px">
+      <h3>A printable Ramadan activity book is coming</h3>
+      <p>Get an email when new books and activity books are released.</p>
+      <div class="cta"><a class="btn btn-gold" href="/#notify">Notify me</a></div>
+    </div>
+  </div>
+</section>
+"""
+page("/ramadan/", f"Ramadan good deeds chart for kids · {SITE['series']}",
+     "A free Ramadan chart for Muslim children: a good deed and a dua for each of the 30 days. Fill Nur the Bee's honey jar!",
+     ramadan, "/ramadan/", scripts='<script src="/assets/ramadan.js" defer></script>\n')
+
 # 404
 page("/404.html", f"Page not found · {SITE['series']}", SITE["seo"], f"""<header class="inner" id="top" style="padding-block:72px">
   <div class="eyebrow">404</div>
@@ -448,7 +508,7 @@ page("/404.html", f"Page not found · {SITE['series']}", SITE["seo"], f"""<heade
 """, "")
 
 # sitemap + robots
-urls = ["/", "/books/", "/shop/"] + [f"/books/{b['slug']}/" for b in BOOKS]
+urls = ["/", "/books/", "/ramadan/", "/shop/"] + [f"/books/{b['slug']}/" for b in BOOKS]
 (ROOT / "sitemap.xml").write_text(
     '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     + "".join(f"  <url><loc>{SITE['domain']}{u}</loc></url>\n" for u in urls) + "</urlset>\n", encoding="utf-8")

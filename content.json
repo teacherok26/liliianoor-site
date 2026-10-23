@@ -15,43 +15,102 @@
     ],
     "seo": "Islamic children's book series about Quran Animals. Perfect for Muslim children ages 5-8. Available in English, French and Russian. by Liliia Noor."
   },
-
-  "contact": { "email": "", "instagram": "", "telegram": "", "tiktok": "" },
-
+  "contact": {
+    "email": "",
+    "instagram": "",
+    "telegram": "",
+    "tiktok": ""
+  },
   "signup_form": "https://formspree.io/f/mgaaegpd",
-
   "amazon_series": "",
   "payhip_shop": "",
-
   "book_price": 12.99,
-
   "bundles": [
-    { "books": 3, "price": 37.00, "name": "Any 3 books", "about": "Choose any three books. Signed by the author.", "url": "" },
-    { "books": 7, "price": 86.50, "name": "The whole series", "about": "All seven Quran Animals books, signed by the author.", "url": "" }
+    {
+      "books": 3,
+      "price": 37.0,
+      "name": "Any 3 books",
+      "about": "Choose any three books. Signed by the author.",
+      "url": ""
+    },
+    {
+      "books": 7,
+      "price": 86.5,
+      "name": "The whole series",
+      "about": "All seven Quran Animals books, signed by the author.",
+      "url": ""
+    }
   ],
-
   "shipping": {
     "max_books": 10,
     "zones": [
-      { "id": "fr",    "name": "France",                               "first": 5.00,  "extra": 1.50, "days": "2–4",  "free_from": null },
-      { "id": "eu",    "name": "EU (Belgium, Germany, Spain, Italy…)", "first": 9.00,  "extra": 2.50, "days": "4–8",  "free_from": null },
-      { "id": "uk",    "name": "United Kingdom",                       "first": 9.00,  "extra": 2.50, "days": "4–8",  "free_from": null },
-      { "id": "eu2",   "name": "Switzerland & rest of Europe",         "first": 11.00, "extra": 3.00, "days": "5–10", "free_from": null },
-      { "id": "na",    "name": "USA & Canada",                         "first": 14.00, "extra": 4.00, "days": "7–14", "free_from": null },
-      { "id": "world", "name": "Rest of the world",                    "first": 16.00, "extra": 4.50, "days": "8–20", "free_from": null }
+      {
+        "id": "fr",
+        "name": "France",
+        "first": 5.0,
+        "extra": 1.5,
+        "days": "2–4",
+        "free_from": null
+      },
+      {
+        "id": "eu",
+        "name": "EU (Belgium, Germany, Spain, Italy…)",
+        "first": 9.0,
+        "extra": 2.5,
+        "days": "4–8",
+        "free_from": null
+      },
+      {
+        "id": "uk",
+        "name": "United Kingdom",
+        "first": 9.0,
+        "extra": 2.5,
+        "days": "4–8",
+        "free_from": null
+      },
+      {
+        "id": "eu2",
+        "name": "Switzerland & rest of Europe",
+        "first": 11.0,
+        "extra": 3.0,
+        "days": "5–10",
+        "free_from": null
+      },
+      {
+        "id": "na",
+        "name": "USA & Canada",
+        "first": 14.0,
+        "extra": 4.0,
+        "days": "7–14",
+        "free_from": null
+      },
+      {
+        "id": "world",
+        "name": "Rest of the world",
+        "first": 16.0,
+        "extra": 4.5,
+        "days": "8–20",
+        "free_from": null
+      }
     ]
   },
-
   "activity_books": [],
-
   "gallery": [],
-
   "books": [
     {
-      "n": 1, "slug": "nur-the-bee", "id": "bee", "cover": "img/bee.webp",
-      "name": "Nur the Bee", "lesson": "A Gift from Allah",
-      "animal": "Bee", "ar": "نحلة", "tint": "#c88a06", "tint_dark": "#f2c14a",
-      "surah": "Surah An-Nahl", "chapter": "Chapter 16", "verses": "16:68–69",
+      "n": 1,
+      "slug": "nur-the-bee",
+      "id": "bee",
+      "cover": "img/bee.webp",
+      "name": "Nur the Bee",
+      "lesson": "A Gift from Allah",
+      "animal": "Bee",
+      "ar": "نحلة",
+      "tint": "#c88a06",
+      "tint_dark": "#f2c14a",
+      "surah": "Surah An-Nahl",
+      "chapter": "Chapter 16",
+      "verses": "16:68–69",
       "hook": "Did you know that the bee has its very own chapter in the Holy Quran?",
       "description": "Join Yusuf and Maryam as they meet Nur — a golden bee who shares the beautiful story of Surah An-Nahl (Chapter 16) and teaches children that hard work is a gift from Allah.",
       "discover": [
@@ -61,15 +120,26 @@
         "The exact words of Allah in Quran 16:68–69"
       ],
       "includes": "Quran verse, fun facts about bees, discussion questions, colouring pages and activities.",
-      "quote": "And your Lord inspired the bee...", "quote_ref": "Quran 16:68",
+      "quote": "And your Lord inspired the bee...",
+      "quote_ref": "Quran 16:68",
       "seo": "Children's Islamic book about the bee mentioned in Surah An-Nahl. Teaches hard work and trust in Allah. Ages 5-8. Quran Animals Book 1 by Liliia Noor.",
-      "amazon": "", "print": ""
+      "amazon": "",
+      "print": ""
     },
     {
-      "n": 2, "slug": "ghuraab-the-crow", "id": "crow", "cover": "img/crow.webp",
-      "name": "Ghuraab the Crow", "lesson": "Learn from Others",
-      "animal": "Crow", "ar": "غراب", "tint": "#6b3fa0", "tint_dark": "#b896ea",
-      "surah": "Surah Al-Maidah", "chapter": "Chapter 5", "verses": "5:31",
+      "n": 2,
+      "slug": "ghuraab-the-crow",
+      "id": "crow",
+      "cover": "img/crow.webp",
+      "name": "Ghuraab the Crow",
+      "lesson": "Learn from Others",
+      "animal": "Crow",
+      "ar": "غراب",
+      "tint": "#6b3fa0",
+      "tint_dark": "#b896ea",
+      "surah": "Surah Al-Maidah",
+      "chapter": "Chapter 5",
+      "verses": "5:31",
       "hook": "A wise crow. An important lesson. And a story written in the Holy Quran forever.",
       "description": "Join Yusuf and Maryam as they meet Ghuraab — a glossy black crow whose ancestor taught one of the most powerful lessons in the Quran: that wisdom can come from the most unexpected places.",
       "discover": [
@@ -79,15 +149,26 @@
         "The exact words of Allah in Quran 5:31"
       ],
       "includes": "Quran verse, fun facts about crows, discussion questions, colouring pages and activities.",
-      "quote": "He said: Woe to me! Was I not able to be like this crow?", "quote_ref": "Quran 5:31",
+      "quote": "He said: Woe to me! Was I not able to be like this crow?",
+      "quote_ref": "Quran 5:31",
       "seo": "Children's Islamic book about the crow in Surah Al-Maidah. Teaches humility and learning from others. Ages 5-8. Quran Animals Book 2 by Liliia Noor.",
-      "amazon": "", "print": ""
+      "amazon": "",
+      "print": ""
     },
     {
-      "n": 3, "slug": "namla-the-ant", "id": "ant", "cover": "img/ant.webp",
-      "name": "Namla the Ant", "lesson": "Together We Are Strong",
-      "animal": "Ant", "ar": "نملة", "tint": "#a2551f", "tint_dark": "#e39a63",
-      "surah": "Surah An-Naml", "chapter": "Chapter 27", "verses": "27:18–19",
+      "n": 3,
+      "slug": "namla-the-ant",
+      "id": "ant",
+      "cover": "img/ant.webp",
+      "name": "Namla the Ant",
+      "lesson": "Together We Are Strong",
+      "animal": "Ant",
+      "ar": "نملة",
+      "tint": "#a2551f",
+      "tint_dark": "#e39a63",
+      "surah": "Surah An-Naml",
+      "chapter": "Chapter 27",
+      "verses": "27:18–19",
       "hook": "She was tiny. But her voice changed everything.",
       "description": "Join Yusuf and Maryam as they meet Namla — a brave little ant who warned her entire community when the great army of Prophet Sulaiman approached. Her story is written in the Holy Quran in Surah An-Naml (Chapter 27 — \"The Ants\").",
       "discover": [
@@ -97,15 +178,26 @@
         "The exact words of Allah in Quran 27:18–19"
       ],
       "includes": "Quran verses, fun facts about ants, discussion questions, colouring pages and activities.",
-      "quote": "O ants! Enter your homes so that Sulaiman and his armies do not crush you without knowing!", "quote_ref": "Quran 27:18",
+      "quote": "O ants! Enter your homes so that Sulaiman and his armies do not crush you without knowing!",
+      "quote_ref": "Quran 27:18",
       "seo": "Children's Islamic book about the ant in Surah An-Naml. Teaches caring for others. Ages 5-8. Quran Animals Book 3 by Liliia Noor.",
-      "amazon": "", "print": ""
+      "amazon": "",
+      "print": ""
     },
     {
-      "n": 4, "slug": "feel-the-elephant", "id": "elephant", "cover": "img/elephant.webp",
-      "name": "Feel the Elephant", "lesson": "Pride Goes Away",
-      "animal": "Elephant", "ar": "فيل", "tint": "#2f6db0", "tint_dark": "#7fb2ec",
-      "surah": "Surah Al-Fil", "chapter": "Chapter 105", "verses": "105:1–5",
+      "n": 4,
+      "slug": "feel-the-elephant",
+      "id": "elephant",
+      "cover": "img/elephant.webp",
+      "name": "Feel the Elephant",
+      "lesson": "Pride Goes Away",
+      "animal": "Elephant",
+      "ar": "فيل",
+      "tint": "#2f6db0",
+      "tint_dark": "#7fb2ec",
+      "surah": "Surah Al-Fil",
+      "chapter": "Chapter 105",
+      "verses": "105:1–5",
       "hook": "A mighty army. Tiny birds. And one brave elephant who chose to do what was right.",
       "description": "In this book Yusuf and Maryam fall asleep in the garden — and in their dream they are transported to an ancient valley where they witness the powerful story of Surah Al-Fil (Chapter 105 — \"The Elephant\").",
       "discover": [
@@ -116,15 +208,26 @@
         "The complete Surah Al-Fil (5 verses)"
       ],
       "includes": "Surah Al-Fil, fun facts about elephants, discussion questions, colouring pages, cut & paste activities.",
-      "quote": "Have you not seen what your Lord did to the companions of the elephant?", "quote_ref": "Quran 105:1",
+      "quote": "Have you not seen what your Lord did to the companions of the elephant?",
+      "quote_ref": "Quran 105:1",
       "seo": "Children's Islamic book about the elephant in Surah Al-Fil. Teaches that all power belongs to Allah. Ages 5-8. Quran Animals Book 4 by Liliia Noor.",
-      "amazon": "", "print": ""
+      "amazon": "",
+      "print": ""
     },
     {
-      "n": 5, "slug": "hudhud-the-hoopoe", "id": "hoopoe", "cover": "img/hoopoe.webp",
-      "name": "Hudhud the Hoopoe", "lesson": "Always Be Honest",
-      "animal": "Hoopoe", "ar": "هدهد", "tint": "#d26a12", "tint_dark": "#f5a35a",
-      "surah": "Surah An-Naml", "chapter": "Chapter 27", "verses": "27:30",
+      "n": 5,
+      "slug": "hudhud-the-hoopoe",
+      "id": "hoopoe",
+      "cover": "img/hoopoe.webp",
+      "name": "Hudhud the Hoopoe",
+      "lesson": "Always Be Honest",
+      "animal": "Hoopoe",
+      "ar": "هدهد",
+      "tint": "#d26a12",
+      "tint_dark": "#f5a35a",
+      "surah": "Surah An-Naml",
+      "chapter": "Chapter 27",
+      "verses": "27:30",
       "hook": "He was small. He was afraid. But he told the truth anyway.",
       "description": "In this book Yusuf and Maryam fall asleep under the stars — and in their dream they grow wings and fly alongside Hudhud the hoopoe bird on his most important mission: delivering a letter from Prophet Sulaiman to a faraway queen.",
       "discover": [
@@ -134,15 +237,26 @@
         "The letter of Prophet Sulaiman (Quran 27:30)"
       ],
       "includes": "Quran verses, fun facts about hoopoe birds, discussion questions, colouring pages and activities.",
-      "quote": "It is from Sulaiman, and it is: In the name of Allah, the Most Merciful, the Most Compassionate.", "quote_ref": "Quran 27:30",
+      "quote": "It is from Sulaiman, and it is: In the name of Allah, the Most Merciful, the Most Compassionate.",
+      "quote_ref": "Quran 27:30",
       "seo": "Children's Islamic book about the hoopoe in Surah An-Naml. Teaches honesty and courage. Ages 5-8. Quran Animals Book 5 by Liliia Noor.",
-      "amazon": "", "print": ""
+      "amazon": "",
+      "print": ""
     },
     {
-      "n": 6, "slug": "nun-the-whale", "id": "whale", "cover": "",
-      "name": "Nun the Whale", "lesson": "Never Lose Hope",
-      "animal": "Whale", "ar": "حوت", "tint": "#1f6f8b", "tint_dark": "#6cc3dd",
-      "surah": "Surah Al-Anbiya", "chapter": "Chapter 21", "verses": "21:87",
+      "n": 6,
+      "slug": "nun-the-whale",
+      "id": "whale",
+      "cover": "",
+      "name": "Nun the Whale",
+      "lesson": "Never Lose Hope",
+      "animal": "Whale",
+      "ar": "حوت",
+      "tint": "#1f6f8b",
+      "tint_dark": "#6cc3dd",
+      "surah": "Surah Al-Anbiya",
+      "chapter": "Chapter 21",
+      "verses": "21:87",
       "hook": "The darkest place. The most powerful prayer.",
       "description": "In this book Yusuf and Maryam fall asleep by the sea — and in their dream they witness the incredible story of Prophet Yunus inside the belly of the whale. Three days. Three nights. Complete darkness. And one prayer that reached Allah.",
       "discover": [
@@ -152,15 +266,26 @@
         "Why we should never lose hope in Allah"
       ],
       "includes": "Quran verse, fun facts about whales, discussion questions, colouring pages and activities.",
-      "quote": "There is no god but You! Glory be to You! I was truly one of the wrongdoers.", "quote_ref": "Quran 21:87",
+      "quote": "There is no god but You! Glory be to You! I was truly one of the wrongdoers.",
+      "quote_ref": "Quran 21:87",
       "seo": "Children's Islamic book about the whale and Prophet Yunus. Teaches hope and prayer. Ages 5-8. Quran Animals Book 6 by Liliia Noor.",
-      "amazon": "", "print": ""
+      "amazon": "",
+      "print": ""
     },
     {
-      "n": 7, "slug": "ankabut-the-spider", "id": "spider", "cover": "img/spider.webp",
-      "name": "Ankabut the Spider", "lesson": "Allah Protects You",
-      "animal": "Spider", "ar": "عنكبوت", "tint": "#8a6a2c", "tint_dark": "#d9bb7b",
-      "surah": "Surah Al-Ankabut", "chapter": "Chapter 29", "verses": "29:41",
+      "n": 7,
+      "slug": "ankabut-the-spider",
+      "id": "spider",
+      "cover": "img/spider.webp",
+      "name": "Ankabut the Spider",
+      "lesson": "Allah Protects You",
+      "animal": "Spider",
+      "ar": "عنكبوت",
+      "tint": "#8a6a2c",
+      "tint_dark": "#d9bb7b",
+      "surah": "Surah Al-Ankabut",
+      "chapter": "Chapter 29",
+      "verses": "29:41",
       "hook": "His web looks strong. But is it really?",
       "description": "Join Yusuf and Maryam as they meet Ankabut — a big fluffy black spider whose web holds one of the most powerful lessons in the Quran: that true protection comes only from Allah.",
       "discover": [
@@ -170,17 +295,236 @@
         "The exact words of Allah in Quran 29:41"
       ],
       "includes": "Quran verse, fun facts about spiders, discussion questions, colouring pages and activities.",
-      "quote": "Truly the weakest of houses is the house of the spider.", "quote_ref": "Quran 29:41",
+      "quote": "Truly the weakest of houses is the house of the spider.",
+      "quote_ref": "Quran 29:41",
       "seo": "Children's Islamic book about the spider in Surah Al-Ankabut. Teaches trust in Allah. Ages 5-8. Quran Animals Book 7 by Liliia Noor.",
-      "amazon": "", "print": ""
+      "amazon": "",
+      "print": ""
     }
   ],
-
   "coming_soon": [
-    { "n": 8,  "name": "Naqa the Camel",   "lesson": "Be Kind to All",          "ar": "ناقة", "ref": "Surah Ash-Shams, Chapter 91" },
-    { "n": 9,  "name": "Kalb the Dog",     "lesson": "Loyalty is a Gift",       "ar": "كلب",  "ref": "Surah Al-Kahf, Chapter 18" },
-    { "n": 10, "name": "Haya the Snake",   "lesson": "Faith Makes You Brave",   "ar": "حية",  "ref": "Story of Prophet Musa" },
-    { "n": 11, "name": "Baqara the Cow",   "lesson": "Trust and Obey Allah",    "ar": "بقرة", "ref": "Surah Al-Baqara, Chapter 2" },
-    { "n": 12, "name": "Khayl the Horse",  "lesson": "Give Your Very Best",     "ar": "خيل",  "ref": "Surah Al-Adiyat, Chapter 100" }
-  ]
+    {
+      "n": 8,
+      "name": "Naqa the Camel",
+      "lesson": "Be Kind to All",
+      "ar": "ناقة",
+      "ref": "Surah Ash-Shams, Chapter 91"
+    },
+    {
+      "n": 9,
+      "name": "Kalb the Dog",
+      "lesson": "Loyalty is a Gift",
+      "ar": "كلب",
+      "ref": "Surah Al-Kahf, Chapter 18"
+    },
+    {
+      "n": 10,
+      "name": "Haya the Snake",
+      "lesson": "Faith Makes You Brave",
+      "ar": "حية",
+      "ref": "Story of Prophet Musa"
+    },
+    {
+      "n": 11,
+      "name": "Baqara the Cow",
+      "lesson": "Trust and Obey Allah",
+      "ar": "بقرة",
+      "ref": "Surah Al-Baqara, Chapter 2"
+    },
+    {
+      "n": 12,
+      "name": "Khayl the Horse",
+      "lesson": "Give Your Very Best",
+      "ar": "خيل",
+      "ref": "Surah Al-Adiyat, Chapter 100"
+    }
+  ],
+  "ramadan": {
+    "start": "2027-02-08",
+    "start_label": "around 8 February 2027",
+    "iftar_dua": {
+      "ar": "ذَهَبَ الظَّمَأُ وَابْتَلَّتِ الْعُرُوقُ وَثَبَتَ الْأَجْرُ إِنْ شَاءَ اللَّهُ",
+      "tr": "Dhahaba adh-dhama'u wabtallatil-'uruqu wa thabatal-ajru in sha' Allah",
+      "en": "The thirst is gone, the veins are moist, and the reward is certain, if Allah wills.",
+      "ref": "Sunan Abu Dawud"
+    },
+    "duas": [
+      {
+        "ar": "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ",
+        "tr": "Rabbana atina fid-dunya hasanatan wa fil-akhirati hasanatan wa qina 'adhaban-nar",
+        "en": "Our Lord, give us good in this world and good in the Hereafter, and protect us from the punishment of the Fire.",
+        "ref": "Quran 2:201"
+      },
+      {
+        "ar": "رَبِّ زِدْنِي عِلْمًا",
+        "tr": "Rabbi zidni 'ilma",
+        "en": "My Lord, increase me in knowledge.",
+        "ref": "Quran 20:114"
+      },
+      {
+        "ar": "رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي",
+        "tr": "Rabbish-rah li sadri wa yassir li amri",
+        "en": "My Lord, open my heart for me and make my task easy for me.",
+        "ref": "Quran 20:25–26"
+      },
+      {
+        "ar": "رَبَّنَا تَقَبَّلْ مِنَّا إِنَّكَ أَنْتَ السَّمِيعُ الْعَلِيمُ",
+        "tr": "Rabbana taqabbal minna innaka antas-Sami'ul-'Alim",
+        "en": "Our Lord, accept this from us. You are the All-Hearing, the All-Knowing.",
+        "ref": "Quran 2:127"
+      },
+      {
+        "ar": "لَا إِلَٰهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ",
+        "tr": "La ilaha illa anta subhanaka inni kuntu minadh-dhalimin",
+        "en": "There is no god but You! Glory be to You! I was truly one of the wrongdoers.",
+        "ref": "Quran 21:87 · the dua of Prophet Yunus"
+      },
+      {
+        "ar": "رَبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا",
+        "tr": "Rabbir-hamhuma kama rabbayani saghira",
+        "en": "My Lord, have mercy on them as they raised me when I was small.",
+        "ref": "Quran 17:24"
+      },
+      {
+        "ar": "حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ",
+        "tr": "Hasbunallahu wa ni'mal-wakil",
+        "en": "Allah is enough for us, and He is the best protector.",
+        "ref": "Quran 3:173"
+      },
+      {
+        "ar": "بِسْمِ اللَّهِ",
+        "tr": "Bismillah",
+        "en": "In the name of Allah. Say it before you eat, drink or start something.",
+        "ref": "Sahih al-Bukhari & Muslim"
+      }
+    ],
+    "last_ten_dua": {
+      "ar": "اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي",
+      "tr": "Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni",
+      "en": "O Allah, You are Forgiving and You love to forgive, so forgive me.",
+      "ref": "Jami' at-Tirmidhi · for the last ten nights"
+    },
+    "deeds": [
+      {
+        "t": "Say Bismillah before every meal",
+        "friend": "bee"
+      },
+      {
+        "t": "Help set the table for iftar",
+        "friend": ""
+      },
+      {
+        "t": "Smile at everyone you meet. A smile is charity!",
+        "friend": ""
+      },
+      {
+        "t": "Give some of your pocket money to charity",
+        "friend": ""
+      },
+      {
+        "t": "Tidy your room without being asked",
+        "friend": ""
+      },
+      {
+        "t": "Say thank you to your mum or dad and give them a hug",
+        "friend": ""
+      },
+      {
+        "t": "Share a snack with a friend, brother or sister",
+        "friend": "ant"
+      },
+      {
+        "t": "Learn a new Arabic word",
+        "friend": "crow"
+      },
+      {
+        "t": "Help prepare food for iftar",
+        "friend": ""
+      },
+      {
+        "t": "Call or visit a grandparent",
+        "friend": ""
+      },
+      {
+        "t": "Tell the truth, even when it feels hard",
+        "friend": "hoopoe"
+      },
+      {
+        "t": "Make dua for someone else today",
+        "friend": ""
+      },
+      {
+        "t": "Water a plant or put out water for the birds",
+        "friend": ""
+      },
+      {
+        "t": "Say SubhanAllah, Alhamdulillah and Allahu Akbar 10 times each",
+        "friend": ""
+      },
+      {
+        "t": "Learn the dua of Prophet Yunus by heart",
+        "friend": "whale"
+      },
+      {
+        "t": "Draw a picture for someone you love",
+        "friend": ""
+      },
+      {
+        "t": "Pick up litter at home, in the park or at the masjid",
+        "friend": ""
+      },
+      {
+        "t": "Be patient all day. No complaining!",
+        "friend": ""
+      },
+      {
+        "t": "Say something kind to three people",
+        "friend": ""
+      },
+      {
+        "t": "Listen to Surah Al-Fil with your family",
+        "friend": "elephant"
+      },
+      {
+        "t": "Read or listen to a page of the Quran",
+        "friend": ""
+      },
+      {
+        "t": "Help wash the dishes after iftar",
+        "friend": ""
+      },
+      {
+        "t": "Taste a spoon of honey and say Alhamdulillah for it",
+        "friend": "bee"
+      },
+      {
+        "t": "Forgive someone who upset you",
+        "friend": ""
+      },
+      {
+        "t": "Make a card for a neighbour",
+        "friend": ""
+      },
+      {
+        "t": "Pray together with your family",
+        "friend": ""
+      },
+      {
+        "t": "Make extra dua tonight. It could be Laylat al-Qadr!",
+        "friend": ""
+      },
+      {
+        "t": "Give away a toy or clothes you no longer use",
+        "friend": ""
+      },
+      {
+        "t": "Ask a grandparent or older friend to tell you a story",
+        "friend": "crow"
+      },
+      {
+        "t": "Make Eid cards for your family",
+        "friend": ""
+      }
+    ]
+  }
 }
