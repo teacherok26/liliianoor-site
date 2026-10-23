@@ -231,6 +231,37 @@ dialog::backdrop { background: rgba(20, 16, 40, .55); }
 a.store { border-style: solid; color: var(--ink); text-decoration: none; }
 a.store:hover { border-color: var(--gold); }
 
+/* Buy options inside a book sheet */
+.buy-opts { display: grid; gap: 10px; margin-top: 6px; }
+.buy-main { display: grid; gap: 4px; padding: 16px 18px; border-radius: 18px; background: var(--gold-soft); }
+.buy-main strong { font-family: var(--font-display); font-size: 1.15rem; line-height: 1.2; }
+.buy-main span { font-size: 14px; color: var(--muted); }
+.buy-main .btn { justify-self: start; margin-top: 8px; }
+.buy-alt { font-size: 15px; color: var(--muted); margin: 0; }
+.buy-alt a { color: var(--ink); font-weight: 800; }
+
+/* Activity books */
+.acts { display: grid; gap: 22px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); }
+.act { display: grid; grid-template-rows: auto 1fr; background: var(--surface); border: 1px solid var(--line); border-radius: 22px; overflow: hidden; }
+.act img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; background: #fff; }
+.act-body { display: grid; gap: 8px; align-content: start; padding: 18px 20px 20px; }
+.act-body h3 { font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; line-height: 1.15; margin: 0; }
+.act-body p { margin: 0; color: var(--muted); font-size: 15px; }
+.act-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 6px; }
+.price { font-weight: 800; font-size: 1.15rem; font-variant-numeric: tabular-nums; }
+.tag { justify-self: start; font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: var(--gold-soft); color: var(--gold); }
+.act-soon { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+.act-ghost { border: 3px dashed var(--line); border-radius: 22px; padding: 24px; display: grid; gap: 6px; align-content: start; }
+.act-ghost strong { font-family: var(--font-display); font-size: 1.2rem; }
+.act-ghost span { color: var(--muted); font-size: 15px; }
+
+/* Ways to buy */
+.ways { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); width: 100%; margin-top: 8px; }
+.way { background: var(--surface); border-radius: 20px; padding: 20px; display: grid; gap: 6px; align-content: start; }
+.way h3 { font-family: var(--font-display); font-weight: 800; font-size: 1.2rem; margin: 0; }
+.way p { margin: 0; color: var(--muted); font-size: 15px; }
+.way.quiet { background: transparent; border: 1px solid var(--line); }
+
 footer { border-top: 1px solid var(--line); }
 footer .inner { padding-block: 28px 40px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 14px; }
 .social { display: flex; flex-wrap: wrap; gap: 16px; }
@@ -251,6 +282,7 @@ footer .inner { padding-block: 28px 40px; display: flex; flex-wrap: wrap; justif
     <div class="nav-right">
       <div class="links">
         <a href="#books" class="keep" data-t="nav.books"></a>
+        <a href="#activity" data-t="nav.activity"></a>
         <a href="#quiz" class="keep" data-t="nav.quiz"></a>
         <a href="#parents" data-t="nav.parents"></a>
         <a href="#gallery" data-t="nav.gallery"></a>
@@ -294,7 +326,16 @@ footer .inner { padding-block: 28px 40px; display: flex; flex-wrap: wrap; justif
   </div>
 </section>
 
-<section id="quiz">
+<section id="activity">
+  <div class="inner">
+    <div class="eyebrow" data-t="act.eyebrow"></div>
+    <h2 data-t="act.title"></h2>
+    <p class="sec-intro" data-t="act.intro"></p>
+    <div id="acts"></div>
+  </div>
+</section>
+
+<section class="band" id="quiz">
   <div class="inner">
     <div class="eyebrow" data-t="quiz.eyebrow"></div>
     <h2 data-t="quiz.title"></h2>
@@ -303,7 +344,7 @@ footer .inner { padding-block: 28px 40px; display: flex; flex-wrap: wrap; justif
   </div>
 </section>
 
-<section class="band" id="parents">
+<section id="parents">
   <div class="inner">
     <div class="eyebrow" data-t="parents.eyebrow"></div>
     <h2 data-t="parents.title"></h2>
@@ -312,7 +353,7 @@ footer .inner { padding-block: 28px 40px; display: flex; flex-wrap: wrap; justif
   </div>
 </section>
 
-<section id="gallery">
+<section class="band" id="gallery">
   <div class="inner">
     <div class="eyebrow" data-t="gallery.eyebrow"></div>
     <h2 data-t="gallery.title"></h2>
@@ -321,7 +362,7 @@ footer .inner { padding-block: 28px 40px; display: flex; flex-wrap: wrap; justif
   </div>
 </section>
 
-<section class="band" id="author">
+<section id="author">
   <div class="inner author">
     <div class="monogram" aria-hidden="true">LN</div>
     <div>
@@ -333,13 +374,13 @@ footer .inner { padding-block: 28px 40px; display: flex; flex-wrap: wrap; justif
   </div>
 </section>
 
-<section id="buy">
+<section class="band" id="buy">
   <div class="inner">
     <div class="buy">
       <div class="eyebrow" data-t="buy.eyebrow"></div>
       <h2 data-t="buy.title"></h2>
-      <p id="buy-text"></p>
-      <div class="stores" id="stores"></div>
+      <p data-t="buy.intro"></p>
+      <div class="ways" id="ways"></div>
     </div>
   </div>
 </section>
@@ -360,8 +401,16 @@ footer .inner { padding-block: 28px 40px; display: flex; flex-wrap: wrap; justif
 <script>
 /* ===== Things to fill in ===== */
 
-// Store links. Add one entry per store: { name: "Amazon", url: "https://..." }
-const STORES = [];
+// Each book has buy: { print: "Payhip link for a copy you post yourself", amazon: "Amazon link" }.
+// Leave "" until the link exists.
+
+// Activity books (PDF downloads). Add one entry each:
+// { img: "img/activity/ramadan.webp", price: "€4.99", url: "https://payhip.com/b/....",
+//   title: { en: "...", ru: "...", fr: "..." }, about: { en: "...", ru: "...", fr: "..." } }
+const ACTIVITY = [];
+
+// Link to your whole shop page (Payhip), and to the series on Amazon.
+const SHOP = { payhip: "", amazon: "" };
 
 // Contacts. Leave "" for anything you do not use.
 const CONTACT = { email: "", instagram: "", telegram: "", tiktok: "" };
@@ -372,7 +421,7 @@ const GALLERY = [];
 
 /* ===== Books ===== */
 const BOOKS = [
-  { id: "bee", n: 1, name: "Nur the Bee", ar: "نحلة", tr: "Nahla", ayah: "16:68–69", buy: "",
+  { id: "bee", n: 1, name: "Nur the Bee", ar: "نحلة", tr: "Nahla", ayah: "16:68–69", buy: { print: "", amazon: "" },
     surah: { en: "An-Nahl", ru: "Ан-Нахль", fr: "An-Nahl" },
     animal: { en: "Bee", ru: "Пчела", fr: "Abeille" },
     lesson: { en: "A Gift from Allah", ru: "Дар от Аллаха", fr: "Un cadeau d'Allah" },
@@ -384,7 +433,7 @@ const BOOKS = [
       en: ["Honey is a gift and a healing from Allah", "Bees follow Allah's guidance", "Say \"Alhamdulillah\" for every blessing"],
       ru: ["Мёд — дар и исцеление от Аллаха", "Пчёлы следуют руководству Аллаха", "Говорить «Альхамдулиллях» за каждую милость"],
       fr: ["Le miel est un cadeau et une guérison d'Allah", "Les abeilles suivent la guidance d'Allah", "Dire « Alhamdoulillah » pour chaque bienfait"] } },
-  { id: "crow", n: 2, name: "Ghuraab the Crow", ar: "غراب", tr: "Ghuraab", ayah: "5:31", buy: "",
+  { id: "crow", n: 2, name: "Ghuraab the Crow", ar: "غراب", tr: "Ghuraab", ayah: "5:31", buy: { print: "", amazon: "" },
     surah: { en: "Al-Ma'idah", ru: "Аль-Маида", fr: "Al-Ma'ida" },
     animal: { en: "Crow", ru: "Ворон", fr: "Corbeau" },
     lesson: { en: "Learn from Others", ru: "Учись у других", fr: "Apprendre des autres" },
@@ -396,7 +445,7 @@ const BOOKS = [
       en: ["Anyone can be our teacher", "Watching carefully helps us learn", "Humility opens the heart"],
       ru: ["Учителем может стать любой", "Внимательность помогает учиться", "Скромность открывает сердце"],
       fr: ["Tout le monde peut être notre maître", "Bien observer aide à apprendre", "L'humilité ouvre le cœur"] } },
-  { id: "ant", n: 3, name: "Namla the Ant", ar: "نملة", tr: "Namla", ayah: "27:18", buy: "",
+  { id: "ant", n: 3, name: "Namla the Ant", ar: "نملة", tr: "Namla", ayah: "27:18", buy: { print: "", amazon: "" },
     surah: { en: "An-Naml", ru: "Ан-Намль", fr: "An-Naml" },
     animal: { en: "Ant", ru: "Муравей", fr: "Fourmi" },
     lesson: { en: "Together We Are Strong", ru: "Вместе мы сильнее", fr: "Ensemble, nous sommes forts" },
@@ -408,7 +457,7 @@ const BOOKS = [
       en: ["Helping each other makes hard things easy", "Caring for those around us", "Even small creatures matter"],
       ru: ["Помощь друг другу делает трудное лёгким", "Заботиться о тех, кто рядом", "Даже маленькие создания важны"],
       fr: ["S'entraider rend les choses difficiles faciles", "Prendre soin de ceux qui nous entourent", "Même les petites créatures comptent"] } },
-  { id: "elephant", n: 4, name: "Feel the Elephant", ar: "فيل", tr: "Fil", ayah: "105", buy: "",
+  { id: "elephant", n: 4, name: "Feel the Elephant", ar: "فيل", tr: "Fil", ayah: "105", buy: { print: "", amazon: "" },
     surah: { en: "Al-Fil", ru: "Аль-Филь", fr: "Al-Fil" },
     animal: { en: "Elephant", ru: "Слон", fr: "Éléphant" },
     lesson: { en: "Pride Goes Away", ru: "Гордыня уходит", fr: "L'orgueil s'en va" },
@@ -420,7 +469,7 @@ const BOOKS = [
       en: ["Allah protects His House", "Pride never wins", "Being gentle is a strength"],
       ru: ["Аллах защищает Свой Дом", "Гордыня никогда не побеждает", "Мягкость — это сила"],
       fr: ["Allah protège Sa Maison", "L'orgueil ne gagne jamais", "La douceur est une force"] } },
-  { id: "hoopoe", n: 5, name: "Hudhud the Hoopoe", ar: "هدهد", tr: "Hudhud", ayah: "27:20–28", buy: "",
+  { id: "hoopoe", n: 5, name: "Hudhud the Hoopoe", ar: "هدهد", tr: "Hudhud", ayah: "27:20–28", buy: { print: "", amazon: "" },
     surah: { en: "An-Naml", ru: "Ан-Намль", fr: "An-Naml" },
     animal: { en: "Hoopoe", ru: "Удод", fr: "Huppe" },
     lesson: { en: "Always Be Honest", ru: "Всегда будь честным", fr: "Sois toujours honnête" },
@@ -432,7 +481,7 @@ const BOOKS = [
       en: ["Always tell the truth", "Explain yourself kindly", "The story of Prophet Sulayman"],
       ru: ["Всегда говорить правду", "Объяснять спокойно и вежливо", "История пророка Сулеймана"],
       fr: ["Toujours dire la vérité", "S'expliquer avec gentillesse", "L'histoire du prophète Soulaymane"] } },
-  { id: "spider", n: 7, name: "Ankabut the Spider", ar: "عنكبوت", tr: "Ankabut", ayah: "29:41", buy: "",
+  { id: "spider", n: 7, name: "Ankabut the Spider", ar: "عنكبوت", tr: "Ankabut", ayah: "29:41", buy: { print: "", amazon: "" },
     surah: { en: "Al-Ankabut", ru: "Аль-Анкабут", fr: "Al-Ankabout" },
     animal: { en: "Spider", ru: "Паук", fr: "Araignée" },
     lesson: { en: "Allah Protects You", ru: "Аллах защищает тебя", fr: "Allah te protège" },
@@ -449,6 +498,19 @@ const BOOKS = [
 /* ===== Interface text ===== */
 const T = {
   en: {
+    "nav.activity": "Activity books", "soon": "Coming soon",
+    "act.eyebrow": "Printable PDFs", "act.title": "Activity books for little Muslims",
+    "act.intro": "Colouring pages, puzzles and simple activities with the animal friends. Buy, download straight away and print at home as many times as you like.",
+    "act.buy": "Buy & download",
+    "act.ideas": [["Colour the animal friends", "Colouring pages with Nur, Namla, Hudhud and the others."],
+                  ["First Arabic words", "Trace and match the animals' names in Arabic."],
+                  ["Ramadan with the animals", "A gentle activity book for the blessed month."]],
+    "detail.print": "Printed book", "detail.printNote": "Packed and posted by the author herself.",
+    "detail.amazon": "Prefer Amazon?", "detail.amazonLink": "You can also order it there →",
+    "buy.intro": "Pick whatever suits your family best.",
+    "way.print.h": "Printed books from the author", "way.print.p": "Ordered on this site, packed and posted by Liliia herself.", "way.print.btn": "Order a book",
+    "way.pdf.h": "Activity books (PDF)", "way.pdf.p": "Pay, download in a minute and print at home.", "way.pdf.btn": "See activity books",
+    "way.amazon.h": "On Amazon", "way.amazon.p": "If you already shop on Amazon, the books are there too.", "way.amazon.btn": "Open on Amazon",
     "nav.books": "Books", "nav.quiz": "Quiz", "nav.parents": "For parents", "nav.gallery": "Gallery", "nav.author": "Author", "nav.buy": "Buy",
     "hero.eyebrow": "Picture books by Liliia Noor",
     "hero.title": "Meet the animals of the Quran",
@@ -458,7 +520,7 @@ const T = {
     "books.eyebrow": "The series", "books.title": "Six animals, six lessons",
     "books.intro": "Every story is built around an animal named in the Holy Quran. Children learn its Arabic name, hear where it appears, and take away one lesson for everyday life. Tap a book to read more.",
     "book": "Book", "readMore": "Read more →", "surah": "Surah",
-    "detail.learn": "Your child will learn", "detail.buy": "Buy this book", "detail.where": "Where to buy", "detail.soon": "Store links coming soon.",
+    "detail.learn": "Your child will learn", "detail.buy": "Buy this book",
     "quiz.eyebrow": "For little readers", "quiz.title": "Who is my animal friend?",
     "quiz.intro": "Six quick questions about the animals from the books. Read them together and tap the right friend.",
     "quiz.askArabic": "Which animal is this?", "quiz.askLesson": "Which friend teaches this lesson?",
@@ -483,11 +545,22 @@ const T = {
     "author.p1": "Liliia Noor writes picture books that help young Muslim children fall in love with the Quran through the animals Allah created.",
     "author.p2": "The Quran Animals series began with a simple idea: if children can learn the names of animals, they can also learn where those animals appear in the Quran and what they teach us.",
     "buy.eyebrow": "Get the books", "buy.title": "Where to buy",
-    "buy.soon": "Store links are coming soon. The books will be available in print and as e-books.",
-    "buy.ready": "Choose your favourite store:",
     "footer.top": "Back to top",
   },
   ru: {
+    "nav.activity": "Тетради", "soon": "Скоро",
+    "act.eyebrow": "PDF для печати", "act.title": "Тетради с заданиями для маленьких мусульман",
+    "act.intro": "Раскраски, головоломки и простые задания с друзьями-животными. Покупаете, сразу скачиваете и печатаете дома сколько угодно раз.",
+    "act.buy": "Купить и скачать",
+    "act.ideas": [["Раскрась друзей-животных", "Раскраски с Нур, Намлой, Худхудом и другими."],
+                  ["Первые арабские слова", "Обводим и соединяем названия животных по-арабски."],
+                  ["Рамадан с животными", "Добрая тетрадь с заданиями для благословенного месяца."]],
+    "detail.print": "Печатная книга", "detail.printNote": "Автор сама упакует и отправит её вам.",
+    "detail.amazon": "Удобнее на Amazon?", "detail.amazonLink": "Её можно заказать и там →",
+    "buy.intro": "Выберите то, что удобнее вашей семье.",
+    "way.print.h": "Печатные книги от автора", "way.print.p": "Заказ на этом сайте, упакует и отправит сама Liliia.", "way.print.btn": "Заказать книгу",
+    "way.pdf.h": "Тетради с заданиями (PDF)", "way.pdf.p": "Оплатили, скачали за минуту и распечатали дома.", "way.pdf.btn": "Смотреть тетради",
+    "way.amazon.h": "На Amazon", "way.amazon.p": "Если вы привыкли покупать на Amazon, книги есть и там.", "way.amazon.btn": "Открыть Amazon",
     "nav.books": "Книги", "nav.quiz": "Викторина", "nav.parents": "Родителям", "nav.gallery": "Галерея", "nav.author": "Автор", "nav.buy": "Купить",
     "hero.eyebrow": "Книги с картинками от Liliia Noor",
     "hero.title": "Знакомьтесь: животные из Корана",
@@ -497,7 +570,7 @@ const T = {
     "books.eyebrow": "Серия", "books.title": "Шесть животных, шесть уроков",
     "books.intro": "Каждая история построена вокруг животного, упомянутого в Священном Коране. Дети узнают его арабское название, где о нём говорится, и выносят один урок для жизни. Нажмите на книгу, чтобы узнать больше.",
     "book": "Книга", "readMore": "Подробнее →", "surah": "Сура",
-    "detail.learn": "Чему научится ребёнок", "detail.buy": "Купить книгу", "detail.where": "Где купить", "detail.soon": "Ссылки на магазины скоро появятся.",
+    "detail.learn": "Чему научится ребёнок", "detail.buy": "Купить книгу",
     "quiz.eyebrow": "Для маленьких читателей", "quiz.title": "Кто мой друг-животное?",
     "quiz.intro": "Шесть коротких вопросов о животных из книг. Читайте вместе и нажимайте на правильного друга.",
     "quiz.askArabic": "Какое это животное?", "quiz.askLesson": "Какой друг учит этому уроку?",
@@ -522,11 +595,22 @@ const T = {
     "author.p1": "Liliia Noor пишет книги с картинками, которые помогают маленьким мусульманам полюбить Коран через животных, созданных Аллахом.",
     "author.p2": "Серия Quran Animals началась с простой мысли: если дети могут выучить названия животных, они могут узнать и то, где эти животные упоминаются в Коране и чему они нас учат.",
     "buy.eyebrow": "Купить книги", "buy.title": "Где купить",
-    "buy.soon": "Ссылки на магазины скоро появятся. Книги будут доступны в печатном и электронном виде.",
-    "buy.ready": "Выберите удобный магазин:",
     "footer.top": "Наверх",
   },
   fr: {
+    "nav.activity": "Cahiers", "soon": "Bientôt",
+    "act.eyebrow": "PDF à imprimer", "act.title": "Cahiers d'activités pour petits musulmans",
+    "act.intro": "Coloriages, jeux et activités simples avec les amis animaux. Achetez, téléchargez tout de suite et imprimez à la maison autant de fois que vous voulez.",
+    "act.buy": "Acheter et télécharger",
+    "act.ideas": [["Colorie les amis animaux", "Des coloriages avec Nur, Namla, Hudhud et les autres."],
+                  ["Premiers mots arabes", "Tracer et relier les noms des animaux en arabe."],
+                  ["Le Ramadan avec les animaux", "Un cahier d'activités tout doux pour le mois béni."]],
+    "detail.print": "Livre imprimé", "detail.printNote": "Emballé et envoyé par l'autrice elle-même.",
+    "detail.amazon": "Vous préférez Amazon ?", "detail.amazonLink": "Vous pouvez aussi le commander là-bas →",
+    "buy.intro": "Choisissez ce qui convient le mieux à votre famille.",
+    "way.print.h": "Livres imprimés par l'autrice", "way.print.p": "Commandés sur ce site, emballés et envoyés par Liliia elle-même.", "way.print.btn": "Commander un livre",
+    "way.pdf.h": "Cahiers d'activités (PDF)", "way.pdf.p": "Payez, téléchargez en une minute et imprimez à la maison.", "way.pdf.btn": "Voir les cahiers",
+    "way.amazon.h": "Sur Amazon", "way.amazon.p": "Si vous achetez déjà sur Amazon, les livres y sont aussi.", "way.amazon.btn": "Ouvrir Amazon",
     "nav.books": "Livres", "nav.quiz": "Quiz", "nav.parents": "Parents", "nav.gallery": "Galerie", "nav.author": "Autrice", "nav.buy": "Acheter",
     "hero.eyebrow": "Albums illustrés de Liliia Noor",
     "hero.title": "À la rencontre des animaux du Coran",
@@ -536,7 +620,7 @@ const T = {
     "books.eyebrow": "La série", "books.title": "Six animaux, six leçons",
     "books.intro": "Chaque histoire tourne autour d'un animal cité dans le Saint Coran. Les enfants apprennent son nom en arabe, découvrent où il apparaît et retiennent une leçon pour la vie de tous les jours. Touchez un livre pour en savoir plus.",
     "book": "Livre", "readMore": "En savoir plus →", "surah": "Sourate",
-    "detail.learn": "Votre enfant apprendra", "detail.buy": "Acheter ce livre", "detail.where": "Où acheter", "detail.soon": "Liens vers les boutiques bientôt disponibles.",
+    "detail.learn": "Votre enfant apprendra", "detail.buy": "Acheter ce livre",
     "quiz.eyebrow": "Pour les petits lecteurs", "quiz.title": "Qui est mon ami animal ?",
     "quiz.intro": "Six petites questions sur les animaux des livres. Lisez-les ensemble et touchez le bon ami.",
     "quiz.askArabic": "Quel est cet animal ?", "quiz.askLesson": "Quel ami enseigne cette leçon ?",
@@ -561,8 +645,6 @@ const T = {
     "author.p1": "Liliia Noor écrit des albums illustrés qui aident les jeunes enfants musulmans à aimer le Coran à travers les animaux créés par Allah.",
     "author.p2": "La série Quran Animals est née d'une idée simple : si les enfants peuvent apprendre le nom des animaux, ils peuvent aussi apprendre où ces animaux apparaissent dans le Coran et ce qu'ils nous enseignent.",
     "buy.eyebrow": "Se procurer les livres", "buy.title": "Où acheter",
-    "buy.soon": "Les liens vers les boutiques arrivent bientôt. Les livres seront disponibles en version imprimée et numérique.",
-    "buy.ready": "Choisissez votre boutique :",
     "footer.top": "Haut de page",
   },
 };
@@ -610,10 +692,27 @@ function renderStatic() {
         CONTACT.email ? ` <b>${esc(CONTACT.email)}</b>` : ""}</p></div>`;
   }
 
-  document.getElementById("buy-text").textContent = STORES.length ? t("buy.ready") : t("buy.soon");
-  document.getElementById("stores").innerHTML = STORES.length
-    ? STORES.map(s => `<a class="store" href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)} →</a>`).join("")
-    : ["Amazon", "E-book"].map(n => `<span class="store">${n} · …</span>`).join("");
+  const link = (url, label, cls = "btn btn-gold") => url
+    ? `<a class="${cls}" href="${esc(url)}" target="_blank" rel="noopener">${esc(label)}</a>`
+    : `<span class="soon">${esc(t("soon"))}</span>`;
+  document.getElementById("ways").innerHTML = `
+    <div class="way"><h3>${esc(t("way.print.h"))}</h3><p>${esc(t("way.print.p"))}</p>${link(SHOP.payhip, t("way.print.btn"))}</div>
+    <div class="way"><h3>${esc(t("way.pdf.h"))}</h3><p>${esc(t("way.pdf.p"))}</p><a class="btn btn-ghost" href="#activity">${esc(t("way.pdf.btn"))}</a></div>
+    <div class="way quiet"><h3>${esc(t("way.amazon.h"))}</h3><p>${esc(t("way.amazon.p"))}</p>${link(SHOP.amazon, t("way.amazon.btn"), "btn btn-ghost")}</div>`;
+
+  document.getElementById("acts").innerHTML = ACTIVITY.length
+    ? `<div class="acts">${ACTIVITY.map(a => `
+        <article class="act">
+          <img src="${esc(a.img)}" alt="${esc(a.title[lang] || a.title.en)}" loading="lazy">
+          <div class="act-body">
+            <span class="tag">PDF</span>
+            <h3>${esc(a.title[lang] || a.title.en)}</h3>
+            <p>${esc(a.about[lang] || a.about.en)}</p>
+            <div class="act-foot"><span class="price">${esc(a.price)}</span>${link(a.url, t("act.buy"))}</div>
+          </div>
+        </article>`).join("")}</div>`
+    : `<div class="act-soon">${t("act.ideas").map(([h, p]) =>
+        `<div class="act-ghost"><span class="tag">${esc(t("soon"))}</span><strong>${esc(h)}</strong><span>${esc(p)}</span></div>`).join("")}</div>`;
 
   const social = [
     CONTACT.instagram && `<a href="https://instagram.com/${esc(CONTACT.instagram)}" target="_blank" rel="noopener">Instagram</a>`,
@@ -630,9 +729,13 @@ function openBook(id) {
   const b = BOOKS.find(x => x.id === id);
   if (!b) return;
   dlg.className = b.id;
-  const buyBtn = b.buy
-    ? `<a class="btn btn-gold" href="${esc(b.buy)}" target="_blank" rel="noopener">${t("detail.buy")}</a>`
-    : `<a class="btn btn-gold" href="#buy" data-close>${t("detail.where")}</a>`;
+  const printUrl = b.buy.print || SHOP.payhip, amazonUrl = b.buy.amazon || SHOP.amazon;
+  const buyBlock = `<div class="buy-opts">
+      <div class="buy-main"><strong>${esc(t("detail.print"))}</strong><span>${esc(t("detail.printNote"))}</span>
+        ${printUrl ? `<a class="btn btn-gold" href="${esc(printUrl)}" target="_blank" rel="noopener">${esc(t("detail.buy"))}</a>`
+                   : `<span class="soon">${esc(t("soon"))}</span>`}</div>
+      ${amazonUrl ? `<p class="buy-alt">${esc(t("detail.amazon"))} <a href="${esc(amazonUrl)}" target="_blank" rel="noopener">${esc(t("detail.amazonLink"))}</a></p>` : ""}
+    </div>`;
   document.getElementById("d-sheet").innerHTML = `
     <div class="cover"><img src="img/${b.id}.webp" alt="${esc(b.name)}"></div>
     <div class="sheet-body">
@@ -643,8 +746,7 @@ function openBook(id) {
       <span class="ref">${esc(ref(b))}</span>
       <div class="label">${t("detail.learn")}</div>
       <ul>${b.learn[lang].map(l => `<li>${esc(l)}</li>`).join("")}</ul>
-      <div class="cta" style="margin-top:8px">${buyBtn}</div>
-      ${b.buy || STORES.length ? "" : `<span class="soon">${t("detail.soon")}</span>`}
+      ${buyBlock}
     </div>`;
   dlg.showModal();
 }
