@@ -2,8 +2,29 @@
 
 Website for the **Quran Animals** picture-book series by Liliia Noor.
 
-- `index.html` — the whole site (English, Russian, French).
-- `img/` — book covers.
-- `img/gallery/` — children's drawings for the gallery.
+## How it works
 
-Shop links, activity books, contacts and gallery entries are set at the top of the `<script>` in `index.html` (`SHOP`, `BOOK_PRICE`, `SHIPPING`, `ACTIVITY`, `CONTACT`, `GALLERY`, and `buy` on each book).
+All texts, links and prices live in **`content.json`**. After changing it, run:
+
+    python3 build.py
+
+This regenerates the pages:
+
+| Page | File |
+|---|---|
+| Home | `index.html` |
+| All books | `books/index.html` |
+| One page per book | `books/<slug>/index.html` |
+| Shop + shipping calculator | `shop/index.html` |
+
+Plus `404.html`, `sitemap.xml` and `robots.txt`.
+
+- `assets/` — shared styles and scripts (quiz, shipping calculator).
+- `img/` — book covers; `img/gallery/` children's drawings; `img/activity/` activity book covers.
+
+## Things to fill in `content.json`
+
+- `amazon` / `print` on each book, `amazon_series`, `payhip_shop` — shop links.
+- `book_price`, `shipping.zones` — prices (keep shipping the same as in Payhip).
+- `signup_form` — form endpoint for new-book notifications (e.g. Formspree).
+- `contact`, `gallery`, `activity_books`.

@@ -1,0 +1,434 @@
+#!/usr/bin/env python3
+"""Builds the Quran Animals site from content.json.
+
+Run `python3 build.py` after changing content.json. It writes:
+  index.html, books/index.html, books/<slug>/index.html, shop/index.html,
+  404.html, sitemap.xml, robots.txt
+"""
+import json
+from html import escape
+from pathlib import Path
+
+ROOT = Path(__file__).parent
+C = json.loads((ROOT / "content.json").read_text(encoding="utf-8"))
+SITE, BOOKS = C["site"], C["books"]
+
+
+def e(s):
+    return escape(str(s), quote=True)
+
+
+def tint(b):
+    return f'style="--t-l:{b["tint"]};--t-d:{b["tint_dark"]}"'
+
+
+# ---------- shared pieces ----------
+
+def head(title, description, path, image="img/bee.webp", extra=""):
+    url = SITE["domain"] + path
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{e(title)}</title>
+<meta name="description" content="{e(description)}">
+<link rel="canonical" href="{url}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{e(title)}">
+<meta property="og:description" content="{e(description)}">
+<meta property="og:url" content="{url}">
+<meta property="og:image" content="{SITE['domain']}/{image}">
+<link rel="icon" href="/img/bee.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;600;700;800&family=Amiri:wght@400;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+{extra}</head>
+<body>
+"""
+
+
+CURRENT = ' aria-current="page"'
+
+
+def nav(current):
+    items = [("/", "Home", "keep"), ("/books/", "Books", "keep"), ("/#quiz", "Quiz", ""),
+             ("/#gallery", "Gallery", ""), ("/#author", "Author", ""), ("/shop/", "Shop", "keep")]
+    links = "\n        ".join(
+        f'<a href="{href}" class="{cls}"{CURRENT if href == current else ""}>{label}</a>'
+        for href, label, cls in items)
+    return f"""<nav class="top" aria-label="Main">
+  <div class="inner">
+    <a class="logo" href="/">Quran <span>Animals</span></a>
+    <div class="links">
+        {links}
+    </div>
+  </div>
+</nav>
+"""
+
+
+def footer():
+    ct = C["contact"]
+    social = []
+    if ct.get("instagram"):
+        social.append(f'<a href="https://instagram.com/{e(ct["instagram"])}" target="_blank" rel="noopener">Instagram</a>')
+    if ct.get("telegram"):
+        social.append(f'<a href="https://t.me/{e(ct["telegram"])}" target="_blank" rel="noopener">Telegram</a>')
+    if ct.get("tiktok"):
+        social.append(f'<a href="https://tiktok.com/@{e(ct["tiktok"])}" target="_blank" rel="noopener">TikTok</a>')
+    if ct.get("email"):
+        social.append(f'<a href="mailto:{e(ct["email"])}">{e(ct["email"])}</a>')
+    return f"""<footer>
+  <div class="inner">
+    <span>© 2026 {e(SITE['author'])} · {e(SITE['series'])}</span>
+    <div class="social">{"".join(social)}</div>
+    <a href="#top">Back to top</a>
+  </div>
+</footer>
+"""
+
+
+def cover(b, eager=False):
+    if b["cover"]:
+        load = "" if eager else ' loading="lazy"'
+        return f'<div class="cover"><img src="/{e(b["cover"])}" alt="Cover of {e(b["name"])}: {e(b["lesson"])}"{load}></div>'
+    return (f'<div class="cover blank"><span class="big-ar" lang="ar">{b["ar"]}</span>'
+            f'<strong>{e(b["name"])}</strong><small>Cover coming soon</small></div>')
+
+
+def card(b):
+    return f"""<a class="book tinted" href="/books/{b['slug']}/" {tint(b)}>
+      {cover(b)}
+      <div class="info">
+        <div class="meta"><span class="num">Book {b['n']}</span><span class="ar" lang="ar">{b['ar']}</span></div>
+        <h3>{e(b['name'])}</h3>
+        <p class="lesson">{e(b['lesson'])}</p>
+        <p class="hook">{e(b['hook'])}</p>
+        <span class="more">Read more →</span>
+      </div>
+    </a>"""
+
+
+def shelf():
+    return '<div class="shelf">\n    ' + "\n    ".join(card(b) for b in BOOKS) + "\n  </div>"
+
+
+def coming_soon():
+    items = "\n      ".join(
+        f'<div class="next-book"><span class="ar" lang="ar">{b["ar"]}</span><span>Book {b["n"]}</span>'
+        f'<strong>{e(b["name"])}</strong><span class="lesson">{e(b["lesson"])}</span><span>{e(b["ref"])}</span></div>'
+        for b in C["coming_soon"])
+    if C["signup_form"]:
+        form = f"""<form action="{e(C['signup_form'])}" method="POST">
+        <input id="signup-email" aria-label="Your email" type="email" name="email" placeholder="Your email" required autocomplete="email">
+        <button class="btn btn-gold" type="submit">Notify me</button>
+      </form>"""
+    else:
+        form = '<p class="soon">Email sign-up opens soon.</p>'
+    return f"""<div class="upcoming">
+      {items}
+    </div>
+    <div class="signup" id="notify">
+      <h3>Be the first to meet the new friends</h3>
+      <p>Sign up to be notified when new books are released.</p>
+      {form}
+    </div>"""
+
+
+def buy_buttons(b):
+    if b["amazon"]:
+        amazon = f'<a class="btn btn-gold" href="{e(b["amazon"])}" target="_blank" rel="noopener">Buy on Amazon</a>'
+    elif C["amazon_series"]:
+        amazon = f'<a class="btn btn-gold" href="{e(C["amazon_series"])}" target="_blank" rel="noopener">Buy on Amazon</a>'
+    else:
+        amazon = '<span class="btn btn-gold" aria-disabled="true">Buy on Amazon · coming soon</span>'
+    direct = b["print"] or C["payhip_shop"] or "/shop/#print"
+    ext = ' target="_blank" rel="noopener"' if direct.startswith("http") else ""
+    first = min(z["first"] for z in C["shipping"]["zones"])
+    return f"""<div class="buybox">
+        <div class="cta">{amazon}</div>
+        <p class="alt">Prefer a copy posted from France by the author? <a href="{e(direct)}"{ext}>Order it here →</a></p>
+        <p class="alt">Shipping from €{first:.2f}. <a href="/shop/#shipping">Check the cost for your country</a></p>
+      </div>"""
+
+
+def quiz_section():
+    data = [{k: b[k] for k in ("id", "animal", "ar", "lesson", "cover", "tint", "tint_dark")} for b in BOOKS]
+    return f"""<section class="band" id="quiz">
+  <div class="inner">
+    <div class="eyebrow">For little readers</div>
+    <h2>Who is my animal friend?</h2>
+    <p class="sec-intro">Six quick questions about the animals from the books. Read them together and tap the right friend.</p>
+    <div class="quiz" id="quiz-box" aria-live="polite"></div>
+    <script type="application/json" id="quiz-data">{json.dumps(data, ensure_ascii=False)}</script>
+  </div>
+</section>
+"""
+
+
+def gallery_section():
+    by_id = {b["id"]: b for b in BOOKS}
+    if C["gallery"]:
+        figs = []
+        for g in C["gallery"]:
+            sub = " · ".join(x for x in [f'age {g["age"]}' if g.get("age") else "",
+                                          by_id[g["animal"]]["animal"] if g.get("animal") in by_id else ""] if x)
+            figs.append(f'<figure class="art"><img src="/{e(g["img"])}" alt="Drawing by {e(g["name"])}" loading="lazy">'
+                        f'<figcaption>{e(g["name"])}{f"<small>{e(sub)}</small>" if sub else ""}</figcaption></figure>')
+        body = '<div class="gallery">' + "".join(figs) + "</div>"
+    else:
+        email = C["contact"].get("email")
+        send = f' Email it to <b>{e(email)}</b>.' if email else ""
+        body = f"""<div class="frames" aria-hidden="true"><div class="frame">نحلة</div><div class="frame">نملة</div><div class="frame">هدهد</div></div>
+    <div class="invite"><p><strong>The first drawings are coming soon</strong>Has your child drawn Nur, Namla or Hudhud? Send us a photo of the drawing with your child's first name and age, and we may add it here.{send}</p></div>"""
+    return f"""<section id="gallery">
+  <div class="inner">
+    <div class="eyebrow">Little artists</div>
+    <h2>Drawings by our readers</h2>
+    <p class="sec-intro">Children draw their favourite animal friends from the books. Here we share their art.</p>
+    {body}
+  </div>
+</section>
+"""
+
+
+def page(path, title, description, body, current, image="img/bee.webp", extra_head="", scripts=""):
+    out = ROOT / path.lstrip("/") / "index.html" if path.endswith("/") else ROOT / path.lstrip("/")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    html = head(title, description, path, image, extra_head) + nav(current) + body + footer() + scripts + "</body>\n</html>\n"
+    out.write_text(html, encoding="utf-8")
+
+
+# ---------- pages ----------
+
+features = "".join(f"<li>{e(f)}</li>" for f in SITE["features"])
+chips = (f'<ul class="meta-chips"><li>Ages {e(SITE["ages"])}</li><li>{e(SITE["languages"])}</li>'
+         f'<li>{len(BOOKS)} books · more coming</li></ul>')
+b1 = BOOKS[0]
+
+home = f"""<header class="hero" id="top">
+  <div class="inner">
+    <div>
+      <div class="eyebrow">A children's book series by {e(SITE['author'])}</div>
+      <h1>{e(SITE['series'])}</h1>
+      <p class="lede">{e(SITE['intro'])}</p>
+      <ul class="features">{features}</ul>
+      {chips}
+      <div class="cta">
+        <a class="btn btn-gold" href="/books/">See all books</a>
+        <a class="btn btn-ghost" href="#quiz">Play the quiz</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <img src="/{b1['cover']}" alt="Cover of {e(b1['name'])}: {e(b1['lesson'])}">
+      <a class="badge" href="/books/{b1['slug']}/">Book 1 · {e(b1['name'])}<small>Start the series here →</small></a>
+    </div>
+  </div>
+</header>
+
+<div class="band tagline">
+  <div class="inner">
+    <blockquote>“{e(SITE['tagline'])}”</blockquote>
+    <cite>— {e(SITE['author'])}</cite>
+  </div>
+</div>
+
+<section id="books">
+  <div class="inner">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">The series</div>
+        <h2>Meet a new Quran Animal in every book</h2>
+        <p class="sec-intro">Each beautifully illustrated story introduces a real animal from the Quran, shares the exact verse and teaches a meaningful life lesson.</p>
+      </div>
+    </div>
+    {shelf()}
+  </div>
+</section>
+
+<section class="band" id="coming-soon">
+  <div class="inner">
+    <div class="eyebrow">Coming soon</div>
+    <h2>More friends on the way</h2>
+    <p class="sec-intro">Five new animals are already waiting for Yusuf and Maryam.</p>
+    {coming_soon()}
+  </div>
+</section>
+
+{quiz_section().replace('class="band" id="quiz"', 'id="quiz"')}
+{gallery_section().replace('<section id="gallery">', '<section class="band" id="gallery">')}
+<section id="author">
+  <div class="inner author">
+    <div class="monogram" aria-hidden="true">LN</div>
+    <div>
+      <div class="eyebrow">About the author</div>
+      <h2>{e(SITE['author'])}</h2>
+      <p>{e(SITE['author'])} writes the {e(SITE['series'])} series to help Muslim children aged {e(SITE['ages'])} discover the animals of the Holy Quran and the lessons they carry.</p>
+      <p>The books are available in English, French and Russian.</p>
+    </div>
+  </div>
+</section>
+"""
+page("/", f"{SITE['series']} · Islamic children's books by {SITE['author']}", SITE["seo"], home, "/",
+     scripts='<script src="/assets/quiz.js" defer></script>\n')
+
+books_page = f"""<header class="inner" id="top" style="padding-block:48px 8px">
+  <div class="eyebrow">{e(SITE['series'])} · Ages {e(SITE['ages'])} · {e(SITE['languages'])}</div>
+  <h1>All books</h1>
+  <p class="lede">{e(SITE['intro'])}</p>
+</header>
+<section style="padding-top:24px">
+  <div class="inner">
+    {shelf()}
+  </div>
+</section>
+<section class="band" id="coming-soon">
+  <div class="inner">
+    <div class="eyebrow">Coming soon</div>
+    <h2>More friends on the way</h2>
+    {coming_soon()}
+  </div>
+</section>
+"""
+page("/books/", f"All books · {SITE['series']}", SITE["seo"], books_page, "/books/")
+
+for i, b in enumerate(BOOKS):
+    prev_b = BOOKS[i - 1] if i > 0 else None
+    next_b = BOOKS[i + 1] if i < len(BOOKS) - 1 else None
+    discover = "".join(f"<li>{e(d)}</li>" for d in b["discover"])
+    pager = '<div class="pager inner">'
+    pager += (f'<a href="/books/{prev_b["slug"]}/"><small>← Book {prev_b["n"]}</small>{e(prev_b["name"])}</a>' if prev_b else "<span></span>")
+    pager += (f'<a href="/books/{next_b["slug"]}/" style="text-align:right"><small>Book {next_b["n"]} →</small>{e(next_b["name"])}</a>' if next_b else "<span></span>")
+    pager += "</div>"
+    ld = {
+        "@context": "https://schema.org", "@type": "Book",
+        "name": f'{b["name"]}: {b["lesson"]}', "author": {"@type": "Person", "name": SITE["author"]},
+        "bookFormat": "https://schema.org/Paperback", "inLanguage": ["en", "fr", "ru"],
+        "typicalAgeRange": "5-8", "description": b["seo"],
+        "isPartOf": {"@type": "BookSeries", "name": SITE["series"]}, "position": b["n"],
+        "url": f'{SITE["domain"]}/books/{b["slug"]}/',
+    }
+    if b["cover"]:
+        ld["image"] = f'{SITE["domain"]}/{b["cover"]}'
+    body = f"""<div class="inner crumbs" id="top"><a href="/books/">Books</a> / Book {b['n']}</div>
+<main class="inner bookpage tinted" {tint(b)}>
+  {cover(b, eager=True)}
+  <div>
+    <div class="eyebrow">{e(SITE['series'])} · Book {b['n']}</div>
+    <h1>{e(b['name'])}</h1>
+    <p class="lesson">{e(b['lesson'])}</p>
+    <ul class="meta-chips">
+      <li>Ages {e(SITE['ages'])}</li>
+      <li>{e(SITE['languages'])}</li>
+      <li>{e(b['surah'])} · {e(b['chapter'])}</li>
+    </ul>
+    <p class="hook-big">{e(b['hook'])}</p>
+    <p class="desc">{e(b['description'])}</p>
+    <p class="label">In this book children will discover</p>
+    <ul class="discover">{discover}</ul>
+    <figure class="ayah">
+      <p>“{e(b['quote'])}”</p>
+      <cite>{e(b['quote_ref'])}</cite>
+    </figure>
+    <p class="includes"><b>Includes:</b> {e(b['includes'])}</p>
+    {buy_buttons(b)}
+  </div>
+</main>
+{pager}
+"""
+    page(f"/books/{b['slug']}/", f"{b['name']}: {b['lesson']} · {SITE['series']} Book {b['n']}", b["seo"], body,
+         "/books/", image=b["cover"] or "img/bee.webp",
+         extra_head=f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>\n')
+
+# Shop
+amazon_series = C["amazon_series"]
+amazon_btn = (f'<a class="btn btn-ghost" href="{e(amazon_series)}" target="_blank" rel="noopener">Open on Amazon</a>'
+              if amazon_series else '<span class="soon">Coming soon</span>')
+print_btn = (f'<a class="btn btn-gold" href="{e(C["payhip_shop"])}" target="_blank" rel="noopener">Order a book</a>'
+             if C["payhip_shop"] else '<span class="soon">Coming soon</span>')
+if C["activity_books"]:
+    acts = '<div class="acts">' + "".join(
+        f"""<article class="act"><img src="/{e(a['img'])}" alt="{e(a['title'])}" loading="lazy">
+        <div class="act-body"><span class="tag">PDF</span><h3>{e(a['title'])}</h3><p>{e(a['about'])}</p>
+        <div class="act-foot"><span class="price">{e(a['price'])}</span>
+        <a class="btn btn-gold" href="{e(a['url'])}" target="_blank" rel="noopener">Buy &amp; download</a></div></div></article>"""
+        for a in C["activity_books"]) + "</div>"
+else:
+    ideas = [("Colour the animal friends", "Colouring pages with Nur, Namla, Hudhud and the others."),
+             ("First Arabic words", "Trace and match the animals' names in Arabic."),
+             ("Ramadan with the animals", "A gentle activity book for the blessed month.")]
+    acts = '<div class="acts">' + "".join(
+        f'<div class="act-ghost"><span class="tag">Coming soon</span><strong>{e(h)}</strong><span>{e(p)}</span></div>'
+        for h, p in ideas) + "</div>"
+ship_data = {"zones": C["shipping"]["zones"], "max_books": C["shipping"]["max_books"], "book_price": C["book_price"]}
+
+shop = f"""<header class="inner" id="top" style="padding-block:48px 8px">
+  <div class="eyebrow">Shop</div>
+  <h1>Get the books</h1>
+  <p class="lede">Pick whatever suits your family best.</p>
+</header>
+<section style="padding-top:24px">
+  <div class="inner">
+    <div class="ways">
+      <div class="way"><h3>On Amazon</h3><p>Printed books, delivered by Amazon.</p>{amazon_btn}</div>
+      <div class="way" id="print"><h3>From the author</h3><p>Printed books packed and posted from France by {e(SITE['author'])} herself.</p>{print_btn}</div>
+      <div class="way"><h3>Activity books (PDF)</h3><p>Pay, download in a minute and print at home.</p><a class="btn btn-ghost" href="#activity">See activity books</a></div>
+    </div>
+  </div>
+</section>
+<section class="band" id="shipping">
+  <div class="inner">
+    <div class="ship">
+      <h3>Shipping calculator</h3>
+      <p class="ship-from">For books ordered from the author. They are posted from France.</p>
+      <div class="ship-row">
+        <div class="field">
+          <label for="ship-zone">Your country</label>
+          <select id="ship-zone"></select>
+        </div>
+        <div class="field">
+          <label id="ship-qty-label">Books</label>
+          <div class="stepper" role="group" aria-labelledby="ship-qty-label">
+            <button type="button" id="ship-minus" aria-label="One book less">−</button>
+            <output id="ship-qty" aria-live="polite">1</output>
+            <button type="button" id="ship-plus" aria-label="One book more">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="ship-out" id="ship-out" aria-live="polite"></div>
+      <p class="ship-note" id="ship-note"></p>
+    </div>
+    <script type="application/json" id="ship-data">{json.dumps(ship_data, ensure_ascii=False)}</script>
+  </div>
+</section>
+<section id="activity">
+  <div class="inner">
+    <div class="eyebrow">Printable PDFs</div>
+    <h2>Activity books for little Muslims</h2>
+    <p class="sec-intro">Colouring pages, puzzles and simple activities with the animal friends. Buy, download straight away and print at home as many times as you like.</p>
+    {acts}
+  </div>
+</section>
+"""
+page("/shop/", f"Shop · {SITE['series']}", "Buy the Quran Animals books on Amazon or directly from the author, and printable activity books for Muslim children.",
+     shop, "/shop/", scripts='<script src="/assets/shop.js" defer></script>\n')
+
+# 404
+page("/404.html", f"Page not found · {SITE['series']}", SITE["seo"], f"""<header class="inner" id="top" style="padding-block:72px">
+  <div class="eyebrow">404</div>
+  <h1>This page flew away</h1>
+  <p class="lede">Like Hudhud on a mission. Let's go back to the books.</p>
+  <div class="cta"><a class="btn btn-gold" href="/books/">See all books</a><a class="btn btn-ghost" href="/">Home</a></div>
+</header>
+""", "")
+
+# sitemap + robots
+urls = ["/", "/books/", "/shop/"] + [f"/books/{b['slug']}/" for b in BOOKS]
+(ROOT / "sitemap.xml").write_text(
+    '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    + "".join(f"  <url><loc>{SITE['domain']}{u}</loc></url>\n" for u in urls) + "</urlset>\n", encoding="utf-8")
+(ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {SITE['domain']}/sitemap.xml\n", encoding="utf-8")
+
+print(f"Built {len(urls)} pages + 404")
