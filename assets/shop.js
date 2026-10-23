@@ -20,8 +20,11 @@
     let html = `<div class="ship-line"><span>Shipping</span><b>${c === 0 ? "Free" : money(c)}</b></div>
       <div class="ship-line"><span>Delivery time</span><b>${z.days} working days</b></div>`;
     if (price) {
-      html += `<div class="ship-line"><span>Books (${state.qty} × ${money(price)})</span><b>${money(price * state.qty)}</b></div>
-        <div class="ship-line total"><span>Total</span><span>${money(price * state.qty + c)}</span></div>`;
+      const bundle = (DATA.bundles || []).find(b => b.books === state.qty);
+      const books = bundle ? bundle.price : price * state.qty;
+      const label = bundle ? `${bundle.name} (bundle price)` : `Books (${state.qty} × ${money(price)})`;
+      html += `<div class="ship-line"><span>${label}</span><b>${money(books)}</b></div>
+        <div class="ship-line total"><span>Total</span><span>${money(books + c)}</span></div>`;
     }
     document.getElementById("ship-out").innerHTML = html;
     const notes = [];

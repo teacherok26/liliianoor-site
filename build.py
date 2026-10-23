@@ -148,9 +148,10 @@ def buy_buttons(b):
     direct = b["print"] or C["payhip_shop"] or "/shop/#print"
     ext = ' target="_blank" rel="noopener"' if direct.startswith("http") else ""
     first = min(z["first"] for z in C["shipping"]["zones"])
+    price_txt = f' · €{C["book_price"]:.2f}' if C["book_price"] else ""
     return f"""<div class="buybox">
         <div class="cta">{amazon}</div>
-        <p class="alt">Prefer a copy posted from France by the author? <a href="{e(direct)}"{ext}>Order it here →</a></p>
+        <p class="alt">Order a <b>signed copy</b> from the author, posted from France{price_txt}. <a href="{e(direct)}"{ext}>Order here →</a></p>
         <p class="alt">Shipping from €{first:.2f}. <a href="/shop/#shipping">Check the cost for your country</a></p>
       </div>"""
 
@@ -363,8 +364,21 @@ else:
     acts = '<div class="acts">' + "".join(
         f'<div class="act-ghost"><span class="tag">Coming soon</span><strong>{e(h)}</strong><span>{e(p)}</span></div>'
         for h, p in ideas) + "</div>"
-ship_data = {"zones": C["shipping"]["zones"], "max_books": C["shipping"]["max_books"], "book_price": C["book_price"]}
+ship_data = {"zones": C["shipping"]["zones"], "max_books": C["shipping"]["max_books"], "book_price": C["book_price"],
+             "bundles": [{"books": x["books"], "price": x["price"], "name": x["name"]} for x in C["bundles"]]}
 
+def bundle_card(x):
+    full = C["book_price"] * x["books"] if C["book_price"] else None
+    was = f'<span class="was">€{full:.2f}</span>' if full and full > x["price"] else ""
+    btn = (f'<a class="btn btn-gold" href="{e(x["url"])}" target="_blank" rel="noopener">Order</a>' if x["url"]
+           else (f'<a class="btn btn-gold" href="{e(C["payhip_shop"])}" target="_blank" rel="noopener">Order</a>' if C["payhip_shop"]
+                 else '<span class="soon">Coming soon</span>'))
+    return (f'<div class="bundle"><span class="tag">{x["books"]} books · signed</span><h3>{e(x["name"])}</h3>'
+            f'<p>{e(x["about"])}</p><div class="act-foot"><span class="price">€{x["price"]:.2f} {was}</span>{btn}</div></div>')
+
+bundles_html = "".join(bundle_card(x) for x in C["bundles"])
+
+price_line = f'€{C["book_price"]:.2f} per book. ' if C["book_price"] else ""
 shop = f"""<header class="inner" id="top" style="padding-block:48px 8px">
   <div class="eyebrow">Shop</div>
   <h1>Get the books</h1>
@@ -374,9 +388,17 @@ shop = f"""<header class="inner" id="top" style="padding-block:48px 8px">
   <div class="inner">
     <div class="ways">
       <div class="way"><h3>On Amazon</h3><p>Printed books, delivered by Amazon.</p>{amazon_btn}</div>
-      <div class="way" id="print"><h3>From the author</h3><p>Printed books packed and posted from France by {e(SITE['author'])} herself.</p>{print_btn}</div>
+      <div class="way" id="print"><h3>Signed copies from the author</h3><p>{price_line}Signed, packed and posted from France by {e(SITE['author'])} herself.</p>{print_btn}</div>
       <div class="way"><h3>Activity books (PDF)</h3><p>Pay, download in a minute and print at home.</p><a class="btn btn-ghost" href="#activity">See activity books</a></div>
     </div>
+  </div>
+</section>
+<section id="bundles" style="padding-top:8px">
+  <div class="inner">
+    <div class="eyebrow">Signed bundles</div>
+    <h2>Save on a set</h2>
+    <p class="sec-intro">Order several signed books together in one parcel.</p>
+    <div class="bundles">{bundles_html}</div>
   </div>
 </section>
 <section class="band" id="shipping">

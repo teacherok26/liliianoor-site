@@ -25,6 +25,6 @@ Plus `404.html`, `sitemap.xml` and `robots.txt`.
 ## Things to fill in `content.json`
 
 - `amazon` / `print` on each book, `amazon_series`, `payhip_shop` — shop links.
-- `book_price`, `shipping.zones` — prices (keep shipping the same as in Payhip).
+- `book_price`, `bundles` (max 5% off in France, loi Lang), `shipping.zones` — prices (keep shipping the same as in Payhip).
 - `signup_form` — form endpoint for new-book notifications (e.g. Formspree).
 - `contact`, `gallery`, `activity_books`.

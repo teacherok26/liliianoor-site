@@ -283,3 +283,10 @@ footer .inner { padding-block: 28px 40px; display: flex; flex-wrap: wrap; justif
   .book, .opt { transition: none; }
   .book:hover, .opt:hover:not(:disabled) { transform: none; }
 }
+
+/* Bundles */
+.bundles { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); max-width: 760px; }
+.bundle { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 22px; display: grid; gap: 8px; align-content: start; }
+.bundle h3 { font-family: var(--font-display); font-weight: 800; font-size: 1.35rem; margin: 0; }
+.bundle p { margin: 0; color: var(--muted); font-size: 15px; }
+.was { font-size: .9rem; font-weight: 700; color: var(--muted); text-decoration: line-through; margin-left: 6px; }

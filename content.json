@@ -23,7 +23,12 @@
   "amazon_series": "",
   "payhip_shop": "",
 
-  "book_price": null,
+  "book_price": 12.99,
+
+  "bundles": [
+    { "books": 3, "price": 37.00, "name": "Any 3 books", "about": "Choose any three books. Signed by the author.", "url": "" },
+    { "books": 7, "price": 86.50, "name": "The whole series", "about": "All seven Quran Animals books, signed by the author.", "url": "" }
+  ],
 
   "shipping": {
     "max_books": 10,
