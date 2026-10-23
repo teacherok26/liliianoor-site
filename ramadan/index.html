@@ -14,10 +14,46 @@
 <link rel="icon" href="/img/bee.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;600;700;800&family=Amiri:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Baloo+2:wght@600;800&family=Nunito:wght@400;600;700;800&family=Amiri:wght@400;700&display=swap">
 <link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/assets/kids.css">
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs><clipPath id="bee-body-clip"><ellipse cx="62" cy="62" rx="34" ry="27"/></clipPath></defs>
+  <symbol id="sun" viewBox="0 0 100 100">
+    <g class="ink-sun-ray" stroke-width="6" stroke-linecap="round">
+      <line x1="50" y1="4" x2="50" y2="18"/><line x1="50" y1="82" x2="50" y2="96"/><line x1="4" y1="50" x2="18" y2="50"/><line x1="82" y1="50" x2="96" y2="50"/>
+      <line x1="17" y1="17" x2="27" y2="27"/><line x1="73" y1="73" x2="83" y2="83"/><line x1="17" y1="83" x2="27" y2="73"/><line x1="73" y1="27" x2="83" y2="17"/>
+    </g>
+    <circle cx="50" cy="50" r="24" class="ink-sun"/>
+    <circle cx="42" cy="46" r="2.6" fill="#2d2a5a"/><circle cx="58" cy="46" r="2.6" fill="#2d2a5a"/>
+    <path d="M42 56 Q50 63 58 56" stroke="#2d2a5a" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="cloud" viewBox="0 0 110 64">
+    <g class="ink-cloud"><circle cx="32" cy="38" r="18"/><circle cx="56" cy="28" r="24"/><circle cx="82" cy="40" r="16"/><rect x="14" y="38" width="84" height="22" rx="11"/></g>
+  </symbol>
+  <symbol id="star" viewBox="0 0 24 24"><path class="ink-star" d="M12 1.5l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.6 5.6 21.1 7 14l-5.3-5 7.2-.9z"/></symbol>
+  <symbol id="heart" viewBox="0 0 24 22"><path class="ink-heart" d="M12 21C5 15 1 11 1 7a5 5 0 0 1 11-3 5 5 0 0 1 11 3c0 4-4 8-11 14z"/></symbol>
+  <symbol id="flower" viewBox="0 0 40 40">
+    <g class="ink-petal"><circle cx="20" cy="9" r="8"/><circle cx="31" cy="17" r="8"/><circle cx="27" cy="30" r="8"/><circle cx="13" cy="30" r="8"/><circle cx="9" cy="17" r="8"/></g>
+    <circle cx="20" cy="21" r="6.5" class="ink-centre"/>
+  </symbol>
+  <symbol id="bee" viewBox="0 0 120 100">
+    <ellipse cx="48" cy="30" rx="16" ry="22" transform="rotate(-25 48 30)" class="ink-bee-wing"/>
+    <ellipse cx="74" cy="28" rx="15" ry="21" transform="rotate(20 74 28)" class="ink-bee-wing"/>
+    <ellipse cx="62" cy="62" rx="34" ry="27" class="ink-bee-body"/>
+    <g clip-path="url(#bee-body-clip)" class="ink-bee-stripe"><rect x="54" y="30" width="9" height="70"/><rect x="72" y="30" width="9" height="70"/></g>
+    <path d="M95 62 l12 -3 -10 9z" class="ink-bee-stripe"/>
+    <path d="M38 40 Q30 22 22 20 M48 37 Q46 20 40 14" class="ink-bee-line"/>
+    <circle cx="22" cy="20" r="4" class="ink-bee-stripe"/><circle cx="40" cy="14" r="4" class="ink-bee-stripe"/>
+    <circle cx="38" cy="58" r="4.5" class="ink-bee-stripe"/><circle cx="50" cy="56" r="4.5" class="ink-bee-stripe"/>
+    <circle cx="37" cy="56.5" r="1.5" fill="#ffffff"/><circle cx="49" cy="54.5" r="1.5" fill="#ffffff"/>
+    <path d="M39 68 Q45 74 51 67" class="ink-bee-line"/>
+    <circle cx="33" cy="67" r="4" class="ink-bee-cheek"/><circle cx="56" cy="64" r="4" class="ink-bee-cheek"/>
+  </symbol>
+  <symbol id="trail" viewBox="0 0 260 120"><path class="ink-trail" d="M5 105 C 50 30, 95 115, 130 70 S 200 5, 255 45"/></symbol>
+</svg>
 <nav class="top" aria-label="Main">
   <div class="inner">
     <a class="logo" href="/">Quran <span>Animals</span></a>
@@ -32,7 +68,8 @@
   </div>
 </nav>
 <header class="ram-hero" id="top">
-  <div class="inner">
+  <div class="doodles" aria-hidden="true"><svg class="doodle d-star" viewBox="0 0 24 24" style="top:30px;left:6%" aria-hidden="true" focusable="false"><use href="#star"/></svg><svg class="doodle d-star" viewBox="0 0 24 24" style="top:60px;left:46%;width:18px;animation-delay:.8s" aria-hidden="true" focusable="false"><use href="#star"/></svg><svg class="doodle d-star" viewBox="0 0 24 24" style="bottom:50px;left:30%;width:20px;animation-delay:1.6s" aria-hidden="true" focusable="false"><use href="#star"/></svg><svg class="doodle d-star" viewBox="0 0 24 24" style="top:40px;right:28%;width:16px;animation-delay:2.2s" aria-hidden="true" focusable="false"><use href="#star"/></svg><svg class="doodle d-bee" viewBox="0 0 120 100" style="bottom:24px;right:6%;width:80px" aria-hidden="true" focusable="false"><use href="#bee"/></svg></div>
+  <div class="inner" style="position:relative;z-index:1">
     <div>
       <div class="eyebrow">Ramadan 1448 · for children</div>
       <h1>Ramadan with the Quran Animals</h1>
@@ -57,7 +94,7 @@
   </div>
   <script type="application/json" id="ram-data">{"start": "2027-02-08", "deeds": [{"t": "Say Bismillah before every meal", "friend": "bee"}, {"t": "Help set the table for iftar", "friend": ""}, {"t": "Smile at everyone you meet. A smile is charity!", "friend": ""}, {"t": "Give some of your pocket money to charity", "friend": ""}, {"t": "Tidy your room without being asked", "friend": ""}, {"t": "Say thank you to your mum or dad and give them a hug", "friend": ""}, {"t": "Share a snack with a friend, brother or sister", "friend": "ant"}, {"t": "Learn a new Arabic word", "friend": "crow"}, {"t": "Help prepare food for iftar", "friend": ""}, {"t": "Call or visit a grandparent", "friend": ""}, {"t": "Tell the truth, even when it feels hard", "friend": "hoopoe"}, {"t": "Make dua for someone else today", "friend": ""}, {"t": "Water a plant or put out water for the birds", "friend": ""}, {"t": "Say SubhanAllah, Alhamdulillah and Allahu Akbar 10 times each", "friend": ""}, {"t": "Learn the dua of Prophet Yunus by heart", "friend": "whale"}, {"t": "Draw a picture for someone you love", "friend": ""}, {"t": "Pick up litter at home, in the park or at the masjid", "friend": ""}, {"t": "Be patient all day. No complaining!", "friend": ""}, {"t": "Say something kind to three people", "friend": ""}, {"t": "Listen to Surah Al-Fil with your family", "friend": "elephant"}, {"t": "Read or listen to a page of the Quran", "friend": ""}, {"t": "Help wash the dishes after iftar", "friend": ""}, {"t": "Taste a spoon of honey and say Alhamdulillah for it", "friend": "bee"}, {"t": "Forgive someone who upset you", "friend": ""}, {"t": "Make a card for a neighbour", "friend": ""}, {"t": "Pray together with your family", "friend": ""}, {"t": "Make extra dua tonight. It could be Laylat al-Qadr!", "friend": ""}, {"t": "Give away a toy or clothes you no longer use", "friend": ""}, {"t": "Ask a grandparent or older friend to tell you a story", "friend": "crow"}, {"t": "Make Eid cards for your family", "friend": ""}], "duas": [{"ar": "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ", "tr": "Rabbana atina fid-dunya hasanatan wa fil-akhirati hasanatan wa qina 'adhaban-nar", "en": "Our Lord, give us good in this world and good in the Hereafter, and protect us from the punishment of the Fire.", "ref": "Quran 2:201"}, {"ar": "رَبِّ زِدْنِي عِلْمًا", "tr": "Rabbi zidni 'ilma", "en": "My Lord, increase me in knowledge.", "ref": "Quran 20:114"}, {"ar": "رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي", "tr": "Rabbish-rah li sadri wa yassir li amri", "en": "My Lord, open my heart for me and make my task easy for me.", "ref": "Quran 20:25–26"}, {"ar": "رَبَّنَا تَقَبَّلْ مِنَّا إِنَّكَ أَنْتَ السَّمِيعُ الْعَلِيمُ", "tr": "Rabbana taqabbal minna innaka antas-Sami'ul-'Alim", "en": "Our Lord, accept this from us. You are the All-Hearing, the All-Knowing.", "ref": "Quran 2:127"}, {"ar": "لَا إِلَٰهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ", "tr": "La ilaha illa anta subhanaka inni kuntu minadh-dhalimin", "en": "There is no god but You! Glory be to You! I was truly one of the wrongdoers.", "ref": "Quran 21:87 · the dua of Prophet Yunus"}, {"ar": "رَبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا", "tr": "Rabbir-hamhuma kama rabbayani saghira", "en": "My Lord, have mercy on them as they raised me when I was small.", "ref": "Quran 17:24"}, {"ar": "حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ", "tr": "Hasbunallahu wa ni'mal-wakil", "en": "Allah is enough for us, and He is the best protector.", "ref": "Quran 3:173"}, {"ar": "بِسْمِ اللَّهِ", "tr": "Bismillah", "en": "In the name of Allah. Say it before you eat, drink or start something.", "ref": "Sahih al-Bukhari & Muslim"}], "last_ten": {"ar": "اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي", "tr": "Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni", "en": "O Allah, You are Forgiving and You love to forgive, so forgive me.", "ref": "Jami' at-Tirmidhi · for the last ten nights"}, "friends": {"bee": {"name": "Nur the Bee", "slug": "nur-the-bee", "ar": "نحلة", "tint": "#c88a06", "tint_dark": "#f2c14a"}, "crow": {"name": "Ghuraab the Crow", "slug": "ghuraab-the-crow", "ar": "غراب", "tint": "#6b3fa0", "tint_dark": "#b896ea"}, "ant": {"name": "Namla the Ant", "slug": "namla-the-ant", "ar": "نملة", "tint": "#a2551f", "tint_dark": "#e39a63"}, "elephant": {"name": "Feel the Elephant", "slug": "feel-the-elephant", "ar": "فيل", "tint": "#2f6db0", "tint_dark": "#7fb2ec"}, "hoopoe": {"name": "Hudhud the Hoopoe", "slug": "hudhud-the-hoopoe", "ar": "هدهد", "tint": "#d26a12", "tint_dark": "#f5a35a"}, "whale": {"name": "Nun the Whale", "slug": "nun-the-whale", "ar": "حوت", "tint": "#1f6f8b", "tint_dark": "#6cc3dd"}, "spider": {"name": "Ankabut the Spider", "slug": "ankabut-the-spider", "ar": "عنكبوت", "tint": "#8a6a2c", "tint_dark": "#d9bb7b"}}}</script>
 </section>
-<section class="band">
+<section class="band pink">
   <div class="inner">
     <div class="iftar">
       <p class="label">Every evening</p>

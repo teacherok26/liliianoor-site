@@ -42,14 +42,65 @@ def head(title, description, path, image="img/bee.webp", extra=""):
 <link rel="icon" href="/img/bee.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;600;700;800&family=Amiri:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Baloo+2:wght@600;800&family=Nunito:wght@400;600;700;800&family=Amiri:wght@400;700&display=swap">
 <link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/assets/kids.css">
 {extra}</head>
 <body>
+{SPRITE}
 """
 
 
 CURRENT = ' aria-current="page"'
+
+
+# Hand-drawn doodles, used with doodle("sun", "d-sun") etc.
+VB = {"sun": "0 0 100 100", "cloud": "0 0 110 64", "star": "0 0 24 24", "heart": "0 0 24 22",
+      "flower": "0 0 40 40", "bee": "0 0 120 100", "trail": "0 0 260 120"}
+SPRITE = """<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs><clipPath id="bee-body-clip"><ellipse cx="62" cy="62" rx="34" ry="27"/></clipPath></defs>
+  <symbol id="sun" viewBox="0 0 100 100">
+    <g class="ink-sun-ray" stroke-width="6" stroke-linecap="round">
+      <line x1="50" y1="4" x2="50" y2="18"/><line x1="50" y1="82" x2="50" y2="96"/><line x1="4" y1="50" x2="18" y2="50"/><line x1="82" y1="50" x2="96" y2="50"/>
+      <line x1="17" y1="17" x2="27" y2="27"/><line x1="73" y1="73" x2="83" y2="83"/><line x1="17" y1="83" x2="27" y2="73"/><line x1="73" y1="27" x2="83" y2="17"/>
+    </g>
+    <circle cx="50" cy="50" r="24" class="ink-sun"/>
+    <circle cx="42" cy="46" r="2.6" fill="#2d2a5a"/><circle cx="58" cy="46" r="2.6" fill="#2d2a5a"/>
+    <path d="M42 56 Q50 63 58 56" stroke="#2d2a5a" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="cloud" viewBox="0 0 110 64">
+    <g class="ink-cloud"><circle cx="32" cy="38" r="18"/><circle cx="56" cy="28" r="24"/><circle cx="82" cy="40" r="16"/><rect x="14" y="38" width="84" height="22" rx="11"/></g>
+  </symbol>
+  <symbol id="star" viewBox="0 0 24 24"><path class="ink-star" d="M12 1.5l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.6 5.6 21.1 7 14l-5.3-5 7.2-.9z"/></symbol>
+  <symbol id="heart" viewBox="0 0 24 22"><path class="ink-heart" d="M12 21C5 15 1 11 1 7a5 5 0 0 1 11-3 5 5 0 0 1 11 3c0 4-4 8-11 14z"/></symbol>
+  <symbol id="flower" viewBox="0 0 40 40">
+    <g class="ink-petal"><circle cx="20" cy="9" r="8"/><circle cx="31" cy="17" r="8"/><circle cx="27" cy="30" r="8"/><circle cx="13" cy="30" r="8"/><circle cx="9" cy="17" r="8"/></g>
+    <circle cx="20" cy="21" r="6.5" class="ink-centre"/>
+  </symbol>
+  <symbol id="bee" viewBox="0 0 120 100">
+    <ellipse cx="48" cy="30" rx="16" ry="22" transform="rotate(-25 48 30)" class="ink-bee-wing"/>
+    <ellipse cx="74" cy="28" rx="15" ry="21" transform="rotate(20 74 28)" class="ink-bee-wing"/>
+    <ellipse cx="62" cy="62" rx="34" ry="27" class="ink-bee-body"/>
+    <g clip-path="url(#bee-body-clip)" class="ink-bee-stripe"><rect x="54" y="30" width="9" height="70"/><rect x="72" y="30" width="9" height="70"/></g>
+    <path d="M95 62 l12 -3 -10 9z" class="ink-bee-stripe"/>
+    <path d="M38 40 Q30 22 22 20 M48 37 Q46 20 40 14" class="ink-bee-line"/>
+    <circle cx="22" cy="20" r="4" class="ink-bee-stripe"/><circle cx="40" cy="14" r="4" class="ink-bee-stripe"/>
+    <circle cx="38" cy="58" r="4.5" class="ink-bee-stripe"/><circle cx="50" cy="56" r="4.5" class="ink-bee-stripe"/>
+    <circle cx="37" cy="56.5" r="1.5" fill="#ffffff"/><circle cx="49" cy="54.5" r="1.5" fill="#ffffff"/>
+    <path d="M39 68 Q45 74 51 67" class="ink-bee-line"/>
+    <circle cx="33" cy="67" r="4" class="ink-bee-cheek"/><circle cx="56" cy="64" r="4" class="ink-bee-cheek"/>
+  </symbol>
+  <symbol id="trail" viewBox="0 0 260 120"><path class="ink-trail" d="M5 105 C 50 30, 95 115, 130 70 S 200 5, 255 45"/></symbol>
+</svg>"""
+
+
+def doodle(sym, cls, style=""):
+    st = f' style="{style}"' if style else ""
+    return f'<svg class="doodle {cls}" viewBox="{VB[sym]}"{st} aria-hidden="true" focusable="false"><use href="#{sym}"/></svg>'
+
+
+def doodles(*items):
+    return '<div class="doodles" aria-hidden="true">' + "".join(doodle(*i) for i in items) + "</div>"
 
 
 def nav(current):
@@ -210,7 +261,12 @@ chips = (f'<ul class="meta-chips"><li>Ages {e(SITE["ages"])}</li><li>{e(SITE["la
          f'<li>{len(BOOKS)} books · more coming</li></ul>')
 b1 = BOOKS[0]
 
+HERO_DOODLES = doodles(("sun", "d-sun"), ("cloud", "d-cloud c1"), ("cloud", "d-cloud c2"), ("trail", "d-trail"), ("bee", "d-bee"),
+                       ("star", "d-star", "top:76%;left:47%"), ("star", "d-star", "top:70%;left:4%;animation-delay:1s"),
+                       ("heart", "d-heart", "top:12%;left:58%"), ("flower", "d-flower", "bottom:30px;right:8%;z-index:2"),
+                       ("flower", "d-flower", "bottom:40px;left:12%;z-index:2;width:30px"))
 home = f"""<header class="hero" id="top">
+  {HERO_DOODLES}
   <div class="inner">
     <div>
       <div class="eyebrow">A children's book series by {e(SITE['author'])}</div>
@@ -245,7 +301,8 @@ home = f"""<header class="hero" id="top">
 </div>
 
 <section id="books">
-  <div class="inner">
+  {doodles(("star", "d-star", "top:40px;right:6%"), ("heart", "d-heart", "top:90px;right:12%"), ("flower", "d-flower", "bottom:30px;left:2%"))}
+  <div class="inner" style="position:relative">
     <div class="sec-head">
       <div>
         <div class="eyebrow">The series</div>
@@ -267,7 +324,7 @@ home = f"""<header class="hero" id="top">
 </section>
 
 {quiz_section().replace('class="band" id="quiz"', 'id="quiz"')}
-{gallery_section().replace('<section id="gallery">', '<section class="band" id="gallery">')}
+{gallery_section().replace('<section id="gallery">', '<section class="band pink" id="gallery">')}
 <section id="author">
   <div class="inner author">
     <div class="monogram" aria-hidden="true">LN</div>
@@ -408,7 +465,7 @@ shop = f"""<header class="inner" id="top" style="padding-block:48px 8px">
     <div class="bundles">{bundles_html}</div>
   </div>
 </section>
-<section class="band" id="shipping">
+<section class="band mint" id="shipping">
   <div class="inner">
     <div class="ship">
       <h3>Shipping calculator</h3>
@@ -451,7 +508,10 @@ friends = {b["id"]: {"name": b["name"], "slug": b["slug"], "ar": b["ar"], "tint"
 ram_data = {"start": R["start"], "deeds": R["deeds"], "duas": R["duas"], "last_ten": R["last_ten_dua"], "friends": friends}
 fd = R["iftar_dua"]
 ramadan = f"""<header class="ram-hero" id="top">
-  <div class="inner">
+  {doodles(("star", "d-star", "top:30px;left:6%"), ("star", "d-star", "top:60px;left:46%;width:18px;animation-delay:.8s"),
+           ("star", "d-star", "bottom:50px;left:30%;width:20px;animation-delay:1.6s"), ("star", "d-star", "top:40px;right:28%;width:16px;animation-delay:2.2s"),
+           ("bee", "d-bee", "bottom:24px;right:6%;width:80px"))}
+  <div class="inner" style="position:relative;z-index:1">
     <div>
       <div class="eyebrow">Ramadan 1448 · for children</div>
       <h1>Ramadan with the Quran Animals</h1>
@@ -476,7 +536,7 @@ ramadan = f"""<header class="ram-hero" id="top">
   </div>
   <script type="application/json" id="ram-data">{json.dumps(ram_data, ensure_ascii=False)}</script>
 </section>
-<section class="band">
+<section class="band pink">
   <div class="inner">
     <div class="iftar">
       <p class="label">Every evening</p>
