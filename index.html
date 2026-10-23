@@ -1,0 +1,751 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Quran Animals: picture books by Liliia Noor that help young Muslim children learn about the animals of the Quran.">
+<meta property="og:title" content="Quran Animals by Liliia Noor">
+<meta property="og:image" content="https://liliianoor.com/img/bee.webp">
+<title>Quran Animals</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;600;700;800&family=Amiri:wght@400;700&display=swap">
+<style>
+/* Layout: sticky nav with language switch, honey-lit hero, shelf of covers that open into detail sheets, a quiz, parents, gallery, author, buy */
+:root {
+  --bg: #fbf8f1;
+  --surface: #ffffff;
+  --band: #f4ecda;
+  --ink: #2b2347;
+  --muted: #6b6482;
+  --line: #e7dfcc;
+  --gold: #b9780f;
+  --gold-soft: #fbedc8;
+  --on-gold: #ffffff;
+  --good: #2f8a4c;
+  --good-soft: #def3e3;
+  --bad: #c0442f;
+  --bad-soft: #fbe3de;
+  --font-display: "Baloo 2", "Trebuchet MS", system-ui, sans-serif;
+  --font-body: "Nunito", system-ui, -apple-system, sans-serif;
+  --font-arabic: "Amiri", "Noto Naskh Arabic", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #17142a; --surface: #221e3a; --band: #1e1a33; --ink: #f4efe2; --muted: #b3abc9;
+    --line: #36305a; --gold: #f2bb4a; --gold-soft: #3a2f1a; --on-gold: #1b1630;
+    --good: #6fd08d; --good-soft: #1d3a29; --bad: #f08a76; --bad-soft: #43231f; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #17142a; --surface: #221e3a; --band: #1e1a33; --ink: #f4efe2; --muted: #b3abc9;
+  --line: #36305a; --gold: #f2bb4a; --gold-soft: #3a2f1a; --on-gold: #1b1630;
+  --good: #6fd08d; --good-soft: #1d3a29; --bad: #f08a76; --bad-soft: #43231f; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 17px; line-height: 1.6; }
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg);
+}
+.inner {
+  max-width: 1120px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+
+/* Nav */
+nav {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: color-mix(in srgb, var(--bg) 90%, transparent);
+  backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+}
+nav .inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; }
+.logo { font-family: var(--font-display); font-weight: 800; font-size: 1.35rem; text-decoration: none; line-height: 1; white-space: nowrap; }
+.logo span { color: var(--gold); }
+.nav-right { display: flex; align-items: center; gap: 22px; min-width: 0; }
+.links { display: flex; gap: 20px; font-weight: 700; font-size: 15px; }
+.links a { text-decoration: none; color: var(--muted); white-space: nowrap; }
+.links a:hover { color: var(--ink); }
+@media (max-width: 900px) { .links a:not(.keep) { display: none; } }
+@media (max-width: 480px) { .links { display: none; } }
+.lang { display: flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; }
+.lang button {
+  border: 0; background: transparent; cursor: pointer; font-weight: 800; font-size: 13px;
+  padding: 5px 10px; border-radius: 999px; color: var(--muted);
+}
+.lang button[aria-pressed="true"] { background: var(--gold); color: var(--on-gold); }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font: 800 16px var(--font-body); padding: 13px 24px; border-radius: 999px;
+  text-decoration: none; cursor: pointer; border: 2px solid transparent;
+}
+.btn-gold { background: var(--gold); color: var(--on-gold); }
+.btn-gold:hover { filter: brightness(1.06); }
+.btn-ghost { border-color: var(--line); background: transparent; color: var(--ink); }
+.btn-ghost:hover { border-color: var(--gold); }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* Hero */
+.hero .inner { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; padding-block: 56px 64px; }
+@media (max-width: 820px) { .hero .inner { grid-template-columns: 1fr; padding-block: 36px 48px; } }
+.eyebrow { font-weight: 800; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+h1 { font-family: var(--font-display); font-weight: 800; margin: 10px 0 16px; font-size: clamp(2.5rem, 6.4vw, 4.4rem); line-height: 1.02; text-wrap: balance; }
+.lede { max-width: 54ch; margin: 0 0 26px; color: var(--muted); font-size: 1.12rem; }
+.hero-art { position: relative; min-width: 0; }
+.hero-art img { display: block; width: 100%; max-width: 520px; margin: 0 auto; border-radius: 28px; background: #fff; box-shadow: 0 30px 60px -30px rgba(120, 80, 10, .45); }
+.badge { position: absolute; left: 0; bottom: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 10px 14px; font-weight: 800; font-size: 14px; line-height: 1.3; }
+.badge small { display: block; font-weight: 600; color: var(--muted); }
+
+/* Sections */
+section { padding-block: 64px; }
+section.band { background: var(--band); }
+h2 { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.9rem, 4vw, 2.6rem); line-height: 1.1; margin: 6px 0 12px; text-wrap: balance; }
+.sec-intro { max-width: 60ch; color: var(--muted); margin: 0 0 32px; }
+
+.names { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 32px; padding: 0; list-style: none; }
+.names li { font-family: var(--font-arabic); font-size: 1.3rem; line-height: 1; padding: 9px 15px 11px; border-radius: 999px; background: var(--gold-soft); }
+.names li span + span { font-family: var(--font-body); font-size: 13px; font-weight: 700; color: var(--muted); margin-inline-start: 6px; }
+
+/* Shelf */
+.shelf { display: grid; gap: 26px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 310px), 1fr)); }
+.book {
+  display: grid; grid-template-rows: auto 1fr; overflow: hidden; text-align: left;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 0; cursor: pointer;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.book:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -22px var(--tint); }
+.cover { background: #fff; aspect-ratio: 1; max-width: 100%; }
+.cover img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.info { display: grid; gap: 8px; align-content: start; padding: 18px 22px 22px; border-top: 6px solid var(--tint); }
+.meta { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.num { font-weight: 800; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.ar { font-family: var(--font-arabic); font-size: 1.55rem; line-height: 1; color: var(--tint); }
+.book h3 { font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; line-height: 1.1; margin: 0; }
+.lesson { margin: 0; font-weight: 800; color: var(--tint); }
+.more { font-size: 14px; font-weight: 700; color: var(--muted); margin-top: 4px; }
+
+.bee { --tint: #c88a06; } .crow { --tint: #6b3fa0; } .ant { --tint: #a2551f; }
+.elephant { --tint: #2f6db0; } .hoopoe { --tint: #d26a12; } .spider { --tint: #8a6a2c; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .bee { --tint: #f2c14a; }
+  :root:not([data-theme="light"]) .crow { --tint: #b896ea; }
+  :root:not([data-theme="light"]) .ant { --tint: #e39a63; }
+  :root:not([data-theme="light"]) .elephant { --tint: #7fb2ec; }
+  :root:not([data-theme="light"]) .hoopoe { --tint: #f5a35a; }
+  :root:not([data-theme="light"]) .spider { --tint: #d9bb7b; }
+}
+:root[data-theme="dark"] .bee { --tint: #f2c14a; }
+:root[data-theme="dark"] .crow { --tint: #b896ea; }
+:root[data-theme="dark"] .ant { --tint: #e39a63; }
+:root[data-theme="dark"] .elephant { --tint: #7fb2ec; }
+:root[data-theme="dark"] .hoopoe { --tint: #f5a35a; }
+:root[data-theme="dark"] .spider { --tint: #d9bb7b; }
+
+/* Dialog */
+dialog { width: min(880px, calc(100% - 32px)); max-height: calc(100% - 48px); padding: 0; border: 0; border-radius: 26px; background: var(--surface); color: var(--ink); }
+dialog::backdrop { background: rgba(20, 16, 40, .55); }
+.sheet { display: grid; grid-template-columns: 1fr 1fr; }
+@media (max-width: 720px) { .sheet { grid-template-columns: 1fr; } }
+.sheet-body { display: grid; gap: 12px; align-content: start; padding: 28px; min-width: 0; border-top: 6px solid var(--tint); }
+@media (min-width: 721px) { .sheet-body { border-top: 0; border-left: 6px solid var(--tint); } }
+.sheet-body h3 { font-family: var(--font-display); font-weight: 800; font-size: 1.9rem; line-height: 1.1; margin: 0; }
+.sheet-body p { margin: 0; }
+.sheet-body ul { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
+.ref { justify-self: start; font-size: 13px; font-weight: 800; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+.label { font-weight: 800; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+.close { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); font-size: 22px; line-height: 1; cursor: pointer; }
+.soon { font-size: 14px; color: var(--muted); }
+
+/* Quiz */
+.quiz { background: var(--surface); border: 1px solid var(--line); border-radius: 28px; padding: clamp(20px, 4vw, 40px); display: grid; gap: 22px; }
+.quiz-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.dots { display: flex; gap: 6px; }
+.dots span { width: 12px; height: 12px; border-radius: 50%; background: var(--line); }
+.dots span.on { background: var(--gold); }
+.dots span.ok { background: var(--good); }
+.dots span.no { background: var(--bad); }
+.score { font-weight: 800; color: var(--muted); font-variant-numeric: tabular-nums; }
+.q-prompt { display: grid; gap: 6px; text-align: center; }
+.q-prompt .big-ar { font-family: var(--font-arabic); font-size: clamp(3rem, 10vw, 4.5rem); line-height: 1.3; color: var(--gold); }
+.q-prompt .big-lesson { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.5rem, 4.5vw, 2.2rem); line-height: 1.15; color: var(--gold); }
+.q-prompt .ask { font-weight: 800; font-size: 1.15rem; }
+.options { display: grid; gap: 14px; grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 720px) { .options { grid-template-columns: repeat(2, 1fr); } }
+.opt {
+  display: grid; gap: 8px; padding: 10px 10px 14px; border-radius: 20px; cursor: pointer; text-align: center;
+  background: var(--bg); border: 3px solid var(--line); font-weight: 800; font-size: 1.05rem;
+  transition: transform .15s ease, border-color .15s ease;
+}
+.opt img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 14px; background: #fff; }
+.opt:hover:not(:disabled) { transform: translateY(-3px); border-color: var(--gold); }
+.opt:disabled { cursor: default; }
+.opt.ok { border-color: var(--good); background: var(--good-soft); }
+.opt.no { border-color: var(--bad); background: var(--bad-soft); }
+.feedback { min-height: 1.6em; text-align: center; font-weight: 800; font-size: 1.1rem; margin: 0; }
+.feedback.ok { color: var(--good); }
+.feedback.no { color: var(--bad); }
+.quiz-foot { display: flex; justify-content: center; }
+.result { text-align: center; display: grid; gap: 12px; justify-items: center; }
+.result .big { font-family: var(--font-display); font-weight: 800; font-size: clamp(2.4rem, 8vw, 3.6rem); line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums; }
+.result p { margin: 0; max-width: 46ch; }
+
+/* Parents */
+.values { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); }
+.value { background: var(--surface); border-radius: 20px; padding: 22px; border: 1px solid var(--line); }
+.value h3 { font-family: var(--font-display); font-weight: 800; font-size: 1.25rem; margin: 0 0 6px; }
+.value p { margin: 0; color: var(--muted); }
+
+/* Gallery */
+.gallery { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); }
+.art { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; }
+.art img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: #fff; }
+.art figcaption { padding: 10px 14px 14px; font-weight: 700; font-size: 15px; }
+.art figcaption small { display: block; color: var(--muted); font-weight: 600; }
+.frames { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); margin-bottom: 24px; }
+.frame {
+  aspect-ratio: 4 / 3; border-radius: 20px; border: 3px dashed var(--line); display: grid; place-items: center;
+  font-family: var(--font-arabic); font-size: 2.6rem; color: var(--line);
+}
+.invite { background: var(--gold-soft); border-radius: 22px; padding: 22px 26px; max-width: 70ch; }
+.invite p { margin: 0; }
+.invite strong { display: block; font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 4px; }
+
+/* Author */
+.author { display: grid; grid-template-columns: auto 1fr; gap: 32px; align-items: center; }
+@media (max-width: 640px) { .author { grid-template-columns: 1fr; } }
+.monogram { width: 150px; height: 150px; border-radius: 50%; display: grid; place-items: center; background: var(--gold-soft); font-family: var(--font-display); font-weight: 800; font-size: 3rem; color: var(--gold); }
+.author p { max-width: 62ch; margin: 0 0 12px; }
+
+/* Buy */
+.buy { background: var(--gold-soft); border-radius: 28px; padding: 40px clamp(20px, 5vw, 56px); display: grid; gap: 14px; justify-items: start; }
+.buy h2 { margin: 0; }
+.buy p { margin: 0; max-width: 58ch; }
+.stores { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+.store { padding: 10px 18px; border-radius: 999px; background: var(--surface); border: 1px dashed var(--line); font-weight: 800; font-size: 15px; color: var(--muted); }
+a.store { border-style: solid; color: var(--ink); text-decoration: none; }
+a.store:hover { border-color: var(--gold); }
+
+footer { border-top: 1px solid var(--line); }
+footer .inner { padding-block: 28px 40px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 14px; }
+.social { display: flex; flex-wrap: wrap; gap: 16px; }
+.social a { font-weight: 700; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .book, .opt { transition: none; }
+  .book:hover, .opt:hover:not(:disabled) { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<nav aria-label="Main">
+  <div class="inner">
+    <a class="logo" href="#top">Quran <span>Animals</span></a>
+    <div class="nav-right">
+      <div class="links">
+        <a href="#books" class="keep" data-t="nav.books"></a>
+        <a href="#quiz" class="keep" data-t="nav.quiz"></a>
+        <a href="#parents" data-t="nav.parents"></a>
+        <a href="#gallery" data-t="nav.gallery"></a>
+        <a href="#author" data-t="nav.author"></a>
+        <a href="#buy" class="keep" data-t="nav.buy"></a>
+      </div>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        <button type="button" data-lang="ru" aria-pressed="false">RU</button>
+        <button type="button" data-lang="fr" aria-pressed="false">FR</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="inner">
+    <div>
+      <div class="eyebrow" data-t="hero.eyebrow"></div>
+      <h1 data-t="hero.title"></h1>
+      <p class="lede" data-t="hero.lede"></p>
+      <div class="cta">
+        <a class="btn btn-gold" href="#books" data-t="hero.cta1"></a>
+        <a class="btn btn-ghost" href="#quiz" data-t="hero.cta2"></a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <img src="img/bee.webp" alt="Nur the Bee book cover with a plush bee toy">
+      <div class="badge"><span data-t="hero.badge"></span><small data-t="hero.badgeSmall"></small></div>
+    </div>
+  </div>
+</header>
+
+<section class="band" id="books">
+  <div class="inner">
+    <div class="eyebrow" data-t="books.eyebrow"></div>
+    <h2 data-t="books.title"></h2>
+    <p class="sec-intro" data-t="books.intro"></p>
+    <ul class="names" id="names"></ul>
+    <div class="shelf" id="shelf"></div>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="inner">
+    <div class="eyebrow" data-t="quiz.eyebrow"></div>
+    <h2 data-t="quiz.title"></h2>
+    <p class="sec-intro" data-t="quiz.intro"></p>
+    <div class="quiz" id="quiz-box" aria-live="polite"></div>
+  </div>
+</section>
+
+<section class="band" id="parents">
+  <div class="inner">
+    <div class="eyebrow" data-t="parents.eyebrow"></div>
+    <h2 data-t="parents.title"></h2>
+    <p class="sec-intro" data-t="parents.intro"></p>
+    <div class="values" id="values"></div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="inner">
+    <div class="eyebrow" data-t="gallery.eyebrow"></div>
+    <h2 data-t="gallery.title"></h2>
+    <p class="sec-intro" data-t="gallery.intro"></p>
+    <div id="gallery-box"></div>
+  </div>
+</section>
+
+<section class="band" id="author">
+  <div class="inner author">
+    <div class="monogram" aria-hidden="true">LN</div>
+    <div>
+      <div class="eyebrow" data-t="author.eyebrow"></div>
+      <h2>Liliia Noor</h2>
+      <p data-t="author.p1"></p>
+      <p data-t="author.p2"></p>
+    </div>
+  </div>
+</section>
+
+<section id="buy">
+  <div class="inner">
+    <div class="buy">
+      <div class="eyebrow" data-t="buy.eyebrow"></div>
+      <h2 data-t="buy.title"></h2>
+      <p id="buy-text"></p>
+      <div class="stores" id="stores"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="inner">
+    <span>© 2026 Liliia Noor · Quran Animals</span>
+    <div class="social" id="social"></div>
+    <a href="#top" data-t="footer.top"></a>
+  </div>
+</footer>
+
+<dialog id="detail" aria-labelledby="d-title">
+  <button class="close" id="d-close" type="button" aria-label="Close">×</button>
+  <div class="sheet" id="d-sheet"></div>
+</dialog>
+
+<script>
+/* ===== Things to fill in ===== */
+
+// Store links. Add one entry per store: { name: "Amazon", url: "https://..." }
+const STORES = [];
+
+// Contacts. Leave "" for anything you do not use.
+const CONTACT = { email: "", instagram: "", telegram: "", tiktok: "" };
+
+// Children's drawings. Put the image in img/gallery/ and add:
+// { img: "img/gallery/amina.webp", name: "Amina", age: 6, animal: "bee" }
+const GALLERY = [];
+
+/* ===== Books ===== */
+const BOOKS = [
+  { id: "bee", n: 1, name: "Nur the Bee", ar: "نحلة", tr: "Nahla", ayah: "16:68–69", buy: "",
+    surah: { en: "An-Nahl", ru: "Ан-Нахль", fr: "An-Nahl" },
+    animal: { en: "Bee", ru: "Пчела", fr: "Abeille" },
+    lesson: { en: "A Gift from Allah", ru: "Дар от Аллаха", fr: "Un cadeau d'Allah" },
+    about: {
+      en: "Nur the little bee shows the children how Allah guides the bees to build their homes and make sweet, healing honey.",
+      ru: "Маленькая пчёлка Нур показывает детям, как Аллах направляет пчёл строить свои дома и делать сладкий целебный мёд.",
+      fr: "Nur, la petite abeille, montre aux enfants comment Allah guide les abeilles pour construire leur maison et faire un miel doux et guérisseur." },
+    learn: {
+      en: ["Honey is a gift and a healing from Allah", "Bees follow Allah's guidance", "Say \"Alhamdulillah\" for every blessing"],
+      ru: ["Мёд — дар и исцеление от Аллаха", "Пчёлы следуют руководству Аллаха", "Говорить «Альхамдулиллях» за каждую милость"],
+      fr: ["Le miel est un cadeau et une guérison d'Allah", "Les abeilles suivent la guidance d'Allah", "Dire « Alhamdoulillah » pour chaque bienfait"] } },
+  { id: "crow", n: 2, name: "Ghuraab the Crow", ar: "غراب", tr: "Ghuraab", ayah: "5:31", buy: "",
+    surah: { en: "Al-Ma'idah", ru: "Аль-Маида", fr: "Al-Ma'ida" },
+    animal: { en: "Crow", ru: "Ворон", fr: "Corbeau" },
+    lesson: { en: "Learn from Others", ru: "Учись у других", fr: "Apprendre des autres" },
+    about: {
+      en: "A wise crow teaches that every creature Allah made can teach us something, if we watch and listen with a humble heart.",
+      ru: "Мудрый ворон учит, что любое творение Аллаха может нас чему-то научить, если смотреть и слушать со смирением.",
+      fr: "Un corbeau sage enseigne que chaque créature d'Allah peut nous apprendre quelque chose, si l'on observe et écoute avec humilité." },
+    learn: {
+      en: ["Anyone can be our teacher", "Watching carefully helps us learn", "Humility opens the heart"],
+      ru: ["Учителем может стать любой", "Внимательность помогает учиться", "Скромность открывает сердце"],
+      fr: ["Tout le monde peut être notre maître", "Bien observer aide à apprendre", "L'humilité ouvre le cœur"] } },
+  { id: "ant", n: 3, name: "Namla the Ant", ar: "نملة", tr: "Namla", ayah: "27:18", buy: "",
+    surah: { en: "An-Naml", ru: "Ан-Намль", fr: "An-Naml" },
+    animal: { en: "Ant", ru: "Муравей", fr: "Fourmi" },
+    lesson: { en: "Together We Are Strong", ru: "Вместе мы сильнее", fr: "Ensemble, nous sommes forts" },
+    about: {
+      en: "Namla and her friends carry big loads by helping each other, and show the children how caring for others makes everyone stronger.",
+      ru: "Намла и её друзья несут тяжёлый груз, помогая друг другу, и показывают детям, что забота о других делает сильнее всех.",
+      fr: "Namla et ses amies portent de lourdes charges en s'entraidant, et montrent aux enfants que prendre soin des autres rend tout le monde plus fort." },
+    learn: {
+      en: ["Helping each other makes hard things easy", "Caring for those around us", "Even small creatures matter"],
+      ru: ["Помощь друг другу делает трудное лёгким", "Заботиться о тех, кто рядом", "Даже маленькие создания важны"],
+      fr: ["S'entraider rend les choses difficiles faciles", "Prendre soin de ceux qui nous entourent", "Même les petites créatures comptent"] } },
+  { id: "elephant", n: 4, name: "Feel the Elephant", ar: "فيل", tr: "Fil", ayah: "105", buy: "",
+    surah: { en: "Al-Fil", ru: "Аль-Филь", fr: "Al-Fil" },
+    animal: { en: "Elephant", ru: "Слон", fr: "Éléphant" },
+    lesson: { en: "Pride Goes Away", ru: "Гордыня уходит", fr: "L'orgueil s'en va" },
+    about: {
+      en: "A gentle elephant shares the story of the Year of the Elephant: no army is stronger than Allah, and pride always falls away.",
+      ru: "Добрый слонёнок рассказывает историю Года слона: никакое войско не сильнее Аллаха, а гордыня всегда проходит.",
+      fr: "Un gentil éléphant raconte l'histoire de l'Année de l'Éléphant : aucune armée n'est plus forte qu'Allah, et l'orgueil finit toujours par tomber." },
+    learn: {
+      en: ["Allah protects His House", "Pride never wins", "Being gentle is a strength"],
+      ru: ["Аллах защищает Свой Дом", "Гордыня никогда не побеждает", "Мягкость — это сила"],
+      fr: ["Allah protège Sa Maison", "L'orgueil ne gagne jamais", "La douceur est une force"] } },
+  { id: "hoopoe", n: 5, name: "Hudhud the Hoopoe", ar: "هدهد", tr: "Hudhud", ayah: "27:20–28", buy: "",
+    surah: { en: "An-Naml", ru: "Ан-Намль", fr: "An-Naml" },
+    animal: { en: "Hoopoe", ru: "Удод", fr: "Huppe" },
+    lesson: { en: "Always Be Honest", ru: "Всегда будь честным", fr: "Sois toujours honnête" },
+    about: {
+      en: "Hudhud brings true news to Prophet Sulayman and teaches the children that telling the truth is always the right choice.",
+      ru: "Худхуд приносит правдивую весть пророку Сулейману и учит детей, что говорить правду — всегда верный выбор.",
+      fr: "Hudhud apporte une nouvelle vraie au prophète Soulaymane et apprend aux enfants que dire la vérité est toujours le bon choix." },
+    learn: {
+      en: ["Always tell the truth", "Explain yourself kindly", "The story of Prophet Sulayman"],
+      ru: ["Всегда говорить правду", "Объяснять спокойно и вежливо", "История пророка Сулеймана"],
+      fr: ["Toujours dire la vérité", "S'expliquer avec gentillesse", "L'histoire du prophète Soulaymane"] } },
+  { id: "spider", n: 7, name: "Ankabut the Spider", ar: "عنكبوت", tr: "Ankabut", ayah: "29:41", buy: "",
+    surah: { en: "Al-Ankabut", ru: "Аль-Анкабут", fr: "Al-Ankabout" },
+    animal: { en: "Spider", ru: "Паук", fr: "Araignée" },
+    lesson: { en: "Allah Protects You", ru: "Аллах защищает тебя", fr: "Allah te protège" },
+    about: {
+      en: "A little spider spins a delicate web and reminds the children that true safety comes only from Allah.",
+      ru: "Маленький паучок плетёт тонкую паутину и напоминает детям, что настоящая защита — только от Аллаха.",
+      fr: "Une petite araignée tisse une toile fragile et rappelle aux enfants que la vraie protection vient seulement d'Allah." },
+    learn: {
+      en: ["Allah is our true protector", "Trust Allah when you feel afraid", "A web is fragile, Allah's care is not"],
+      ru: ["Аллах — наш настоящий защитник", "Доверяться Аллаху, когда страшно", "Паутина хрупкая, а забота Аллаха — нет"],
+      fr: ["Allah est notre vrai protecteur", "Faire confiance à Allah quand on a peur", "La toile est fragile, la protection d'Allah ne l'est pas"] } },
+];
+
+/* ===== Interface text ===== */
+const T = {
+  en: {
+    "nav.books": "Books", "nav.quiz": "Quiz", "nav.parents": "For parents", "nav.gallery": "Gallery", "nav.author": "Author", "nav.buy": "Buy",
+    "hero.eyebrow": "Picture books by Liliia Noor",
+    "hero.title": "Meet the animals of the Quran",
+    "hero.lede": "A bee, a crow, an ant, an elephant, a hoopoe and a spider. In each book, two curious children make a new animal friend and learn a simple lesson about faith and good character.",
+    "hero.cta1": "See the books", "hero.cta2": "Play the quiz",
+    "hero.badge": "Book 1 · Nur the Bee", "hero.badgeSmall": "Start the series here",
+    "books.eyebrow": "The series", "books.title": "Six animals, six lessons",
+    "books.intro": "Every story is built around an animal named in the Holy Quran. Children learn its Arabic name, hear where it appears, and take away one lesson for everyday life. Tap a book to read more.",
+    "book": "Book", "readMore": "Read more →", "surah": "Surah",
+    "detail.learn": "Your child will learn", "detail.buy": "Buy this book", "detail.where": "Where to buy", "detail.soon": "Store links coming soon.",
+    "quiz.eyebrow": "For little readers", "quiz.title": "Who is my animal friend?",
+    "quiz.intro": "Six quick questions about the animals from the books. Read them together and tap the right friend.",
+    "quiz.askArabic": "Which animal is this?", "quiz.askLesson": "Which friend teaches this lesson?",
+    "quiz.right": ["MashaAllah, correct!", "Well done!", "Yes, that's right!"], "quiz.wrong": "Not quite. The answer is",
+    "quiz.next": "Next question", "quiz.finish": "See my result", "quiz.again": "Play again", "quiz.of": "of",
+    "quiz.done": "You got", "quiz.great": "MashaAllah! You know all the animal friends. Now pick a book and meet them again.",
+    "quiz.good": "Great job! Read the books to learn even more about the animals.",
+    "quiz.try": "Good try! Read the stories together and play again.",
+    "parents.eyebrow": "For parents and teachers", "parents.title": "What your child takes away",
+    "parents.intro": "The books are short enough for a bedtime read and warm enough to come back to. They work well at home, in weekend Islamic school and in Ramadan reading time.",
+    "values": [
+      ["Love for Allah's creation", "Children see each animal as a gift and a sign, and learn to look at nature with wonder."],
+      ["A first link to the Quran", "Every book points to the surah where its animal appears, so a story can lead to a real ayah."],
+      ["Arabic words", "Nahla, Ghuraab, Namla, Fil, Hudhud, Ankabut. Six new Arabic words, one per book."],
+      ["Good character", "Honesty, humility, teamwork and trust in Allah, shown through a story rather than a lecture."] ],
+    "gallery.eyebrow": "Little artists", "gallery.title": "Drawings by our readers",
+    "gallery.intro": "Children draw their favourite animal friends from the books. Here we share their art.",
+    "gallery.emptyTitle": "The first drawings are coming soon",
+    "gallery.emptyText": "Has your child drawn Nur, Namla or Hudhud? Send us a photo of the drawing with your child's first name and age, and we may add it here.",
+    "gallery.age": "age",
+    "author.eyebrow": "About the author",
+    "author.p1": "Liliia Noor writes picture books that help young Muslim children fall in love with the Quran through the animals Allah created.",
+    "author.p2": "The Quran Animals series began with a simple idea: if children can learn the names of animals, they can also learn where those animals appear in the Quran and what they teach us.",
+    "buy.eyebrow": "Get the books", "buy.title": "Where to buy",
+    "buy.soon": "Store links are coming soon. The books will be available in print and as e-books.",
+    "buy.ready": "Choose your favourite store:",
+    "footer.top": "Back to top",
+  },
+  ru: {
+    "nav.books": "Книги", "nav.quiz": "Викторина", "nav.parents": "Родителям", "nav.gallery": "Галерея", "nav.author": "Автор", "nav.buy": "Купить",
+    "hero.eyebrow": "Книги с картинками от Liliia Noor",
+    "hero.title": "Знакомьтесь: животные из Корана",
+    "hero.lede": "Пчела, ворон, муравей, слон, удод и паук. В каждой книге двое любознательных детей находят нового друга-животное и узнают простой урок о вере и добром нраве.",
+    "hero.cta1": "Смотреть книги", "hero.cta2": "Пройти викторину",
+    "hero.badge": "Книга 1 · Nur the Bee", "hero.badgeSmall": "Начните серию с неё",
+    "books.eyebrow": "Серия", "books.title": "Шесть животных, шесть уроков",
+    "books.intro": "Каждая история построена вокруг животного, упомянутого в Священном Коране. Дети узнают его арабское название, где о нём говорится, и выносят один урок для жизни. Нажмите на книгу, чтобы узнать больше.",
+    "book": "Книга", "readMore": "Подробнее →", "surah": "Сура",
+    "detail.learn": "Чему научится ребёнок", "detail.buy": "Купить книгу", "detail.where": "Где купить", "detail.soon": "Ссылки на магазины скоро появятся.",
+    "quiz.eyebrow": "Для маленьких читателей", "quiz.title": "Кто мой друг-животное?",
+    "quiz.intro": "Шесть коротких вопросов о животных из книг. Читайте вместе и нажимайте на правильного друга.",
+    "quiz.askArabic": "Какое это животное?", "quiz.askLesson": "Какой друг учит этому уроку?",
+    "quiz.right": ["МашаАллах, верно!", "Молодец!", "Да, правильно!"], "quiz.wrong": "Не совсем. Правильный ответ:",
+    "quiz.next": "Следующий вопрос", "quiz.finish": "Мой результат", "quiz.again": "Играть ещё раз", "quiz.of": "из",
+    "quiz.done": "Правильных ответов:", "quiz.great": "МашаАллах! Ты знаешь всех друзей-животных. Выбери книгу и встреться с ними снова.",
+    "quiz.good": "Отлично! Читай книги, чтобы узнать о животных ещё больше.",
+    "quiz.try": "Хорошая попытка! Почитайте истории вместе и сыграйте ещё раз.",
+    "parents.eyebrow": "Родителям и учителям", "parents.title": "Что ребёнок вынесет из книг",
+    "parents.intro": "Книги достаточно короткие, чтобы читать перед сном, и достаточно тёплые, чтобы к ним возвращаться. Подходят для дома, воскресной исламской школы и чтения в Рамадан.",
+    "values": [
+      ["Любовь к творениям Аллаха", "Дети видят в каждом животном дар и знамение и учатся смотреть на природу с восхищением."],
+      ["Первая связь с Кораном", "Каждая книга указывает суру, где упоминается животное, и история ведёт к настоящему аяту."],
+      ["Арабские слова", "Нахля, Гураб, Намля, Филь, Худхуд, Анкабут. Шесть новых арабских слов, по одному в каждой книге."],
+      ["Добрый нрав", "Честность, скромность, дружба и доверие Аллаху — через историю, а не нравоучение."] ],
+    "gallery.eyebrow": "Маленькие художники", "gallery.title": "Рисунки наших читателей",
+    "gallery.intro": "Дети рисуют своих любимых друзей-животных из книг. Здесь мы показываем их работы.",
+    "gallery.emptyTitle": "Первые рисунки скоро появятся",
+    "gallery.emptyText": "Ваш ребёнок нарисовал Нур, Намлу или Худхуда? Пришлите фото рисунка с именем и возрастом ребёнка, и мы, возможно, добавим его сюда.",
+    "gallery.age": "лет",
+    "author.eyebrow": "Об авторе",
+    "author.p1": "Liliia Noor пишет книги с картинками, которые помогают маленьким мусульманам полюбить Коран через животных, созданных Аллахом.",
+    "author.p2": "Серия Quran Animals началась с простой мысли: если дети могут выучить названия животных, они могут узнать и то, где эти животные упоминаются в Коране и чему они нас учат.",
+    "buy.eyebrow": "Купить книги", "buy.title": "Где купить",
+    "buy.soon": "Ссылки на магазины скоро появятся. Книги будут доступны в печатном и электронном виде.",
+    "buy.ready": "Выберите удобный магазин:",
+    "footer.top": "Наверх",
+  },
+  fr: {
+    "nav.books": "Livres", "nav.quiz": "Quiz", "nav.parents": "Parents", "nav.gallery": "Galerie", "nav.author": "Autrice", "nav.buy": "Acheter",
+    "hero.eyebrow": "Albums illustrés de Liliia Noor",
+    "hero.title": "À la rencontre des animaux du Coran",
+    "hero.lede": "Une abeille, un corbeau, une fourmi, un éléphant, une huppe et une araignée. Dans chaque livre, deux enfants curieux se font un nouvel ami animal et découvrent une leçon simple sur la foi et le bon comportement.",
+    "hero.cta1": "Voir les livres", "hero.cta2": "Jouer au quiz",
+    "hero.badge": "Livre 1 · Nur the Bee", "hero.badgeSmall": "Commencez la série ici",
+    "books.eyebrow": "La série", "books.title": "Six animaux, six leçons",
+    "books.intro": "Chaque histoire tourne autour d'un animal cité dans le Saint Coran. Les enfants apprennent son nom en arabe, découvrent où il apparaît et retiennent une leçon pour la vie de tous les jours. Touchez un livre pour en savoir plus.",
+    "book": "Livre", "readMore": "En savoir plus →", "surah": "Sourate",
+    "detail.learn": "Votre enfant apprendra", "detail.buy": "Acheter ce livre", "detail.where": "Où acheter", "detail.soon": "Liens vers les boutiques bientôt disponibles.",
+    "quiz.eyebrow": "Pour les petits lecteurs", "quiz.title": "Qui est mon ami animal ?",
+    "quiz.intro": "Six petites questions sur les animaux des livres. Lisez-les ensemble et touchez le bon ami.",
+    "quiz.askArabic": "Quel est cet animal ?", "quiz.askLesson": "Quel ami enseigne cette leçon ?",
+    "quiz.right": ["MashaAllah, bravo !", "Bien joué !", "Oui, c'est ça !"], "quiz.wrong": "Pas tout à fait. La réponse est",
+    "quiz.next": "Question suivante", "quiz.finish": "Voir mon résultat", "quiz.again": "Rejouer", "quiz.of": "sur",
+    "quiz.done": "Bonnes réponses :", "quiz.great": "MashaAllah ! Tu connais tous les amis animaux. Choisis un livre et retrouve-les.",
+    "quiz.good": "Très bien ! Lis les livres pour en apprendre encore plus sur les animaux.",
+    "quiz.try": "Bel essai ! Lisez les histoires ensemble et rejouez.",
+    "parents.eyebrow": "Pour les parents et les enseignants", "parents.title": "Ce que votre enfant retiendra",
+    "parents.intro": "Des livres assez courts pour l'histoire du soir et assez chaleureux pour y revenir. Parfaits à la maison, à l'école coranique du week-end et pendant les lectures du Ramadan.",
+    "values": [
+      ["L'amour de la création d'Allah", "Les enfants voient chaque animal comme un cadeau et un signe, et apprennent à regarder la nature avec émerveillement."],
+      ["Un premier lien avec le Coran", "Chaque livre indique la sourate où l'animal apparaît : une histoire peut mener à un vrai verset."],
+      ["Des mots arabes", "Nahla, Ghourab, Namla, Fil, Hudhud, Ankabout. Six nouveaux mots arabes, un par livre."],
+      ["Le bon comportement", "Honnêteté, humilité, entraide et confiance en Allah, à travers une histoire plutôt qu'une leçon de morale."] ],
+    "gallery.eyebrow": "Petits artistes", "gallery.title": "Les dessins de nos lecteurs",
+    "gallery.intro": "Les enfants dessinent leurs amis animaux préférés. Ici, nous partageons leurs œuvres.",
+    "gallery.emptyTitle": "Les premiers dessins arrivent bientôt",
+    "gallery.emptyText": "Votre enfant a dessiné Nur, Namla ou Hudhud ? Envoyez-nous une photo du dessin avec son prénom et son âge, et nous pourrons l'ajouter ici.",
+    "gallery.age": "ans",
+    "author.eyebrow": "L'autrice",
+    "author.p1": "Liliia Noor écrit des albums illustrés qui aident les jeunes enfants musulmans à aimer le Coran à travers les animaux créés par Allah.",
+    "author.p2": "La série Quran Animals est née d'une idée simple : si les enfants peuvent apprendre le nom des animaux, ils peuvent aussi apprendre où ces animaux apparaissent dans le Coran et ce qu'ils nous enseignent.",
+    "buy.eyebrow": "Se procurer les livres", "buy.title": "Où acheter",
+    "buy.soon": "Les liens vers les boutiques arrivent bientôt. Les livres seront disponibles en version imprimée et numérique.",
+    "buy.ready": "Choisissez votre boutique :",
+    "footer.top": "Haut de page",
+  },
+};
+
+/* ===== Rendering ===== */
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+let lang = "en";
+const t = k => T[lang][k] ?? T.en[k];
+const ref = b => `${t("surah")} ${b.surah[lang]} · ${b.ayah}`;
+
+function renderStatic() {
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-t]").forEach(el => { el.textContent = t(el.dataset.t); });
+  document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+
+  document.getElementById("names").innerHTML = BOOKS.map(b =>
+    `<li><span lang="ar">${b.ar}</span><span>${esc(b.animal[lang])}</span></li>`).join("");
+
+  document.getElementById("shelf").innerHTML = BOOKS.map(b => `
+    <button type="button" class="book ${b.id}" data-id="${b.id}" aria-haspopup="dialog">
+      <div class="cover"><img src="img/${b.id}.webp" alt="${esc(b.name)}: ${esc(b.lesson.en)}" loading="lazy"></div>
+      <div class="info">
+        <div class="meta"><span class="num">${t("book")} ${b.n}</span><span class="ar" lang="ar">${b.ar}</span></div>
+        <h3>${esc(b.name)}</h3>
+        <p class="lesson">${esc(b.lesson[lang])}</p>
+        <span class="more">${t("readMore")}</span>
+      </div>
+    </button>`).join("");
+
+  document.getElementById("values").innerHTML = t("values").map(([h, p]) =>
+    `<div class="value"><h3>${esc(h)}</h3><p>${esc(p)}</p></div>`).join("");
+
+  const gb = document.getElementById("gallery-box");
+  if (GALLERY.length) {
+    gb.innerHTML = `<div class="gallery">${GALLERY.map(g => {
+      const book = BOOKS.find(b => b.id === g.animal);
+      const sub = [g.age ? `${g.age} ${t("gallery.age")}` : "", book ? book.animal[lang] : ""].filter(Boolean).join(" · ");
+      return `<figure class="art"><img src="${esc(g.img)}" alt="${esc(g.name)}" loading="lazy">
+        <figcaption>${esc(g.name)}${sub ? `<small>${esc(sub)}</small>` : ""}</figcaption></figure>`;
+    }).join("")}</div>`;
+  } else {
+    gb.innerHTML = `<div class="frames" aria-hidden="true">
+        <div class="frame">نحلة</div><div class="frame">نملة</div><div class="frame">هدهد</div></div>
+      <div class="invite"><p><strong>${esc(t("gallery.emptyTitle"))}</strong>${esc(t("gallery.emptyText"))}${
+        CONTACT.email ? ` <b>${esc(CONTACT.email)}</b>` : ""}</p></div>`;
+  }
+
+  document.getElementById("buy-text").textContent = STORES.length ? t("buy.ready") : t("buy.soon");
+  document.getElementById("stores").innerHTML = STORES.length
+    ? STORES.map(s => `<a class="store" href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)} →</a>`).join("")
+    : ["Amazon", "E-book"].map(n => `<span class="store">${n} · …</span>`).join("");
+
+  const social = [
+    CONTACT.instagram && `<a href="https://instagram.com/${esc(CONTACT.instagram)}" target="_blank" rel="noopener">Instagram</a>`,
+    CONTACT.telegram && `<a href="https://t.me/${esc(CONTACT.telegram)}" target="_blank" rel="noopener">Telegram</a>`,
+    CONTACT.tiktok && `<a href="https://tiktok.com/@${esc(CONTACT.tiktok)}" target="_blank" rel="noopener">TikTok</a>`,
+    CONTACT.email && `<span>${esc(CONTACT.email)}</span>`,
+  ].filter(Boolean);
+  document.getElementById("social").innerHTML = social.join("");
+}
+
+/* ===== Book detail ===== */
+const dlg = document.getElementById("detail");
+function openBook(id) {
+  const b = BOOKS.find(x => x.id === id);
+  if (!b) return;
+  dlg.className = b.id;
+  const buyBtn = b.buy
+    ? `<a class="btn btn-gold" href="${esc(b.buy)}" target="_blank" rel="noopener">${t("detail.buy")}</a>`
+    : `<a class="btn btn-gold" href="#buy" data-close>${t("detail.where")}</a>`;
+  document.getElementById("d-sheet").innerHTML = `
+    <div class="cover"><img src="img/${b.id}.webp" alt="${esc(b.name)}"></div>
+    <div class="sheet-body">
+      <div class="meta"><span class="num">${t("book")} ${b.n}</span><span class="ar" lang="ar">${b.ar}</span></div>
+      <h3 id="d-title">${esc(b.name)}</h3>
+      <p class="lesson">${esc(b.lesson[lang])}</p>
+      <p>${esc(b.about[lang])}</p>
+      <span class="ref">${esc(ref(b))}</span>
+      <div class="label">${t("detail.learn")}</div>
+      <ul>${b.learn[lang].map(l => `<li>${esc(l)}</li>`).join("")}</ul>
+      <div class="cta" style="margin-top:8px">${buyBtn}</div>
+      ${b.buy || STORES.length ? "" : `<span class="soon">${t("detail.soon")}</span>`}
+    </div>`;
+  dlg.showModal();
+}
+document.getElementById("shelf").addEventListener("click", e => {
+  const card = e.target.closest(".book");
+  if (card) openBook(card.dataset.id);
+});
+document.getElementById("d-close").addEventListener("click", () => dlg.close());
+dlg.addEventListener("click", e => { if (e.target === dlg || e.target.closest("[data-close]")) dlg.close(); });
+
+/* ===== Quiz ===== */
+const ROUNDS = 6;
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+let quiz;
+
+function newQuiz() {
+  const order = shuffle(BOOKS);
+  quiz = {
+    i: 0, score: 0, answered: null, results: [],
+    qs: order.slice(0, ROUNDS).map((b, k) => ({
+      answer: b.id,
+      kind: k % 2 === 0 ? "arabic" : "lesson",
+      options: shuffle([b, ...shuffle(BOOKS.filter(x => x.id !== b.id)).slice(0, 3)]).map(x => x.id),
+    })),
+  };
+  renderQuiz();
+}
+
+function renderQuiz() {
+  const box = document.getElementById("quiz-box");
+  const dots = quiz.qs.map((_, k) => {
+    const r = quiz.results[k];
+    return `<span class="${r === true ? "ok" : r === false ? "no" : k === quiz.i ? "on" : ""}"></span>`;
+  }).join("");
+
+  if (quiz.i >= quiz.qs.length) {
+    const s = quiz.score, msg = s === ROUNDS ? t("quiz.great") : s >= ROUNDS / 2 ? t("quiz.good") : t("quiz.try");
+    box.innerHTML = `<div class="quiz-top"><div class="dots">${dots}</div></div>
+      <div class="result"><div>${t("quiz.done")}</div><div class="big">${s} ${t("quiz.of")} ${ROUNDS}</div>
+      <p>${esc(msg)}</p><button type="button" class="btn btn-gold" id="q-again">${t("quiz.again")}</button></div>`;
+    document.getElementById("q-again").onclick = newQuiz;
+    return;
+  }
+
+  const q = quiz.qs[quiz.i], right = BOOKS.find(b => b.id === q.answer);
+  const prompt = q.kind === "arabic"
+    ? `<div class="big-ar" lang="ar">${right.ar}</div><div class="ask">${t("quiz.askArabic")}</div>`
+    : `<div class="ask">${t("quiz.askLesson")}</div><div class="big-lesson">“${esc(right.lesson[lang])}”</div>`;
+  const opts = q.options.map(id => {
+    const b = BOOKS.find(x => x.id === id);
+    let cls = "";
+    if (quiz.answered) cls = id === q.answer ? "ok" : id === quiz.answered ? "no" : "";
+    return `<button type="button" class="opt ${cls}" data-id="${id}" ${quiz.answered ? "disabled" : ""}>
+      <img src="img/${id}.webp" alt="">${esc(b.animal[lang])}</button>`;
+  }).join("");
+
+  let fb = "", fbCls = "";
+  if (quiz.answered) {
+    const ok = quiz.answered === q.answer;
+    const praise = t("quiz.right");
+    fb = ok ? praise[quiz.i % praise.length] : `${t("quiz.wrong")} ${right.animal[lang]}.`;
+    fbCls = ok ? "ok" : "no";
+  }
+  const last = quiz.i === quiz.qs.length - 1;
+
+  box.innerHTML = `<div class="quiz-top"><div class="dots">${dots}</div>
+      <span class="score">${quiz.i + 1} / ${ROUNDS}</span></div>
+    <div class="q-prompt">${prompt}</div>
+    <div class="options">${opts}</div>
+    <p class="feedback ${fbCls}">${esc(fb)}</p>
+    <div class="quiz-foot">${quiz.answered
+      ? `<button type="button" class="btn btn-gold" id="q-next">${last ? t("quiz.finish") : t("quiz.next")}</button>` : ""}</div>`;
+
+  box.querySelectorAll(".opt").forEach(btn => btn.onclick = () => {
+    quiz.answered = btn.dataset.id;
+    const ok = quiz.answered === q.answer;
+    quiz.results[quiz.i] = ok;
+    if (ok) quiz.score++;
+    renderQuiz();
+    document.getElementById("q-next")?.focus({ preventScroll: true });
+  });
+  const next = document.getElementById("q-next");
+  if (next) next.onclick = () => { quiz.i++; quiz.answered = null; renderQuiz(); };
+}
+
+/* ===== Language ===== */
+function setLang(l) {
+  lang = T[l] ? l : "en";
+  try { localStorage.setItem("qa-lang", lang); } catch (e) {}
+  if (dlg.open) dlg.close();
+  renderStatic();
+  renderQuiz();
+}
+document.querySelectorAll(".lang button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
+
+let saved = null;
+try { saved = localStorage.getItem("qa-lang"); } catch (e) {}
+const browser = (navigator.language || "en").slice(0, 2);
+lang = T[saved] ? saved : T[browser] ? browser : "en";
+newQuiz();
+setLang(lang);
+</script>
+</body>
+</html>
