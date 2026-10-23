@@ -52,6 +52,14 @@
     <path d="M39 68 Q45 74 51 67" class="ink-bee-line"/>
     <circle cx="33" cy="67" r="4" class="ink-bee-cheek"/><circle cx="56" cy="64" r="4" class="ink-bee-cheek"/>
   </symbol>
+  <symbol id="whale" viewBox="0 0 120 100">
+    <path class="ink-water" d="M56 30 q-6 -12 -2 -20 M60 30 q0 -14 6 -20 M64 30 q6 -10 14 -12" stroke="#8fd3f5" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path class="ink-whale" d="M14 62 C14 40 34 30 58 30 C86 30 100 46 100 58 L112 44 C116 52 116 64 108 72 L100 68 C96 82 78 90 56 90 C30 90 14 80 14 62Z"/>
+    <path class="ink-whale-belly" d="M22 70 C34 84 70 86 92 72 C84 82 70 88 56 88 C38 88 26 80 22 70Z"/>
+    <circle cx="36" cy="56" r="4.5" fill="#2d2a5a"/><circle cx="35" cy="54.5" r="1.5" fill="#ffffff"/>
+    <path d="M28 66 Q36 72 44 66" stroke="#2d2a5a" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <circle cx="26" cy="64" r="3.5" class="ink-bee-cheek"/>
+  </symbol>
   <symbol id="trail" viewBox="0 0 260 120"><path class="ink-trail" d="M5 105 C 50 30, 95 115, 130 70 S 200 5, 255 45"/></symbol>
 </svg>
 <nav class="top" aria-label="Main">
@@ -60,8 +68,8 @@
     <div class="links">
         <a href="/" class="" aria-current="page">Home</a>
         <a href="/books/" class="keep">Books</a>
-        <a href="/#quiz" class="">Quiz</a>
-        <a href="/ramadan/" class="keep">Ramadan</a>
+        <a href="/play/" class="keep">Play</a>
+        <a href="/ramadan/" class="">Ramadan</a>
         <a href="/#author" class="">Author</a>
         <a href="/shop/" class="keep">Shop</a>
     </div>
@@ -211,16 +219,18 @@
   </div>
 </section>
 
-<section id="quiz">
+<section id="play">
   <div class="inner">
-    <div class="eyebrow">For little readers</div>
-    <h2>Who is my animal friend?</h2>
-    <p class="sec-intro">Six quick questions about the animals from the books. Read them together and tap the right friend.</p>
-    <div class="quiz" id="quiz-box" aria-live="polite"></div>
-    <script type="application/json" id="quiz-data">[{"id": "bee", "animal": "Bee", "ar": "نحلة", "lesson": "A Gift from Allah", "cover": "img/bee.webp", "tint": "#c88a06", "tint_dark": "#f2c14a"}, {"id": "crow", "animal": "Crow", "ar": "غراب", "lesson": "Learn from Others", "cover": "img/crow.webp", "tint": "#6b3fa0", "tint_dark": "#b896ea"}, {"id": "ant", "animal": "Ant", "ar": "نملة", "lesson": "Together We Are Strong", "cover": "img/ant.webp", "tint": "#a2551f", "tint_dark": "#e39a63"}, {"id": "elephant", "animal": "Elephant", "ar": "فيل", "lesson": "Pride Goes Away", "cover": "img/elephant.webp", "tint": "#2f6db0", "tint_dark": "#7fb2ec"}, {"id": "hoopoe", "animal": "Hoopoe", "ar": "هدهد", "lesson": "Always Be Honest", "cover": "img/hoopoe.webp", "tint": "#d26a12", "tint_dark": "#f5a35a"}, {"id": "whale", "animal": "Whale", "ar": "حوت", "lesson": "Never Lose Hope", "cover": "", "tint": "#1f6f8b", "tint_dark": "#6cc3dd"}, {"id": "spider", "animal": "Spider", "ar": "عنكبوت", "lesson": "Allah Protects You", "cover": "img/spider.webp", "tint": "#8a6a2c", "tint_dark": "#d9bb7b"}]</script>
+    <div class="eyebrow">Kids' corner</div>
+    <h2>Play with the Quran Animals</h2>
+    <p class="sec-intro">Games for little readers, safe to play with no ads and nothing to buy.</p>
+    <div class="play-tiles">
+      <a class="play-tile" href="/play/#memory"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#star"/></svg><strong>Find the pair</strong><span>Turn the cards and match the animal friends.</span></a>
+      <a class="play-tile" href="/play/#quiz"><svg viewBox="0 0 24 22" aria-hidden="true"><use href="#heart"/></svg><strong>Who is my animal friend?</strong><span>A six-question quiz about the books.</span></a>
+      <a class="play-tile" href="/ramadan/"><svg viewBox="0 0 120 100" aria-hidden="true"><use href="#bee"/></svg><strong>Ramadan chart</strong><span>A good deed every day. Fill Nur's honey jar!</span></a>
+    </div>
   </div>
 </section>
-
 <section class="band pink" id="gallery">
   <div class="inner">
     <div class="eyebrow">Little artists</div>
@@ -249,6 +259,5 @@
     <a href="#top">Back to top</a>
   </div>
 </footer>
-<script src="/assets/quiz.js" defer></script>
 </body>
 </html>

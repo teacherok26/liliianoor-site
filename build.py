@@ -56,7 +56,7 @@ CURRENT = ' aria-current="page"'
 
 # Hand-drawn doodles, used with doodle("sun", "d-sun") etc.
 VB = {"sun": "0 0 100 100", "cloud": "0 0 110 64", "star": "0 0 24 24", "heart": "0 0 24 22",
-      "flower": "0 0 40 40", "bee": "0 0 120 100", "trail": "0 0 260 120"}
+      "flower": "0 0 40 40", "bee": "0 0 120 100", "trail": "0 0 260 120", "whale": "0 0 120 100"}
 SPRITE = """<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs><clipPath id="bee-body-clip"><ellipse cx="62" cy="62" rx="34" ry="27"/></clipPath></defs>
   <symbol id="sun" viewBox="0 0 100 100">
@@ -90,6 +90,14 @@ SPRITE = """<svg width="0" height="0" style="position:absolute" aria-hidden="tru
     <path d="M39 68 Q45 74 51 67" class="ink-bee-line"/>
     <circle cx="33" cy="67" r="4" class="ink-bee-cheek"/><circle cx="56" cy="64" r="4" class="ink-bee-cheek"/>
   </symbol>
+  <symbol id="whale" viewBox="0 0 120 100">
+    <path class="ink-water" d="M56 30 q-6 -12 -2 -20 M60 30 q0 -14 6 -20 M64 30 q6 -10 14 -12" stroke="#8fd3f5" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path class="ink-whale" d="M14 62 C14 40 34 30 58 30 C86 30 100 46 100 58 L112 44 C116 52 116 64 108 72 L100 68 C96 82 78 90 56 90 C30 90 14 80 14 62Z"/>
+    <path class="ink-whale-belly" d="M22 70 C34 84 70 86 92 72 C84 82 70 88 56 88 C38 88 26 80 22 70Z"/>
+    <circle cx="36" cy="56" r="4.5" fill="#2d2a5a"/><circle cx="35" cy="54.5" r="1.5" fill="#ffffff"/>
+    <path d="M28 66 Q36 72 44 66" stroke="#2d2a5a" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <circle cx="26" cy="64" r="3.5" class="ink-bee-cheek"/>
+  </symbol>
   <symbol id="trail" viewBox="0 0 260 120"><path class="ink-trail" d="M5 105 C 50 30, 95 115, 130 70 S 200 5, 255 45"/></symbol>
 </svg>"""
 
@@ -104,8 +112,8 @@ def doodles(*items):
 
 
 def nav(current):
-    items = [("/", "Home", ""), ("/books/", "Books", "keep"), ("/#quiz", "Quiz", ""),
-             ("/ramadan/", "Ramadan", "keep"), ("/#author", "Author", ""), ("/shop/", "Shop", "keep")]
+    items = [("/", "Home", ""), ("/books/", "Books", "keep"), ("/play/", "Play", "keep"),
+             ("/ramadan/", "Ramadan", ""), ("/#author", "Author", ""), ("/shop/", "Shop", "keep")]
     links = "\n        ".join(
         f'<a href="{href}" class="{cls}"{CURRENT if href == current else ""}>{label}</a>'
         for href, label, cls in items)
@@ -323,7 +331,18 @@ home = f"""<header class="hero" id="top">
   </div>
 </section>
 
-{quiz_section().replace('class="band" id="quiz"', 'id="quiz"')}
+<section id="play">
+  <div class="inner">
+    <div class="eyebrow">Kids' corner</div>
+    <h2>Play with the Quran Animals</h2>
+    <p class="sec-intro">Games for little readers, safe to play with no ads and nothing to buy.</p>
+    <div class="play-tiles">
+      <a class="play-tile" href="/play/#memory"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#star"/></svg><strong>Find the pair</strong><span>Turn the cards and match the animal friends.</span></a>
+      <a class="play-tile" href="/play/#quiz"><svg viewBox="0 0 24 22" aria-hidden="true"><use href="#heart"/></svg><strong>Who is my animal friend?</strong><span>A six-question quiz about the books.</span></a>
+      <a class="play-tile" href="/ramadan/"><svg viewBox="0 0 120 100" aria-hidden="true"><use href="#bee"/></svg><strong>Ramadan chart</strong><span>A good deed every day. Fill Nur's honey jar!</span></a>
+    </div>
+  </div>
+</section>
 {gallery_section().replace('<section id="gallery">', '<section class="band pink" id="gallery">')}
 <section id="author">
   <div class="inner author">
@@ -337,8 +356,7 @@ home = f"""<header class="hero" id="top">
   </div>
 </section>
 """
-page("/", f"{SITE['series']} · Islamic children's books by {SITE['author']}", SITE["seo"], home, "/",
-     scripts='<script src="/assets/quiz.js" defer></script>\n')
+page("/", f"{SITE['series']} · Islamic children's books by {SITE['author']}", SITE["seo"], home, "/")
 
 books_page = f"""<header class="inner" id="top" style="padding-block:48px 8px">
   <div class="eyebrow">{e(SITE['series'])} · Ages {e(SITE['ages'])} · {e(SITE['languages'])}</div>
@@ -502,6 +520,53 @@ shop = f"""<header class="inner" id="top" style="padding-block:48px 8px">
 page("/shop/", f"Shop · {SITE['series']}", "Buy the Quran Animals books on Amazon or directly from the author, and printable activity books for Muslim children.",
      shop, "/shop/", scripts='<script src="/assets/shop.js" defer></script>\n')
 
+# Kids' corner
+mem_data = [{"id": b["id"], "animal": b["animal"], "name": b["name"], "ar": b["ar"], "tr": b["tr"], "img": b["friend_img"],
+             "tint": b["tint"], "tint_dark": b["tint_dark"]} for b in BOOKS]
+play = f"""<header class="play-hero" id="top">
+  {doodles(("cloud", "d-cloud c1"), ("sun", "d-sun"), ("star", "d-star", "top:40%;left:52%"), ("heart", "d-heart", "top:20%;left:40%"))}
+  <div class="inner">
+    <div class="eyebrow">Kids' corner</div>
+    <h1>Let's play!</h1>
+    <p class="lede">Games with Nur, Namla, Hudhud and all the animal friends. Play together with a grown-up.</p>
+    <div class="cta"><a class="btn btn-gold" href="#memory">Find the pair</a><a class="btn btn-ghost" href="#quiz">Quiz</a><a class="btn btn-ghost" href="/ramadan/">Ramadan chart</a></div>
+  </div>
+</header>
+<section id="memory">
+  <div class="inner">
+    <h2>Find the pair</h2>
+    <p class="sec-intro">Turn two cards. If they show the same friend, you found a pair! In the Arabic game, match each animal with its Arabic name.</p>
+    <div class="mem">
+      <div class="mem-top">
+        <div class="mem-levels" role="group" aria-label="Game">
+          <button type="button" class="mem-level" data-level="little" aria-pressed="true">Little · 3 pairs</button>
+          <button type="button" class="mem-level" data-level="big" aria-pressed="false">Big · 6 pairs</button>
+          <button type="button" class="mem-level" data-level="arabic" aria-pressed="false">Arabic words</button>
+        </div>
+        <div class="mem-tools">
+          <button type="button" class="mem-tool" id="mem-sound" aria-pressed="false">Sound: off</button>
+          <button type="button" class="mem-tool" id="mem-restart">New game</button>
+        </div>
+      </div>
+      <div class="mem-score"><span>Moves <b id="mem-moves">0</b></span><span>Pairs <b id="mem-found">0 / 3</b></span></div>
+      <p class="mem-status" id="mem-status" aria-live="polite"></p>
+      <div class="mem-board" id="mem-board"></div>
+      <div class="mem-win" id="mem-win" hidden>
+        <div class="mem-stars" role="img"></div>
+        <h3>MashaAllah!</h3>
+        <p class="mem-sum"></p>
+        <button type="button" class="btn btn-gold" id="mem-again">Play again</button>
+      </div>
+      <div class="mem-confetti" id="mem-confetti" aria-hidden="true"></div>
+    </div>
+    <script type="application/json" id="memory-data">{json.dumps(mem_data, ensure_ascii=False)}</script>
+  </div>
+</section>
+{quiz_section()}
+"""
+page("/play/", f"Kids' corner · {SITE['series']}", "Free games for Muslim children with the Quran Animals: find the pair, a quiz and a Ramadan chart.",
+     play, "/play/", scripts='<script src="/assets/memory.js" defer></script>\n<script src="/assets/quiz.js" defer></script>\n')
+
 # Ramadan
 R = C["ramadan"]
 friends = {b["id"]: {"name": b["name"], "slug": b["slug"], "ar": b["ar"], "tint": b["tint"], "tint_dark": b["tint_dark"]} for b in BOOKS}
@@ -568,7 +633,7 @@ page("/404.html", f"Page not found · {SITE['series']}", SITE["seo"], f"""<heade
 """, "")
 
 # sitemap + robots
-urls = ["/", "/books/", "/ramadan/", "/shop/"] + [f"/books/{b['slug']}/" for b in BOOKS]
+urls = ["/", "/books/", "/play/", "/ramadan/", "/shop/"] + [f"/books/{b['slug']}/" for b in BOOKS]
 (ROOT / "sitemap.xml").write_text(
     '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     + "".join(f"  <url><loc>{SITE['domain']}{u}</loc></url>\n" for u in urls) + "</urlset>\n", encoding="utf-8")

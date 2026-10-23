@@ -124,7 +124,9 @@
       "quote_ref": "Quran 16:68",
       "seo": "Children's Islamic book about the bee mentioned in Surah An-Nahl. Teaches hard work and trust in Allah. Ages 5-8. Quran Animals Book 1 by Liliia Noor.",
       "amazon": "",
-      "print": ""
+      "print": "",
+      "tr": "Nahla",
+      "friend_img": "img/friends/bee.webp"
     },
     {
       "n": 2,
@@ -153,7 +155,9 @@
       "quote_ref": "Quran 5:31",
       "seo": "Children's Islamic book about the crow in Surah Al-Maidah. Teaches humility and learning from others. Ages 5-8. Quran Animals Book 2 by Liliia Noor.",
       "amazon": "",
-      "print": ""
+      "print": "",
+      "tr": "Ghuraab",
+      "friend_img": "img/friends/crow.webp"
     },
     {
       "n": 3,
@@ -182,7 +186,9 @@
       "quote_ref": "Quran 27:18",
       "seo": "Children's Islamic book about the ant in Surah An-Naml. Teaches caring for others. Ages 5-8. Quran Animals Book 3 by Liliia Noor.",
       "amazon": "",
-      "print": ""
+      "print": "",
+      "tr": "Namla",
+      "friend_img": "img/friends/ant.webp"
     },
     {
       "n": 4,
@@ -212,7 +218,9 @@
       "quote_ref": "Quran 105:1",
       "seo": "Children's Islamic book about the elephant in Surah Al-Fil. Teaches that all power belongs to Allah. Ages 5-8. Quran Animals Book 4 by Liliia Noor.",
       "amazon": "",
-      "print": ""
+      "print": "",
+      "tr": "Fil",
+      "friend_img": "img/friends/elephant.webp"
     },
     {
       "n": 5,
@@ -241,7 +249,9 @@
       "quote_ref": "Quran 27:30",
       "seo": "Children's Islamic book about the hoopoe in Surah An-Naml. Teaches honesty and courage. Ages 5-8. Quran Animals Book 5 by Liliia Noor.",
       "amazon": "",
-      "print": ""
+      "print": "",
+      "tr": "Hudhud",
+      "friend_img": "img/friends/hoopoe.webp"
     },
     {
       "n": 6,
@@ -270,7 +280,9 @@
       "quote_ref": "Quran 21:87",
       "seo": "Children's Islamic book about the whale and Prophet Yunus. Teaches hope and prayer. Ages 5-8. Quran Animals Book 6 by Liliia Noor.",
       "amazon": "",
-      "print": ""
+      "print": "",
+      "tr": "Hut",
+      "friend_img": ""
     },
     {
       "n": 7,
@@ -299,7 +311,9 @@
       "quote_ref": "Quran 29:41",
       "seo": "Children's Islamic book about the spider in Surah Al-Ankabut. Teaches trust in Allah. Ages 5-8. Quran Animals Book 7 by Liliia Noor.",
       "amazon": "",
-      "print": ""
+      "print": "",
+      "tr": "Ankabut",
+      "friend_img": "img/friends/spider.webp"
     }
   ],
   "coming_soon": [
