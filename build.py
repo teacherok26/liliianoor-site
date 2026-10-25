@@ -42,9 +42,9 @@ def head(title, description, path, image="img/bee.webp", extra=""):
 <link rel="icon" href="/img/bee.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Baloo+2:wght@600;800&family=Nunito:wght@400;600;700;800&family=Amiri:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Nunito:wght@400;600;700;800&family=Amiri:wght@400;700&display=swap">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/assets/kids.css">
+<link rel="stylesheet" href="/assets/theme.css">
 {extra}</head>
 <body>
 {SPRITE}
@@ -269,10 +269,8 @@ chips = (f'<ul class="meta-chips"><li>Ages {e(SITE["ages"])}</li><li>{e(SITE["la
          f'<li>{len(BOOKS)} books · more coming</li></ul>')
 b1 = BOOKS[0]
 
-HERO_DOODLES = doodles(("sun", "d-sun"), ("cloud", "d-cloud c1"), ("cloud", "d-cloud c2"), ("trail", "d-trail"), ("bee", "d-bee"),
-                       ("star", "d-star", "top:76%;left:47%"), ("star", "d-star", "top:70%;left:4%;animation-delay:1s"),
-                       ("heart", "d-heart", "top:12%;left:58%"), ("flower", "d-flower", "bottom:30px;right:8%;z-index:2"),
-                       ("flower", "d-flower", "bottom:40px;left:12%;z-index:2;width:30px"))
+HERO_DOODLES = doodles(("star", "d-star", "top:12%;left:47%"), ("star", "d-star", "top:82%;left:50%;animation-delay:1.3s"),
+                       ("star", "d-star", "top:8%;right:5%;animation-delay:2.1s"), ("star", "d-star", "bottom:10%;left:3%;animation-delay:.6s"))
 home = f"""<header class="hero" id="top">
   {HERO_DOODLES}
   <div class="inner">

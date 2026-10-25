@@ -257,7 +257,7 @@
       "n": 6,
       "slug": "nun-the-whale",
       "id": "whale",
-      "cover": "",
+      "cover": "img/whale.webp",
       "name": "Nun the Whale",
       "lesson": "Never Lose Hope",
       "animal": "Whale",
@@ -282,7 +282,7 @@
       "amazon": "https://www.amazon.fr/dp/B0H8Z5VRF1",
       "print": "",
       "tr": "Hut",
-      "friend_img": ""
+      "friend_img": "img/friends/whale.webp"
     },
     {
       "n": 7,
