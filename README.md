@@ -19,7 +19,7 @@ This regenerates the pages:
 
 Plus `/play/`, `/ramadan/`, `/legal/` (mentions légales), `/privacy/`, `404.html`, `sitemap.xml` and `robots.txt`. Legal details live in `legal` in `content.json`.
 
-- `assets/` — shared styles and scripts (quiz, shipping calculator, memory game, Ramadan chart); `assets/fonts/` self-hosted fonts.
+- `assets/` — shared styles and scripts (quiz, shipping calculator, memory game, Ramadan chart, Alif Ba); `assets/fonts/` self-hosted fonts.
 - `img/` — book covers; `img/gallery/` children's drawings; `img/activity/` activity book covers.
 
 ## Things to fill in `content.json`

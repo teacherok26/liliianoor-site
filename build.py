@@ -370,6 +370,7 @@ home = f"""<header class="hero" id="top">
     <h2>Play with the Quran Animals</h2>
     <p class="sec-intro">Games for little readers, safe to play with no ads and nothing to buy.</p>
     <div class="play-tiles">
+      <a class="play-tile" href="/alphabet/"><span class="tile-ar" lang="ar" aria-hidden="true">أ ب</span><strong>Alif Ba</strong><span>Learn the Arabic letters and trace them with your finger.</span></a>
       <a class="play-tile" href="/play/#memory"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#star"/></svg><strong>Find the pair</strong><span>Turn the cards and match the animal friends.</span></a>
       <a class="play-tile" href="/play/#quiz"><svg viewBox="0 0 24 22" aria-hidden="true"><use href="#heart"/></svg><strong>Who is my animal friend?</strong><span>A six-question quiz about the books.</span></a>
       <a class="play-tile" href="/ramadan/"><svg viewBox="0 0 120 100" aria-hidden="true"><use href="#bee"/></svg><strong>Ramadan chart</strong><span>A good deed every day. Fill Nur's honey jar!</span></a>
@@ -563,7 +564,7 @@ play = f"""<header class="play-hero" id="top">
     <div class="eyebrow">Kids' corner</div>
     <h1>Let's play!</h1>
     <p class="lede">Games with Nur, Namla, Hudhud and all the animal friends. Play together with a grown-up.</p>
-    <div class="cta"><a class="btn btn-gold" href="#memory">Find the pair</a><a class="btn btn-ghost" href="#quiz">Quiz</a><a class="btn btn-ghost" href="/ramadan/">Ramadan chart</a></div>
+    <div class="cta"><a class="btn btn-gold" href="/alphabet/">Alif Ba</a><a class="btn btn-ghost" href="#memory">Find the pair</a><a class="btn btn-ghost" href="#quiz">Quiz</a><a class="btn btn-ghost" href="/ramadan/">Ramadan chart</a></div>
   </div>
 </header>
 <section id="memory">
@@ -600,6 +601,55 @@ play = f"""<header class="play-hero" id="top">
 """
 page("/play/", f"Kids' corner · {SITE['series']}", "Free games for Muslim children with the Quran Animals: find the pair, a quiz and a Ramadan chart.",
      play, "/play/", scripts='<script src="/assets/memory.js" defer></script>\n<script src="/assets/quiz.js" defer></script>\n')
+
+# Alif Ba
+AB = C["alphabet"]
+ab_data = {"audio": AB["audio"], "letters": AB["letters"],
+           "friends": {b["id"]: {"name": b["name"], "slug": b["slug"], "img": b["friend_img"]} for b in BOOKS}}
+alphabet = f"""<header class="play-hero" id="top">
+  {doodles(("star", "d-star", "top:30%;left:55%"), ("bee", "d-bee"))}
+  <div class="inner">
+    <div class="eyebrow">Kids' corner · Arabic letters</div>
+    <h1>Alif Ba with the Quran Animals</h1>
+    <p class="lede">Meet the 28 letters of the Arabic alphabet. See how each one looks, find it in a word with our animal friends, and trace it with your finger.</p>
+    <div class="ab-progress" id="ab-progress" aria-live="polite"></div>
+  </div>
+</header>
+<section id="ab-app">
+  <div class="inner">
+    <div class="ab-main">
+      <div class="ab-card" id="ab-letter" aria-live="polite"></div>
+      <div class="ab-card ab-trace" id="ab-trace">
+        <p class="label">Trace the letter</p>
+        <div class="ab-canvas-wrap">
+          <canvas id="ab-canvas" aria-label="Tracing area. Draw the letter with your finger or mouse."></canvas>
+          <div class="ab-burst" id="ab-burst" aria-hidden="true"></div>
+        </div>
+        <p class="ab-feedback" id="ab-feedback" aria-live="polite"></p>
+        <div class="cta">
+          <button type="button" class="btn btn-ghost" data-act="clear">Clear</button>
+          <button type="button" class="btn btn-gold" data-act="next-letter">Next letter</button>
+        </div>
+      </div>
+    </div>
+    <h2 style="margin-top:48px">All 28 letters</h2>
+    <p class="sec-intro">Arabic is read from right to left, so the alphabet starts at the top right. Tap a letter to learn it. A star means you traced it.</p>
+    <div class="ab-grid" id="ab-grid" dir="rtl"></div>
+    <div class="ab-tools"><span class="soon">Stars are saved on this device only.</span><span id="ab-reset"></span></div>
+  </div>
+</section>
+<section class="band" id="find-letter">
+  <div class="inner">
+    <h2>Find the letter</h2>
+    <p class="sec-intro">Read the name, then tap the right letter. Watch out for letters that look alike!</p>
+    <div class="quiz" id="ab-game" aria-live="polite"></div>
+  </div>
+</section>
+<script type="application/json" id="ab-data">{json.dumps(ab_data, ensure_ascii=False)}</script>
+"""
+page("/alphabet/", f"Alif Ba · Arabic alphabet for kids · {SITE['series']}",
+     "Learn the Arabic alphabet with the Quran Animals: 28 letters, their forms, words with animal friends and finger tracing. Free for children.",
+     alphabet, "/play/", scripts='<script src="/assets/alphabet.js" defer></script>\n')
 
 # Ramadan
 R = C["ramadan"]
@@ -745,7 +795,7 @@ page("/404.html", f"Page not found · {SITE['series']}", SITE["seo"], f"""<heade
 """, "")
 
 # sitemap + robots
-urls = ["/", "/books/", "/play/", "/ramadan/", "/shop/", "/legal/", "/privacy/"] + [f"/books/{b['slug']}/" for b in BOOKS]
+urls = ["/", "/books/", "/play/", "/alphabet/", "/ramadan/", "/shop/", "/legal/", "/privacy/"] + [f"/books/{b['slug']}/" for b in BOOKS]
 (ROOT / "sitemap.xml").write_text(
     '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     + "".join(f"  <url><loc>{SITE['domain']}{u}</loc></url>\n" for u in urls) + "</urlset>\n", encoding="utf-8")
