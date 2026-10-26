@@ -293,6 +293,8 @@ def page(path, title, description, body, current, image="img/bee.webp", extra_he
     out = ROOT / path.lstrip("/") / "index.html" if path.endswith("/") else ROOT / path.lstrip("/")
     out.parent.mkdir(parents=True, exist_ok=True)
     html = head(title, description, path, image, extra_head) + nav(current) + body + footer() + scripts + "</body>\n</html>\n"
+    if path == "/bookmarks/":
+        html = html.replace("<body>", '<body class="bm-page">', 1)
     out.write_text(html, encoding="utf-8")
 
 
@@ -370,6 +372,7 @@ home = f"""<header class="hero" id="top">
     <h2>Play with the Quran Animals</h2>
     <p class="sec-intro">Games for little readers, safe to play with no ads and nothing to buy.</p>
     <div class="play-tiles">
+      <a class="play-tile" href="/bookmarks/"><svg viewBox="0 0 24 22" aria-hidden="true"><use href="#heart"/></svg><strong>Bookmarks</strong><span>Pick your favourite friends and print your own bookmarks.</span></a>
       <a class="play-tile" href="/alphabet/"><span class="tile-ar" lang="ar" aria-hidden="true">أ ب</span><strong>Alif Ba</strong><span>Learn the Arabic letters and trace them with your finger.</span></a>
       <a class="play-tile" href="/play/#memory"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#star"/></svg><strong>Find the pair</strong><span>Turn the cards and match the animal friends.</span></a>
       <a class="play-tile" href="/play/#quiz"><svg viewBox="0 0 24 22" aria-hidden="true"><use href="#heart"/></svg><strong>Who is my animal friend?</strong><span>A six-question quiz about the books.</span></a>
@@ -564,7 +567,7 @@ play = f"""<header class="play-hero" id="top">
     <div class="eyebrow">Kids' corner</div>
     <h1>Let's play!</h1>
     <p class="lede">Games with Nur, Namla, Hudhud and all the animal friends. Play together with a grown-up.</p>
-    <div class="cta"><a class="btn btn-gold" href="/alphabet/">Alif Ba</a><a class="btn btn-ghost" href="#memory">Find the pair</a><a class="btn btn-ghost" href="#quiz">Quiz</a><a class="btn btn-ghost" href="/ramadan/">Ramadan chart</a></div>
+    <div class="cta"><a class="btn btn-gold" href="/alphabet/">Alif Ba</a><a class="btn btn-ghost" href="/bookmarks/">Bookmarks</a><a class="btn btn-ghost" href="#memory">Find the pair</a><a class="btn btn-ghost" href="#quiz">Quiz</a><a class="btn btn-ghost" href="/ramadan/">Ramadan chart</a></div>
   </div>
 </header>
 <section id="memory">
@@ -601,6 +604,92 @@ play = f"""<header class="play-hero" id="top">
 """
 page("/play/", f"Kids' corner · {SITE['series']}", "Free games for Muslim children with the Quran Animals: find the pair, a quiz and a Ramadan chart.",
      play, "/play/", scripts='<script src="/assets/memory.js" defer></script>\n<script src="/assets/quiz.js" defer></script>\n')
+
+# Bookmarks to print
+BY_ID = {b["id"]: b for b in BOOKS}
+
+
+def bookmark(m):
+    who = '<div class="bm-fill" aria-hidden="true"></div><div class="bm-own">This bookmark belongs to<span class="bm-name"></span></div><div class="bm-site">liliianoor.com</div>'
+    if m.get("friend"):
+        b = BY_ID[m["friend"]]
+        ref = f'<cite>{e(m["ref"])}</cite>' if m["ref"] else ""
+        return f"""<div class="bm tinted" style="--t-l:{b['tint']};--t-d:{b['tint']}">
+        <div class="bm-hole"></div>
+        <div class="bm-pic"><img src="/{e(b['friend_img'])}" alt=""></div>
+        <div class="bm-ar" lang="ar">{b['ar']}</div>
+        <div class="bm-title">{e(b['name'])}</div>
+        <div class="bm-sub">{e(b['lesson'])}</div>
+        <p class="bm-line">“{e(m['line'])}”{ref}</p>
+        {who}</div>"""
+    if m["kind"] == "malik":
+        return f"""<div class="bm tinted" style="--t-l:{m['tint']};--t-d:{m['tint']}">
+        <div class="bm-hole"></div>
+        <div class="bm-pic"><img src="/{e(m['img'])}" alt="" style="object-position:30% 40%"></div>
+        <div class="bm-kicker">Les questions de</div>
+        <div class="bm-title">{e(m['title'])}</div>
+        <div class="bm-sub">{e(m['sub'])}</div>
+        <p class="bm-line">{e(m['line'])}</p>
+        {who}</div>"""
+    if m["kind"] == "ramadan":
+        stars = "".join(f'<span><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#star"/></svg><b>{i}</b></span>' for i in range(1, 31))
+        return f"""<div class="bm bm-night">
+        <div class="bm-hole"></div>
+        <div class="bm-moon" aria-hidden="true"></div>
+        <div class="bm-title">{e(m['title'])}</div>
+        <div class="bm-sub">{e(m['sub'])}</div>
+        <div class="bm-stars">{stars}</div>
+        <p class="bm-line">{e(m['line'])}</p>
+        {who}</div>"""
+    letters = "".join(f'<span lang="ar">{l["ch"]}</span>' for l in C["alphabet"]["letters"])
+    return f"""<div class="bm bm-letters">
+        <div class="bm-hole"></div>
+        <div class="bm-title">{e(m['title'])}</div>
+        <div class="bm-sub">{e(m['sub'])}</div>
+        <div class="bm-abc" dir="rtl">{letters}</div>
+        {who}</div>"""
+
+
+picks = "".join(f"""
+      <div class="bm-card" data-id="{e(m['id'])}">
+        {bookmark(m)}
+        <button type="button" class="bm-pick" aria-pressed="false" data-id="{e(m['id'])}">Pick this one</button>
+      </div>""" for m in C["bookmarks"])
+bookmarks_page = f"""<header class="play-hero" id="top">
+  {doodles(("star", "d-star", "top:28%;left:58%"), ("bee", "d-bee"))}
+  <div class="inner">
+    <div class="eyebrow">Kids' corner · Print at home</div>
+    <h1>Make your own bookmarks</h1>
+    <p class="lede">Pick your favourite friends, write your name, and ask a grown-up to print them. Then cut them out and keep your place in every story!</p>
+  </div>
+</header>
+<section id="bm-app">
+  <div class="inner">
+    <div class="bm-bar">
+      <label class="name-field" for="bm-name-input"><span>Your name</span>
+        <input id="bm-name-input" type="text" maxlength="18" placeholder="For example: Amina" autocomplete="off"></label>
+      <div class="bm-actions">
+        <span class="bm-count" id="bm-count" aria-live="polite">Pick the bookmarks you like</span>
+        <button type="button" class="btn btn-gold" id="bm-print">Print my bookmarks</button>
+      </div>
+    </div>
+    <div class="bm-gallery" id="bm-gallery">{picks}
+    </div>
+    <div class="bm-tips">
+      <h3>For grown-ups</h3>
+      <ul>
+        <li>Print on A4 paper, three bookmarks per page. Thick paper (200 g or more) works best.</li>
+        <li>In the print window, choose "Portrait" and switch "Fit to page" off (scale 100%) so the bookmarks keep their size: 5 × 18 cm.</li>
+        <li>Cut along the dotted lines. Punch the little circle and add a ribbon if you like.</li>
+        <li>Nothing you type here is sent anywhere. The name is only used to print the bookmarks.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+"""
+page("/bookmarks/", f"Printable bookmarks for kids · {SITE['series']}",
+     "Free printable bookmarks with the Quran Animals, Malik, a Ramadan reading tracker and the Arabic alphabet. Pick, add a name and print.",
+     bookmarks_page, "/play/", scripts='<script src="/assets/bookmarks.js" defer></script>\n')
 
 # Alif Ba
 AB = C["alphabet"]
@@ -795,7 +884,7 @@ page("/404.html", f"Page not found · {SITE['series']}", SITE["seo"], f"""<heade
 """, "")
 
 # sitemap + robots
-urls = ["/", "/books/", "/play/", "/alphabet/", "/ramadan/", "/shop/", "/legal/", "/privacy/"] + [f"/books/{b['slug']}/" for b in BOOKS]
+urls = ["/", "/books/", "/play/", "/alphabet/", "/bookmarks/", "/ramadan/", "/shop/", "/legal/", "/privacy/"] + [f"/books/{b['slug']}/" for b in BOOKS]
 (ROOT / "sitemap.xml").write_text(
     '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     + "".join(f"  <url><loc>{SITE['domain']}{u}</loc></url>\n" for u in urls) + "</urlset>\n", encoding="utf-8")

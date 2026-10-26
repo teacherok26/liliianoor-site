@@ -932,5 +932,73 @@
         "also": null
       }
     ]
-  }
+  },
+  "bookmarks": [
+    {
+      "id": "bee",
+      "friend": "bee",
+      "line": "And your Lord inspired the bee...",
+      "ref": "Quran 16:68"
+    },
+    {
+      "id": "crow",
+      "friend": "crow",
+      "line": "Wisdom can come from the most unexpected places.",
+      "ref": ""
+    },
+    {
+      "id": "ant",
+      "friend": "ant",
+      "line": "Even the smallest voice matters to Allah.",
+      "ref": ""
+    },
+    {
+      "id": "elephant",
+      "friend": "elephant",
+      "line": "True strength belongs only to Allah.",
+      "ref": ""
+    },
+    {
+      "id": "hoopoe",
+      "friend": "hoopoe",
+      "line": "Honesty is always the right path.",
+      "ref": ""
+    },
+    {
+      "id": "whale",
+      "friend": "whale",
+      "line": "Never lose hope in Allah.",
+      "ref": ""
+    },
+    {
+      "id": "spider",
+      "friend": "spider",
+      "line": "True protection comes only from Allah.",
+      "ref": ""
+    },
+    {
+      "id": "malik",
+      "kind": "malik",
+      "title": "Malik",
+      "sub": "Why do we fast in Ramadan?",
+      "line": "Ask big questions. Learn with a happy heart.",
+      "img": "img/friends/malik.webp",
+      "tint": "#4f7a66",
+      "tint_dark": "#8cc9a8"
+    },
+    {
+      "id": "ramadan",
+      "kind": "ramadan",
+      "title": "My Ramadan",
+      "sub": "Colour a star for every day you read",
+      "line": "Ramadan Mubarak!"
+    },
+    {
+      "id": "alifba",
+      "kind": "alifba",
+      "title": "Alif Ba",
+      "sub": "The Arabic alphabet",
+      "line": ""
+    }
+  ]
 }
