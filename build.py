@@ -196,6 +196,35 @@ def coming_soon():
     </div>"""
 
 
+def more_card(m):
+    series = f'<span class="more-series">{e(m["series"])}</span>' if m["series"] else ""
+    return f"""<article class="more-book" id="{e(m['id'])}">
+      <div class="more-cover"><img src="/{e(m['img'])}" alt="Cover of {e(m['title'])}" loading="lazy"></div>
+      <div class="more-body">
+        <span class="tag">Coming soon</span>
+        <span class="more-kind">{e(m['kind'])}</span>
+        {series}
+        <h3 lang="fr">{e(m['title'])}</h3>
+        <p class="more-en">{e(m['title_en'])}</p>
+        <p>{e(m['about'])}</p>
+        <div class="cta"><a class="btn btn-ghost" href="/#notify">Notify me when it's out</a></div>
+      </div>
+    </article>"""
+
+
+def more_section(band=False):
+    cls = ' class="band"' if band else ""
+    return f"""<section{cls} id="more-books">
+  <div class="inner">
+    <div class="eyebrow">Also by {e(SITE['author'])}</div>
+    <h2>New books on the way</h2>
+    <p class="sec-intro">A new children's series and a book for mothers, both written in French.</p>
+    <div class="more-grid">{"".join(more_card(m) for m in C["more_books"])}</div>
+  </div>
+</section>
+"""
+
+
 def buy_buttons(b):
     if b.get("status") == "soon":
         return """<div class="buybox">
@@ -334,6 +363,7 @@ home = f"""<header class="hero" id="top">
   </div>
 </section>
 
+{more_section()}
 <section id="play">
   <div class="inner">
     <div class="eyebrow">Kids' corner</div>
@@ -353,7 +383,7 @@ home = f"""<header class="hero" id="top">
     <div>
       <div class="eyebrow">About the author</div>
       <h2>{e(SITE['author'])}</h2>
-      <p class="author-role">Teacher for 18 years · mother · author of the {e(SITE['series'])} series</p>
+      <p class="author-role">Teacher for 18 years · mother · author of books for children and families</p>
       {"".join(f"<p>{e(x)}</p>" for x in SITE['author_bio'])}
       <blockquote class="author-quote">“{e(SITE['author_quote'])}”</blockquote>
     </div>
@@ -379,7 +409,7 @@ books_page = f"""<header class="inner" id="top" style="padding-block:48px 8px">
     {coming_soon()}
   </div>
 </section>
-"""
+{more_section()}"""
 page("/books/", f"All books · {SITE['series']}", SITE["seo"], books_page, "/books/")
 
 for i, b in enumerate(BOOKS):
@@ -615,6 +645,7 @@ ramadan = f"""<header class="ram-hero" id="top">
       <p class="dua-en">“{e(fd['en'])}”</p>
       <p class="dua-ref">{e(fd['ref'])}</p>
     </div>
+    <div class="more-grid" style="max-width:760px;margin-top:28px">{more_card(C["more_books"][0])}</div>
     <div class="signup" style="max-width:760px">
       <h3>A printable Ramadan activity book is coming</h3>
       <p>Get an email when new books and activity books are released.</p>

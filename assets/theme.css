@@ -200,3 +200,17 @@ footer a { color: inherit; }
   font-family: var(--font-display); font-size: clamp(1.2rem, 2.6vw, 1.45rem); line-height: 1.4; color: var(--ink); }
 .soon-tag { color: var(--gilt); }
 .soon-title { margin: 0; font-family: var(--font-display); font-size: 1.4rem; color: var(--ink); }
+
+/* Other books by the author */
+.more-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr)); }
+.more-book { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 22px; align-items: start; background: var(--surface);
+  border: 1px solid var(--line); border-radius: 18px; padding: 20px; box-shadow: var(--shadow); }
+@media (max-width: 520px) { .more-book { grid-template-columns: 1fr; } .more-cover { max-width: 220px; } }
+.more-cover img { display: block; width: 100%; border-radius: 10px; box-shadow: 0 14px 30px -18px rgba(40, 30, 70, .5); }
+.more-body { display: grid; gap: 6px; align-content: start; justify-items: start; min-width: 0; }
+.more-body h3 { font-family: var(--font-display); font-weight: 400; font-size: 1.45rem; line-height: 1.15; margin: 2px 0 0; }
+.more-body p { margin: 0; color: var(--muted); font-size: 15px; }
+.more-body .cta { margin-top: 8px; }
+.more-kind { font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+.more-series { font-weight: 700; color: var(--gilt); }
+.more-en { font-style: italic; }

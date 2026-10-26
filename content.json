@@ -564,5 +564,27 @@
     "phone": "+33 6 12 57 70 26",
     "vat": "TVA non applicable, art. 293 B du CGI",
     "updated": "26 octobre 2026"
-  }
+  },
+  "more_books": [
+    {
+      "id": "malik-ramadan",
+      "series": "Les questions de Malik",
+      "kind": "New children's series · in French",
+      "title": "Pourquoi faisons-nous le Ramadan ?",
+      "title_en": "Why do we fast in Ramadan?",
+      "about": "Malik is a curious little boy with big questions about his faith. In the first book of this new series, he wonders why Muslims fast in Ramadan.",
+      "img": "img/malik-ramadan.webp",
+      "status": "soon"
+    },
+    {
+      "id": "yasmin",
+      "series": "",
+      "kind": "For mothers · in French",
+      "title": "Yasmin — Je n'étais pas prête.",
+      "title_en": "I wasn't ready. A letter to myself from my maternity leave",
+      "about": "A heartfelt letter from a young Muslim mother to herself, written during her maternity leave.",
+      "img": "img/yasmin.webp",
+      "status": "soon"
+    }
+  ]
 }
