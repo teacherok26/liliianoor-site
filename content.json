@@ -40,10 +40,10 @@
       "url": ""
     },
     {
-      "books": 7,
-      "price": 86.5,
+      "books": 6,
+      "price": 74.0,
       "name": "The whole series",
-      "about": "All seven Quran Animals books, signed by the author.",
+      "about": "All six books available now, signed by the author.",
       "url": ""
     }
   ],
@@ -132,7 +132,8 @@
       "amazon": "https://www.amazon.fr/dp/B0H4DCCJZG",
       "print": "",
       "tr": "Nahla",
-      "friend_img": "img/friends/bee.webp"
+      "friend_img": "img/friends/bee.webp",
+      "status": "available"
     },
     {
       "n": 2,
@@ -163,7 +164,8 @@
       "amazon": "https://amzn.eu/d/0c8wRA5X",
       "print": "",
       "tr": "Ghuraab",
-      "friend_img": "img/friends/crow.webp"
+      "friend_img": "img/friends/crow.webp",
+      "status": "available"
     },
     {
       "n": 3,
@@ -194,7 +196,8 @@
       "amazon": "https://www.amazon.fr/dp/B0H4KT3RMT",
       "print": "",
       "tr": "Namla",
-      "friend_img": "img/friends/ant.webp"
+      "friend_img": "img/friends/ant.webp",
+      "status": "available"
     },
     {
       "n": 4,
@@ -226,7 +229,8 @@
       "amazon": "https://amzn.eu/d/05OAIh7G",
       "print": "",
       "tr": "Fil",
-      "friend_img": "img/friends/elephant.webp"
+      "friend_img": "img/friends/elephant.webp",
+      "status": "available"
     },
     {
       "n": 5,
@@ -257,7 +261,8 @@
       "amazon": "https://www.amazon.fr/dp/B0H6PQ2WP1",
       "print": "",
       "tr": "Hudhud",
-      "friend_img": "img/friends/hoopoe.webp"
+      "friend_img": "img/friends/hoopoe.webp",
+      "status": "available"
     },
     {
       "n": 6,
@@ -288,7 +293,8 @@
       "amazon": "https://www.amazon.fr/dp/B0H8Z5VRF1",
       "print": "",
       "tr": "Hut",
-      "friend_img": "img/friends/whale.webp"
+      "friend_img": "img/friends/whale.webp",
+      "status": "available"
     },
     {
       "n": 7,
@@ -319,7 +325,8 @@
       "amazon": "",
       "print": "",
       "tr": "Ankabut",
-      "friend_img": "img/friends/spider.webp"
+      "friend_img": "img/friends/spider.webp",
+      "status": "soon"
     }
   ],
   "coming_soon": [

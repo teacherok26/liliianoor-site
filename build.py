@@ -159,7 +159,7 @@ def card(b):
     return f"""<a class="book tinted" href="/books/{b['slug']}/" {tint(b)}>
       {cover(b)}
       <div class="info">
-        <div class="meta"><span class="num">Book {b['n']}</span><span class="ar" lang="ar">{b['ar']}</span></div>
+        <div class="meta"><span class="num">Book {b['n']}{' · <span class="soon-tag">Coming soon</span>' if b.get('status') == 'soon' else ''}</span><span class="ar" lang="ar">{b['ar']}</span></div>
         <h3>{e(b['name'])}</h3>
         <p class="lesson">{e(b['lesson'])}</p>
         <p class="hook">{e(b['hook'])}</p>
@@ -197,6 +197,12 @@ def coming_soon():
 
 
 def buy_buttons(b):
+    if b.get("status") == "soon":
+        return """<div class="buybox">
+        <p class="soon-title">Coming soon</p>
+        <p class="alt">This book is still being written. Leave your email to hear the day it comes out.</p>
+        <div class="cta"><a class="btn btn-gold" href="/#notify">Notify me</a></div>
+      </div>"""
     if b["amazon"]:
         amazon = f'<a class="btn btn-gold" href="{e(b["amazon"])}" target="_blank" rel="noopener">Buy on Amazon</a>'
     elif C["amazon_series"]:
@@ -265,7 +271,7 @@ def page(path, title, description, body, current, image="img/bee.webp", extra_he
 
 features = "".join(f"<li>{e(f)}</li>" for f in SITE["features"])
 chips = (f'<ul class="meta-chips"><li>Ages {e(SITE["ages"])}</li><li>{e(SITE["languages"])}</li>'
-         f'<li>{len(BOOKS)} books · more coming</li></ul>')
+         f'<li>{sum(b.get("status") != "soon" for b in BOOKS)} books · more coming</li></ul>')
 b1 = BOOKS[0]
 
 HERO_DOODLES = doodles(("star", "d-star", "top:12%;left:47%"), ("star", "d-star", "top:82%;left:50%;animation-delay:1.3s"),
@@ -398,7 +404,7 @@ for i, b in enumerate(BOOKS):
 <main class="inner bookpage tinted" {tint(b)}>
   {cover(b, eager=True)}
   <div>
-    <div class="eyebrow">{e(SITE['series'])} · Book {b['n']}</div>
+    <div class="eyebrow">{e(SITE['series'])} · Book {b['n']}{' · Coming soon' if b.get('status') == 'soon' else ''}</div>
     <h1>{e(b['name'])}</h1>
     <p class="lesson">{e(b['lesson'])}</p>
     <ul class="meta-chips">
