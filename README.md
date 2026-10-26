@@ -17,9 +17,9 @@ This regenerates the pages:
 | One page per book | `books/<slug>/index.html` |
 | Shop + shipping calculator | `shop/index.html` |
 
-Plus `404.html`, `sitemap.xml` and `robots.txt`.
+Plus `/play/`, `/ramadan/`, `/legal/` (mentions légales), `/privacy/`, `404.html`, `sitemap.xml` and `robots.txt`. Legal details live in `legal` in `content.json`.
 
-- `assets/` — shared styles and scripts (quiz, shipping calculator).
+- `assets/` — shared styles and scripts (quiz, shipping calculator, memory game, Ramadan chart); `assets/fonts/` self-hosted fonts.
 - `img/` — book covers; `img/gallery/` children's drawings; `img/activity/` activity book covers.
 
 ## Things to fill in `content.json`

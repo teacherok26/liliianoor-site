@@ -40,9 +40,7 @@ def head(title, description, path, image="img/bee.webp", extra=""):
 <meta property="og:url" content="{url}">
 <meta property="og:image" content="{SITE['domain']}/{image}">
 <link rel="icon" href="/img/bee.webp">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Nunito:wght@400;600;700;800&family=Amiri:wght@400;700&display=swap">
+<link rel="stylesheet" href="/assets/fonts.css">
 <link rel="stylesheet" href="/assets/style.css">
 <link rel="stylesheet" href="/assets/theme.css">
 {extra}</head>
@@ -141,7 +139,7 @@ def footer():
         social.append(f'<a href="mailto:{e(ct["email"])}">{e(ct["email"])}</a>')
     return f"""<footer>
   <div class="inner">
-    <span>© 2026 {e(SITE['author'])} · {e(SITE['series'])}</span>
+    <span>© 2026 {e(SITE['author'])} · {e(SITE['series'])} · <a href="/legal/">Legal notice</a> · <a href="/privacy/">Privacy</a></span>
     <div class="social">{"".join(social)}</div>
     <a href="#top">Back to top</a>
   </div>
@@ -194,6 +192,7 @@ def coming_soon():
       <h3>Be the first to meet the new friends</h3>
       <p>Sign up to be notified when new books are released.</p>
       {form}
+      <p class="consent">We only use your email to tell you about new books. You can unsubscribe at any time. <a href="/privacy/">Privacy policy</a></p>
     </div>"""
 
 
@@ -621,6 +620,83 @@ page("/ramadan/", f"Ramadan good deeds chart for kids · {SITE['series']}",
      "A free Ramadan chart for Muslim children: a good deed and a dua for each of the 30 days. Fill Nur the Bee's honey jar!",
      ramadan, "/ramadan/", scripts='<script src="/assets/ramadan.js" defer></script>\n')
 
+# Legal notice and privacy policy (French law; French text is the reference, with an English summary)
+L = C["legal"]
+legal = f"""<header class="inner" id="top" style="padding-block:48px 8px">
+  <div class="eyebrow">Mentions légales · Legal notice</div>
+  <h1>Mentions légales</h1>
+  <p class="lede">Informations légales sur le site liliianoor.com, conformément à la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique (LCEN).</p>
+</header>
+<section style="padding-top:24px">
+  <div class="inner prose">
+    <h3>Éditeur du site</h3>
+    <p>{e(L['name'])} {e(L['status'])} (entrepreneur individuel), autrice publiant sous le nom de plume « {e(L['pen_name'])} »<br>
+      Adresse : {e(L['address'])}<br>
+      SIRET : {e(L['siret'])}<br>
+      E-mail : <span class="copy">{e(L['email'])}</span><br>
+      Téléphone : {e(L['phone'])}<br>
+      {e(L['vat'])}</p>
+    <h3>Directrice de la publication</h3>
+    <p>{e(L['name'])}</p>
+    <h3>Hébergement</h3>
+    <p>GitHub, Inc. (service GitHub Pages)<br>88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis<br>https://github.com</p>
+    <h3>Propriété intellectuelle</h3>
+    <p>Les textes, illustrations, couvertures et personnages de la série {e(SITE['series'])} sont la propriété de {e(L['pen_name'])}. Toute reproduction, totale ou partielle, sans autorisation écrite préalable est interdite.</p>
+    <h3>Liens vers d'autres sites</h3>
+    <p>Le site contient des liens vers Amazon et vers d'autres boutiques en ligne. Les achats effectués sur ces sites sont régis par leurs propres conditions de vente et politiques de confidentialité.</p>
+    <h3>Données personnelles</h3>
+    <p>Voir la <a href="/privacy/">politique de confidentialité</a>.</p>
+    <p class="soon">Dernière mise à jour : {e(L['updated'])}</p>
+    <hr>
+    <h3>In English</h3>
+    <p>This website is published by {e(L['name'])} {e(L['status'])}, a sole trader registered in France (SIRET {e(L['siret'])}), writing as {e(L['pen_name'])}. Address: {e(L['address'])}. Contact: {e(L['email'])}, {e(L['phone'])}. The site is hosted by GitHub, Inc. (GitHub Pages), San Francisco, USA. All texts and illustrations of the {e(SITE['series'])} series belong to {e(L['pen_name'])} and may not be copied without written permission.</p>
+  </div>
+</section>
+"""
+page("/legal/", f"Mentions légales · {SITE['series']}", f"Legal notice for liliianoor.com, the website of the {SITE['series']} series by {SITE['author']}.", legal, "")
+
+privacy = f"""<header class="inner" id="top" style="padding-block:48px 8px">
+  <div class="eyebrow">Politique de confidentialité · Privacy policy</div>
+  <h1>Politique de confidentialité</h1>
+  <p class="lede">Ce site collecte le moins de données possible. Les jeux, la page Ramadan et la boutique ne nous transmettent aucune donnée personnelle.</p>
+</header>
+<section style="padding-top:24px">
+  <div class="inner prose">
+    <h3>Responsable du traitement</h3>
+    <p>{e(L['name'])} {e(L['status'])}, {e(L['address'])}. Contact : <span class="copy">{e(L['email'])}</span></p>
+
+    <h3>Inscription aux nouveautés</h3>
+    <p>Si vous laissez votre adresse e-mail dans le formulaire « Notify me », nous l'utilisons uniquement pour vous informer de la sortie de nouveaux livres et cahiers d'activités.</p>
+    <ul>
+      <li><b>Base légale :</b> votre consentement (article 6.1.a du RGPD).</li>
+      <li><b>Prestataire :</b> le formulaire est traité par Formspree, Inc. (États-Unis). Vos données peuvent donc être transférées hors de l'Union européenne.</li>
+      <li><b>Durée de conservation :</b> jusqu'à votre désinscription.</li>
+      <li><b>Désinscription :</b> à tout moment, par simple e-mail à {e(L['email'])} ou via le lien présent dans nos e-mails.</li>
+    </ul>
+
+    <h3>Jeux, quiz et calendrier du Ramadan</h3>
+    <p>Les jeux et le calendrier des bonnes actions enregistrent leur progression (par exemple le prénom saisi et les jours cochés) uniquement dans le navigateur de votre appareil (stockage local). Ces informations ne nous sont jamais envoyées. Vous pouvez les effacer à tout moment en vidant les données du site dans votre navigateur. Aucune donnée n'est demandée aux enfants.</p>
+
+    <h3>Cookies et statistiques</h3>
+    <p>Ce site n'utilise ni cookies publicitaires, ni outils de mesure d'audience, ni publicité. Les polices de caractères sont hébergées sur ce site et ne font appel à aucun service tiers.</p>
+
+    <h3>Hébergement</h3>
+    <p>Le site est hébergé par GitHub, Inc. (GitHub Pages), qui peut enregistrer des données techniques de connexion, comme l'adresse IP, pour assurer la sécurité du service. Voir la politique de confidentialité de GitHub.</p>
+
+    <h3>Achats</h3>
+    <p>Les achats se font sur Amazon ou sur notre boutique en ligne. Les données de commande et de paiement sont traitées par ces plateformes selon leurs propres politiques de confidentialité.</p>
+
+    <h3>Vos droits</h3>
+    <p>Vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation, d'opposition et de portabilité de vos données, ainsi que du droit de retirer votre consentement à tout moment. Pour les exercer, écrivez à {e(L['email'])}. Vous pouvez également introduire une réclamation auprès de la CNIL (www.cnil.fr).</p>
+    <p class="soon">Dernière mise à jour : {e(L['updated'])}</p>
+    <hr>
+    <h3>In English</h3>
+    <p>We collect as little as possible. If you sign up for new-book news, we use your email only for that, with your consent; the form is processed by Formspree, Inc. (USA), and you can unsubscribe at any time by writing to {e(L['email'])}. The games and the Ramadan chart save progress only in your own browser and never send it to us. There are no advertising cookies, no analytics and no ads, and the fonts are hosted on this site. The site is hosted by GitHub Pages. Purchases on Amazon or our shop are handled under those platforms' own policies. You can ask us to access, correct or delete your data at any time, and you may complain to the French data authority, the CNIL.</p>
+  </div>
+</section>
+"""
+page("/privacy/", f"Privacy policy · {SITE['series']}", f"Privacy policy for liliianoor.com: what data the {SITE['series']} website collects and why.", privacy, "")
+
 # 404
 page("/404.html", f"Page not found · {SITE['series']}", SITE["seo"], f"""<header class="inner" id="top" style="padding-block:72px">
   <div class="eyebrow">404</div>
@@ -631,7 +707,7 @@ page("/404.html", f"Page not found · {SITE['series']}", SITE["seo"], f"""<heade
 """, "")
 
 # sitemap + robots
-urls = ["/", "/books/", "/play/", "/ramadan/", "/shop/"] + [f"/books/{b['slug']}/" for b in BOOKS]
+urls = ["/", "/books/", "/play/", "/ramadan/", "/shop/", "/legal/", "/privacy/"] + [f"/books/{b['slug']}/" for b in BOOKS]
 (ROOT / "sitemap.xml").write_text(
     '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     + "".join(f"  <url><loc>{SITE['domain']}{u}</loc></url>\n" for u in urls) + "</urlset>\n", encoding="utf-8")

@@ -182,3 +182,15 @@ footer { background: var(--surface); border-top: 1px solid var(--line); }
   .mem-card.done { animation: none; }
 }
 @media (max-width: 640px) { .play-hero .d-star, .play-hero .d-heart, .hero .d-star { display: none; } }
+
+/* Legal and text pages */
+.prose { max-width: 760px; }
+.prose h3 { font-family: var(--font-display); font-weight: 400; font-size: 1.35rem; margin: 28px 0 6px; }
+.prose p, .prose li { color: var(--ink); }
+.prose p { margin: 0 0 10px; }
+.prose ul { margin: 0 0 10px; padding-left: 20px; display: grid; gap: 4px; }
+.prose hr { border: 0; border-top: 1px solid var(--line); margin: 32px 0 8px; }
+.prose .copy { user-select: all; }
+.consent { font-size: 13px; color: var(--muted); }
+.consent a { color: var(--muted); }
+footer a { color: inherit; }

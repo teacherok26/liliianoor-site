@@ -16,7 +16,7 @@
     "seo": "Islamic children's book series about Quran Animals. Perfect for Muslim children ages 5-8. Available in English, French and Russian. by Liliia Noor."
   },
   "contact": {
-    "email": "",
+    "email": "hanunliliya@gmail.com",
     "instagram": "",
     "telegram": "",
     "tiktok": ""
@@ -540,5 +540,16 @@
         "friend": ""
       }
     ]
+  },
+  "legal": {
+    "name": "Liliia Khanun",
+    "status": "EI",
+    "pen_name": "Liliia Noor",
+    "address": "70 boulevard Georges Clemenceau, 89100 Sens, France",
+    "siret": "108 508 649 00010",
+    "email": "hanunliliya@gmail.com",
+    "phone": "+33 6 12 57 70 26",
+    "vat": "TVA non applicable, art. 293 B du CGI",
+    "updated": "26 octobre 2026"
   }
 }
