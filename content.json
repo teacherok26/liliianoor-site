@@ -569,7 +569,7 @@
     {
       "id": "malik-ramadan",
       "series": "Les questions de Malik",
-      "kind": "New children's series · in French",
+      "kind": "New children's series · French / English / Russian",
       "title": "Pourquoi faisons-nous le Ramadan ?",
       "title_en": "Why do we fast in Ramadan?",
       "about": "Malik is a curious little boy with big questions about his faith. In the first book of this new series, he wonders why Muslims fast in Ramadan.",
@@ -579,10 +579,10 @@
     {
       "id": "yasmin",
       "series": "",
-      "kind": "For mothers · in French",
+      "kind": "For mothers · French / English / Russian",
       "title": "Yasmin — Je n'étais pas prête.",
       "title_en": "I wasn't ready. A letter to myself from my maternity leave",
-      "about": "A heartfelt letter from a young Muslim mother to herself, written during her maternity leave.",
+      "about": "A personal story. During her own maternity leave, Liliia wrote a letter to herself about becoming a mother, with all its fears, faith and love.",
       "img": "img/yasmin.webp",
       "status": "soon"
     }

@@ -218,7 +218,7 @@ def more_section(band=False):
   <div class="inner">
     <div class="eyebrow">Also by {e(SITE['author'])}</div>
     <h2>New books on the way</h2>
-    <p class="sec-intro">A new children's series and a book for mothers, both written in French.</p>
+    <p class="sec-intro">A new children's series and a book for mothers, in French, English and Russian.</p>
     <div class="more-grid">{"".join(more_card(m) for m in C["more_books"])}</div>
   </div>
 </section>
