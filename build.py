@@ -347,8 +347,9 @@ home = f"""<header class="hero" id="top">
     <div>
       <div class="eyebrow">About the author</div>
       <h2>{e(SITE['author'])}</h2>
-      <p>{e(SITE['author'])} writes the {e(SITE['series'])} series to help Muslim children aged {e(SITE['ages'])} discover the animals of the Holy Quran and the lessons they carry.</p>
-      <p>The books are available in English, French and Russian.</p>
+      <p class="author-role">Teacher for 18 years · mother · author of the {e(SITE['series'])} series</p>
+      {"".join(f"<p>{e(x)}</p>" for x in SITE['author_bio'])}
+      <blockquote class="author-quote">“{e(SITE['author_quote'])}”</blockquote>
     </div>
   </div>
 </section>
