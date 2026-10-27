@@ -606,61 +606,85 @@ page("/play/", f"Kids' corner · {SITE['series']}", "Free games for Muslim child
      play, "/play/", scripts='<script src="/assets/memory.js" defer></script>\n<script src="/assets/quiz.js" defer></script>\n')
 
 # Bookmarks to print
-BY_ID = {b["id"]: b for b in BOOKS}
+AR_DIGITS = "٠١٢٣٤٥٦٧٨٩"
+GROUP_TINT = {"dua": ("#7a5aa6", "دُعَاء"), "surah": ("#2f7a68", "سُورَة"), "learn": ("#b0742a", "تَعَلَّم")}
+
+
+def ar_num(n):
+    return "".join(AR_DIGITS[int(d)] for d in str(n))
+
+
+def bm_head(m):
+    if m.get("img"):
+        return f'<div class="bm-pic"><img src="/{e(m["img"])}" alt=""></div>'
+    return f'<div class="bm-band" aria-hidden="true"><span lang="ar">{m["title_ar"]}</span></div>'
 
 
 def bookmark(m):
-    who = '<div class="bm-fill" aria-hidden="true"></div><div class="bm-own">This bookmark belongs to<span class="bm-name"></span></div><div class="bm-site">liliianoor.com</div>'
-    if m.get("friend"):
-        b = BY_ID[m["friend"]]
-        ref = f'<cite>{e(m["ref"])}</cite>' if m["ref"] else ""
-        return f"""<div class="bm tinted" style="--t-l:{b['tint']};--t-d:{b['tint']}">
-        <div class="bm-hole"></div>
-        <div class="bm-pic"><img src="/{e(b['friend_img'])}" alt=""></div>
-        <div class="bm-ar" lang="ar">{b['ar']}</div>
-        <div class="bm-title">{e(b['name'])}</div>
-        <div class="bm-sub">{e(b['lesson'])}</div>
-        <p class="bm-line">“{e(m['line'])}”{ref}</p>
-        {who}</div>"""
-    if m["kind"] == "malik":
-        return f"""<div class="bm tinted" style="--t-l:{m['tint']};--t-d:{m['tint']}">
-        <div class="bm-hole"></div>
-        <div class="bm-pic"><img src="/{e(m['img'])}" alt="" style="object-position:30% 40%"></div>
-        <div class="bm-kicker">Les questions de</div>
-        <div class="bm-title">{e(m['title'])}</div>
-        <div class="bm-sub">{e(m['sub'])}</div>
-        <p class="bm-line">{e(m['line'])}</p>
-        {who}</div>"""
-    if m["kind"] == "ramadan":
-        stars = "".join(f'<span><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#star"/></svg><b>{i}</b></span>' for i in range(1, 31))
-        return f"""<div class="bm bm-night">
-        <div class="bm-hole"></div>
-        <div class="bm-moon" aria-hidden="true"></div>
-        <div class="bm-title">{e(m['title'])}</div>
-        <div class="bm-sub">{e(m['sub'])}</div>
-        <div class="bm-stars">{stars}</div>
-        <p class="bm-line">{e(m['line'])}</p>
-        {who}</div>"""
-    letters = "".join(f'<span lang="ar">{l["ch"]}</span>' for l in C["alphabet"]["letters"])
-    return f"""<div class="bm bm-letters">
-        <div class="bm-hole"></div>
-        <div class="bm-title">{e(m['title'])}</div>
-        <div class="bm-sub">{e(m['sub'])}</div>
-        <div class="bm-abc" dir="rtl">{letters}</div>
-        {who}</div>"""
+    tint = GROUP_TINT[m["group"]][0]
+    who = '<div class="bm-own">This bookmark belongs to<span class="bm-name"></span></div><div class="bm-site">liliianoor.com</div>'
+    top = f'<div class="bm-hole"></div>{bm_head(m)}<div class="bm-title">{e(m["title"])}</div>'
+    if m["group"] == "dua":
+        body = ""
+        for it in m["items"]:
+            label = f'<div class="bm-label">{e(it["label"])}</div>' if it.get("label") else ""
+            ref = f'<cite>{e(it["ref"])}</cite>' if it.get("ref") else ""
+            body += f"""<div class="bm-dua">{label}<p class="bm-ar-text" lang="ar" dir="rtl">{it['ar']}</p>
+              <p class="bm-tr">{e(it['tr'])}</p><p class="bm-en">“{e(it['en'])}”{ref}</p></div>"""
+        cls = " bm-tight" if len(m["items"]) > 1 and len(m["items"][-1]["ar"]) > 40 else ""
+        return f'<div class="bm bm-dua-card{cls} tinted" style="--t-l:{tint};--t-d:{tint}">{top}{body}<div class="bm-fill" aria-hidden="true"></div>{who}</div>'
+    if m["group"] == "surah":
+        bas = f'<p class="bm-basmala" lang="ar">{m["basmala"]}</p>' if m["basmala"] else ""
+        ar = " ".join(f'{v} <span class="bm-ayah">﴿{ar_num(i + 1)}﴾</span>' for i, v in enumerate(m["verses"]))
+        tr = ""
+        if m.get("tr"):
+            tr = '<ol class="bm-tr-list">' + "".join(f"<li>{e(t)}</li>" for t in m["tr"]) + "</ol>"
+        en = ""
+        if m.get("en"):
+            text = " ".join(x.rstrip(".") + "." for x in m["en"])
+            if text.count('"') % 2:
+                text += '"'
+            en = '<p class="bm-en">' + e(text) + '<cite>Translation: Saheeh International</cite></p>'
+        size = "bm-long" if len(" ".join(m["verses"])) > 150 else ""
+        return f"""<div class="bm bm-surah {size} tinted" style="--t-l:{tint};--t-d:{tint}">{top}
+          <div class="bm-sub">{e(m['sub'])} · <span lang="ar">{m['title_ar']}</span></div>
+          {bas}<p class="bm-ar-text bm-quran" lang="ar" dir="rtl">{ar}</p>{tr}{en}<div class="bm-fill" aria-hidden="true"></div>{who}</div>"""
+    sub = f'<div class="bm-sub">{e(m["sub"])}</div>'
+    if m["kind"] == "alphabet":
+        inner = '<div class="bm-abc" dir="rtl">' + "".join(f'<span lang="ar">{l["ch"]}</span>' for l in C["alphabet"]["letters"]) + "</div>"
+    elif m["kind"] == "harakat":
+        inner = '<div class="bm-rows">' + "".join(
+            f'<div class="bm-row"><span class="bm-big" lang="ar">{a}</span><span><b>{e(n)}</b> · {e(t)}<small>{e(h)}</small></span></div>'
+            for a, t, n, h in m["rows"]) + "</div>"
+    elif m["kind"] == "numbers":
+        inner = '<div class="bm-rows bm-num">' + "".join(
+            f'<div class="bm-row"><span class="bm-big" lang="ar">{a}</span><span class="bm-n">{d}</span><span><span lang="ar" class="bm-word">{w}</span><small>{e(t)}</small></span></div>'
+            for a, d, w, t in m["rows"]) + "</div>"
+    else:
+        inner = '<ol class="bm-months">' + "".join(
+            f'<li><span lang="ar">{a}</span><small>{e(t)}</small></li>' for a, t in m["rows"]) + "</ol>"
+    return f'<div class="bm bm-learn tinted" style="--t-l:{tint};--t-d:{tint}">{top}{sub}{inner}<div class="bm-fill" aria-hidden="true"></div>{who}</div>'
 
 
-picks = "".join(f"""
+def bm_card(m):
+    return f"""
       <div class="bm-card" data-id="{e(m['id'])}">
         {bookmark(m)}
         <button type="button" class="bm-pick" aria-pressed="false" data-id="{e(m['id'])}">Pick this one</button>
-      </div>""" for m in C["bookmarks"])
+      </div>"""
+
+
+groups_html = "".join(f"""
+    <h2 class="bm-group-title">{e(title)}</h2>
+    <p class="sec-intro">{e(intro)}</p>
+    <div class="bm-gallery">{"".join(bm_card(m) for m in C["bookmarks"] if m["group"] == gid)}
+    </div>""" for gid, title, intro in C["bookmark_groups"])
 bookmarks_page = f"""<header class="play-hero" id="top">
   {doodles(("star", "d-star", "top:28%;left:58%"), ("bee", "d-bee"))}
   <div class="inner">
     <div class="eyebrow">Kids' corner · Print at home</div>
-    <h1>Make your own bookmarks</h1>
-    <p class="lede">Pick your favourite friends, write your name, and ask a grown-up to print them. Then cut them out and keep your place in every story!</p>
+    <h1>Bookmarks that teach</h1>
+    <p class="lede">Duas for every day, short surahs and Arabic to learn. Pick the ones you like, write your name, and ask a grown-up to print them.</p>
   </div>
 </header>
 <section id="bm-app">
@@ -673,7 +697,7 @@ bookmarks_page = f"""<header class="play-hero" id="top">
         <button type="button" class="btn btn-gold" id="bm-print">Print my bookmarks</button>
       </div>
     </div>
-    <div class="bm-gallery" id="bm-gallery">{picks}
+    <div id="bm-gallery">{groups_html}
     </div>
     <div class="bm-tips">
       <h3>For grown-ups</h3>
@@ -681,6 +705,7 @@ bookmarks_page = f"""<header class="play-hero" id="top">
         <li>Print on A4 paper, three bookmarks per page. Thick paper (200 g or more) works best.</li>
         <li>In the print window, choose "Portrait" and switch "Fit to page" off (scale 100%) so the bookmarks keep their size: 5 × 18 cm.</li>
         <li>Cut along the dotted lines. Punch the little circle and add a ribbon if you like.</li>
+        <li>The bookmarks carry words of the Quran. Please keep them somewhere clean and respectful.</li>
         <li>Nothing you type here is sent anywhere. The name is only used to print the bookmarks.</li>
       </ul>
     </div>
@@ -688,7 +713,7 @@ bookmarks_page = f"""<header class="play-hero" id="top">
 </section>
 """
 page("/bookmarks/", f"Printable bookmarks for kids · {SITE['series']}",
-     "Free printable bookmarks with the Quran Animals, Malik, a Ramadan reading tracker and the Arabic alphabet. Pick, add a name and print.",
+     "Free printable bookmarks for Muslim children: daily duas, short surahs, the Arabic alphabet, vowels, numbers and Islamic months. Pick, add a name and print.",
      bookmarks_page, "/play/", scripts='<script src="/assets/bookmarks.js" defer></script>\n')
 
 # Alif Ba
