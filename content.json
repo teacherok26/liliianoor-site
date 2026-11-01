@@ -29,7 +29,7 @@
   },
   "signup_form": "https://formspree.io/f/mgaaegpd",
   "amazon_series": "",
-  "payhip_shop": "",
+  "payhip_shop": "https://payhip.com/b/i9qeP",
   "book_price": 12.99,
   "bundles": [
     {
@@ -130,7 +130,7 @@
       "quote_ref": "Quran 16:68",
       "seo": "Children's Islamic book about the bee mentioned in Surah An-Nahl. Teaches hard work and trust in Allah. Ages 5-8. Quran Animals Book 1 by Liliia Noor.",
       "amazon": "https://www.amazon.fr/dp/B0H4DCCJZG",
-      "print": "",
+      "print": "https://payhip.com/b/i9qeP",
       "tr": "Nahla",
       "friend_img": "img/friends/bee.webp",
       "status": "available"
@@ -162,7 +162,7 @@
       "quote_ref": "Quran 5:31",
       "seo": "Children's Islamic book about the crow in Surah Al-Maidah. Teaches humility and learning from others. Ages 5-8. Quran Animals Book 2 by Liliia Noor.",
       "amazon": "https://amzn.eu/d/0c8wRA5X",
-      "print": "",
+      "print": "https://payhip.com/b/i9qeP",
       "tr": "Ghuraab",
       "friend_img": "img/friends/crow.webp",
       "status": "available"
@@ -194,7 +194,7 @@
       "quote_ref": "Quran 27:18",
       "seo": "Children's Islamic book about the ant in Surah An-Naml. Teaches caring for others. Ages 5-8. Quran Animals Book 3 by Liliia Noor.",
       "amazon": "https://www.amazon.fr/dp/B0H4KT3RMT",
-      "print": "",
+      "print": "https://payhip.com/b/i9qeP",
       "tr": "Namla",
       "friend_img": "img/friends/ant.webp",
       "status": "available"
@@ -227,7 +227,7 @@
       "quote_ref": "Quran 105:1",
       "seo": "Children's Islamic book about the elephant in Surah Al-Fil. Teaches that all power belongs to Allah. Ages 5-8. Quran Animals Book 4 by Liliia Noor.",
       "amazon": "https://amzn.eu/d/05OAIh7G",
-      "print": "",
+      "print": "https://payhip.com/b/i9qeP",
       "tr": "Fil",
       "friend_img": "img/friends/elephant.webp",
       "status": "available"
@@ -259,7 +259,7 @@
       "quote_ref": "Quran 27:30",
       "seo": "Children's Islamic book about the hoopoe in Surah An-Naml. Teaches honesty and courage. Ages 5-8. Quran Animals Book 5 by Liliia Noor.",
       "amazon": "https://www.amazon.fr/dp/B0H6PQ2WP1",
-      "print": "",
+      "print": "https://payhip.com/b/i9qeP",
       "tr": "Hudhud",
       "friend_img": "img/friends/hoopoe.webp",
       "status": "available"
@@ -291,7 +291,7 @@
       "quote_ref": "Quran 21:87",
       "seo": "Children's Islamic book about the whale and Prophet Yunus. Teaches hope and prayer. Ages 5-8. Quran Animals Book 6 by Liliia Noor.",
       "amazon": "https://www.amazon.fr/dp/B0H8Z5VRF1",
-      "print": "",
+      "print": "https://payhip.com/b/i9qeP",
       "tr": "Hut",
       "friend_img": "img/friends/whale.webp",
       "status": "available"

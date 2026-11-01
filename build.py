@@ -583,8 +583,7 @@ def bundle_card(x):
     full = C["book_price"] * x["books"] if C["book_price"] else None
     was = f'<span class="was">€{full:.2f}</span>' if full and full > x["price"] else ""
     btn = (f'<a class="btn btn-gold" href="{e(x["url"])}" target="_blank" rel="noopener">Order</a>' if x["url"]
-           else (f'<a class="btn btn-gold" href="{e(C["payhip_shop"])}" target="_blank" rel="noopener">Order</a>' if C["payhip_shop"]
-                 else '<span class="soon">Coming soon</span>'))
+           else '<span class="soon">Coming soon</span>')
     return (f'<div class="bundle"><span class="tag">{x["books"]} books · signed</span><h3>{e(x["name"])}</h3>'
             f'<p>{e(x["about"])}</p><div class="act-foot"><span class="price">€{x["price"]:.2f} {was}</span>{btn}</div></div>')
 
