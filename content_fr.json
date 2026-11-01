@@ -1,0 +1,167 @@
+{
+  "site": {
+    "tagline": "Relier les petits cœurs au Saint Coran, un animal à la fois.",
+    "languages": "Anglais / Français / Russe",
+    "intro": "Découvrez les merveilleux animaux mentionnés dans le Saint Coran à travers les yeux de Yusuf et Maryam, deux enfants curieux qui rencontrent un nouvel animal du Coran dans chaque livre !",
+    "features": [
+      "Présente un vrai animal mentionné dans le Coran",
+      "Cite le verset coranique exact",
+      "Transmet une belle leçon de vie",
+      "Avec anecdotes, activités et coloriages"
+    ],
+    "seo": "Série de livres islamiques pour enfants sur les animaux du Coran. Pour les enfants musulmans de 5 à 8 ans. Disponible en français, anglais et russe. Par Liliia Noor.",
+    "author_bio": [
+      "Après 18 ans d'enseignement, j'ai appris que le plus beau cadeau que l'on puisse faire aux enfants, c'est un savoir qui reste avec eux bien après la fin de la leçon.",
+      "Mon chemin d'autrice a commencé avec ma fille, et avec le désir de lui transmettre le savoir, la foi et les valeurs qui me sont chères. À travers mes livres, j'espère offrir ces mêmes cadeaux aux enfants du monde entier, pour qu'ils grandissent avec un esprit curieux et un cœur bienveillant.",
+      "Chaque livre est un petit morceau de mon cœur, créé avec amour pour ma fille et pour tous les enfants qui méritent un beau départ dans la vie."
+    ],
+    "author_quote": "Car le plus précieux héritage que nous laissons à nos enfants, ce n'est pas ce que nous leur donnons, mais ce que nous leur enseignons et ce qu'ils portent dans leur cœur."
+  },
+  "books": [
+    {
+      "name": "Nur l'abeille", "lesson": "Un cadeau d'Allah", "animal": "Abeille",
+      "surah": "Sourate An-Nahl", "chapter": "Chapitre 16",
+      "hook": "Savais-tu que l'abeille a sa propre sourate dans le Saint Coran ?",
+      "description": "Suis Yusuf et Maryam à la rencontre de Nur, une abeille dorée qui leur raconte la belle histoire de la sourate An-Nahl (chapitre 16) et apprend aux enfants que l'effort est un cadeau d'Allah.",
+      "discover": [
+        "Pourquoi Allah a donné à l'abeille sa propre sourate",
+        "Le miracle du miel, mentionné dans le Coran il y a 1 400 ans",
+        "Comment trouver la force en Allah quand c'est difficile",
+        "Les paroles exactes d'Allah en Coran 16:68–69"
+      ],
+      "includes": "Verset du Coran, anecdotes sur les abeilles, questions pour discuter, coloriages et activités.",
+      "quote": "Et voilà ce que ton Seigneur révéla aux abeilles...", "quote_ref": "Coran 16:68 · trad. M. Hamidullah",
+      "seo": "Livre islamique pour enfants sur l'abeille de la sourate An-Nahl. Il enseigne l'effort et la confiance en Allah. 5-8 ans. Quran Animals, livre 1, par Liliia Noor."
+    },
+    {
+      "name": "Ghuraab le corbeau", "lesson": "Apprendre des autres", "animal": "Corbeau",
+      "surah": "Sourate Al-Ma'ida", "chapter": "Chapitre 5",
+      "hook": "Un corbeau sage. Une grande leçon. Et une histoire écrite pour toujours dans le Saint Coran.",
+      "description": "Suis Yusuf et Maryam à la rencontre de Ghuraab, un corbeau au plumage brillant dont l'ancêtre a donné l'une des plus fortes leçons du Coran : la sagesse peut venir des endroits les plus inattendus.",
+      "discover": [
+        "L'histoire du corbeau dans la sourate Al-Ma'ida (chapitre 5)",
+        "Pourquoi l'humilité nous aide à apprendre et à grandir",
+        "Qu'Allah peut envoyer la sagesse à travers n'importe laquelle de Ses créatures",
+        "Les paroles exactes d'Allah en Coran 5:31"
+      ],
+      "includes": "Verset du Coran, anecdotes sur les corbeaux, questions pour discuter, coloriages et activités.",
+      "quote": "Malheur à moi ! Suis-je incapable d'être, comme ce corbeau...", "quote_ref": "Coran 5:31 · trad. M. Hamidullah",
+      "seo": "Livre islamique pour enfants sur le corbeau de la sourate Al-Ma'ida. Il enseigne l'humilité et l'art d'apprendre des autres. 5-8 ans. Quran Animals, livre 2, par Liliia Noor."
+    },
+    {
+      "name": "Namla la fourmi", "lesson": "Ensemble, nous sommes forts", "animal": "Fourmi",
+      "surah": "Sourate An-Naml", "chapter": "Chapitre 27",
+      "hook": "Elle était toute petite. Mais sa voix a tout changé.",
+      "description": "Suis Yusuf et Maryam à la rencontre de Namla, une petite fourmi courageuse qui a prévenu toute sa communauté à l'approche de la grande armée du prophète Soulaymane. Son histoire est écrite dans le Saint Coran, dans la sourate An-Naml (chapitre 27, « Les Fourmis »).",
+      "discover": [
+        "L'histoire extraordinaire de la fourmi et du prophète Soulaymane",
+        "Que même la plus petite voix compte auprès d'Allah",
+        "L'importance de prendre soin des autres",
+        "Les paroles exactes d'Allah en Coran 27:18–19"
+      ],
+      "includes": "Versets du Coran, anecdotes sur les fourmis, questions pour discuter, coloriages et activités.",
+      "quote": "Ô fourmis, entrez dans vos demeures, de peur que Salomon et ses armées ne vous écrasent sans s'en rendre compte.", "quote_ref": "Coran 27:18 · trad. M. Hamidullah",
+      "seo": "Livre islamique pour enfants sur la fourmi de la sourate An-Naml. Il enseigne à prendre soin des autres. 5-8 ans. Quran Animals, livre 3, par Liliia Noor."
+    },
+    {
+      "name": "Feel l'éléphant", "lesson": "L'orgueil s'en va", "animal": "Éléphant",
+      "surah": "Sourate Al-Fil", "chapter": "Chapitre 105",
+      "hook": "Une puissante armée. De tout petits oiseaux. Et un éléphant courageux qui a choisi de bien faire.",
+      "description": "Dans ce livre, Yusuf et Maryam s'endorment dans le jardin et, dans leur rêve, ils sont transportés dans une vallée ancienne où ils assistent à la puissante histoire de la sourate Al-Fil (chapitre 105, « L'Éléphant »).",
+      "discover": [
+        "L'histoire de l'armée aux éléphants et des oiseaux Ababil",
+        "Comment Allah protège ce qui est sacré",
+        "Le courage de Mahmoud, l'éléphant qui refusa d'attaquer la maison d'Allah",
+        "Pourquoi la vraie force n'appartient qu'à Allah",
+        "La sourate Al-Fil en entier (5 versets)"
+      ],
+      "includes": "La sourate Al-Fil, anecdotes sur les éléphants, questions pour discuter, coloriages, activités à découper et coller.",
+      "quote": "N'as-tu pas vu comment ton Seigneur a agi envers les gens de l'Éléphant ?", "quote_ref": "Coran 105:1 · trad. M. Hamidullah",
+      "seo": "Livre islamique pour enfants sur l'éléphant de la sourate Al-Fil. Il enseigne que toute force appartient à Allah. 5-8 ans. Quran Animals, livre 4, par Liliia Noor."
+    },
+    {
+      "name": "Hudhud la huppe", "lesson": "Sois toujours honnête", "animal": "Huppe",
+      "surah": "Sourate An-Naml", "chapter": "Chapitre 27",
+      "hook": "Il était petit. Il avait peur. Mais il a quand même dit la vérité.",
+      "description": "Dans ce livre, Yusuf et Maryam s'endorment sous les étoiles et, dans leur rêve, des ailes leur poussent : ils volent aux côtés de Hudhud la huppe pour sa mission la plus importante, porter une lettre du prophète Soulaymane à une reine lointaine.",
+      "discover": [
+        "L'histoire de Hudhud dans la sourate An-Naml (chapitre 27)",
+        "Que l'honnêteté est toujours le bon chemin, même quand on a peur",
+        "Comment le plus petit messager peut porter la plus grande nouvelle",
+        "La lettre du prophète Soulaymane (Coran 27:30)"
+      ],
+      "includes": "Versets du Coran, anecdotes sur les huppes, questions pour discuter, coloriages et activités.",
+      "quote": "Elle vient de Salomon ; et c'est : « Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux. »", "quote_ref": "Coran 27:30 · trad. M. Hamidullah",
+      "seo": "Livre islamique pour enfants sur la huppe de la sourate An-Naml. Il enseigne l'honnêteté et le courage. 5-8 ans. Quran Animals, livre 5, par Liliia Noor."
+    },
+    {
+      "name": "Nun la baleine", "lesson": "Ne perds jamais espoir", "animal": "Baleine",
+      "surah": "Sourate Al-Anbiya", "chapter": "Chapitre 21",
+      "hook": "L'endroit le plus sombre. La prière la plus puissante.",
+      "description": "Dans ce livre, Yusuf et Maryam s'endorment au bord de la mer et, dans leur rêve, ils découvrent l'incroyable histoire du prophète Younous dans le ventre de la baleine. Trois jours. Trois nuits. L'obscurité totale. Et une prière qui est parvenue jusqu'à Allah.",
+      "discover": [
+        "L'histoire du prophète Younous et de la baleine",
+        "Qu'Allah entend toujours nos prières, même au fond de l'obscurité",
+        "L'invocation du prophète Younous (Coran 21:87)",
+        "Pourquoi il ne faut jamais perdre espoir en Allah"
+      ],
+      "includes": "Verset du Coran, anecdotes sur les baleines, questions pour discuter, coloriages et activités.",
+      "quote": "Pas de divinité à part Toi ! Pureté à Toi ! J'ai été vraiment du nombre des injustes.", "quote_ref": "Coran 21:87 · trad. M. Hamidullah",
+      "seo": "Livre islamique pour enfants sur la baleine et le prophète Younous. Il enseigne l'espoir et la prière. 5-8 ans. Quran Animals, livre 6, par Liliia Noor."
+    },
+    {
+      "name": "Ankabut l'araignée", "lesson": "Allah te protège", "animal": "Araignée",
+      "surah": "Sourate Al-Ankabut", "chapter": "Chapitre 29",
+      "hook": "Sa toile a l'air solide. Mais l'est-elle vraiment ?",
+      "description": "Suis Yusuf et Maryam à la rencontre d'Ankabut, une grosse araignée noire toute douce, dont la toile cache l'une des plus fortes leçons du Coran : la vraie protection ne vient que d'Allah.",
+      "discover": [
+        "Ce qu'Allah dit de la toile de l'araignée dans la sourate Al-Ankabut (chapitre 29)",
+        "Pourquoi placer sa confiance en Allah seul, et non dans ce qui peut se briser",
+        "La belle tradition islamique de l'araignée qui protégea le Prophète ﷺ dans la grotte (présentée comme une tradition, pas comme un verset du Coran)",
+        "Les paroles exactes d'Allah en Coran 29:41"
+      ],
+      "includes": "Verset du Coran, anecdotes sur les araignées, questions pour discuter, coloriages et activités.",
+      "quote": "Or la maison la plus fragile est celle de l'araignée.", "quote_ref": "Coran 29:41 · trad. M. Hamidullah",
+      "seo": "Livre islamique pour enfants sur l'araignée de la sourate Al-Ankabut. Il enseigne la confiance en Allah. 5-8 ans. Quran Animals, livre 7, par Liliia Noor."
+    }
+  ],
+  "coming_soon": [
+    { "name": "Naqa la chamelle", "lesson": "Sois gentil avec tous", "ref": "Sourate Ash-Shams, chapitre 91" },
+    { "name": "Kalb le chien", "lesson": "La loyauté est un cadeau", "ref": "Sourate Al-Kahf, chapitre 18" },
+    { "name": "Haya le serpent", "lesson": "La foi rend courageux", "ref": "Histoire du prophète Moussa" },
+    { "name": "Baqara la vache", "lesson": "Fais confiance à Allah et obéis-Lui", "ref": "Sourate Al-Baqara, chapitre 2" },
+    { "name": "Khayl le cheval", "lesson": "Donne le meilleur de toi-même", "ref": "Sourate Al-Adiyat, chapitre 100" }
+  ],
+  "more_books": [
+    { "kind": "Nouvelle série jeunesse · 7–10 ans · français / anglais / russe", "title_en": "",
+      "about": "Malik est un petit garçon curieux qui se pose de grandes questions sur sa foi. Dans le premier livre de cette nouvelle série, il se demande pourquoi les musulmans jeûnent pendant le Ramadan." },
+    { "kind": "Pour les mamans · français / anglais / russe", "title_en": "",
+      "about": "Une histoire personnelle. Pendant son propre congé maternité, Liliia s'est écrit une lettre sur le fait de devenir mère, avec ses peurs, sa foi et son amour." }
+  ],
+  "bundles": [
+    { "name": "3 livres au choix", "about": "Choisissez trois livres. Dédicacés par l'autrice." },
+    { "name": "Toute la série", "about": "Les six livres déjà parus, dédicacés par l'autrice." }
+  ],
+  "shipping": {
+    "zones": [
+      { "name": "France" },
+      { "name": "UE (Belgique, Allemagne, Espagne, Italie…)" },
+      { "name": "Royaume-Uni" },
+      { "name": "Suisse et reste de l'Europe" },
+      { "name": "États-Unis et Canada" },
+      { "name": "Reste du monde" }
+    ]
+  },
+  "faq": [
+    { "q": "Pour quel âge sont les livres ?", "a": "La série Quran Animals est pensée pour les enfants de 5 à 8 ans. Les plus petits l'adorent aussi en lecture à voix haute. La nouvelle série « Les questions de Malik » s'adresse aux 7–10 ans." },
+    { "q": "Dans quelles langues sont-ils disponibles ?", "a": "En français, en anglais et en russe." },
+    { "q": "Les histoires viennent-elles du Coran ?", "a": "Chaque livre est construit autour d'un animal mentionné dans le Coran et cite le verset exact, avec le nom de la sourate et le numéro du verset, pour que vous puissiez le vérifier. Certaines histoires sont racontées comme un rêve de Yusuf et Maryam. L'histoire de l'araignée dans la grotte est une tradition islamique et elle est présentée comme telle, pas comme un verset du Coran." },
+    { "q": "Que contient chaque livre ?", "a": "Une histoire illustrée, le verset du Coran, des anecdotes sur l'animal, des questions pour discuter en famille, des coloriages et des activités." },
+    { "q": "Où acheter les livres ?", "a": "Sur Amazon, ou directement auprès de l'autrice : les exemplaires sont alors dédicacés et envoyés depuis la France. Tout est expliqué sur la page Boutique." },
+    { "q": "Combien coûte la livraison ?", "a": "En France, à partir de 5,90 € (2–3 jours ouvrés, dans votre boîte aux lettres). Dans l'Union européenne, à partir de 11,50 €. Le calculateur de la page Boutique indique le prix exact selon votre pays et le nombre de livres." },
+    { "q": "Puis-je avoir une dédicace au prénom de mon enfant ?", "a": "Oui. Après votre commande, écrivez-nous le prénom de l'enfant par e-mail et l'autrice l'ajoutera à la dédicace." },
+    { "q": "Proposez-vous des tarifs pour les écoles et les cours d'arabe ou de Coran ?", "a": "Oui, pour plusieurs exemplaires ou des séries complètes pour une classe. Écrivez-nous par e-mail." },
+    { "q": "Le coin des enfants est-il sûr ?", "a": "Oui. Les jeux sont gratuits, sans publicité et sans rien à acheter. Nous ne collectons aucune donnée sur les enfants : la progression reste uniquement sur votre appareil." },
+    { "q": "Quand sortent les prochains livres ?", "a": "Cinq nouveaux animaux, la série de Malik et le livre Yasmin sont en préparation. Inscrivez-vous en bas de la page d'accueil pour être prévenu(e) à chaque sortie." }
+  ]
+}

@@ -4,7 +4,7 @@ Website for the **Quran Animals** picture-book series by Liliia Noor.
 
 ## How it works
 
-All texts, links and prices live in **`content.json`**. After changing it, run:
+All texts, links and prices live in **`content.json`**. French texts for the parent pages live in **`content_fr.json`** (content) and **`ui_fr.json`** (buttons and headings); the French pages are built at `/fr/`. After changing it, run:
 
     python3 build.py
 

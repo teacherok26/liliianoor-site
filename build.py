@@ -6,12 +6,33 @@ Run `python3 build.py` after changing content.json. It writes:
   404.html, sitemap.xml, robots.txt
 """
 import json
+import os
+import re
+import subprocess
+import sys
 from html import escape
 from pathlib import Path
 
 ROOT = Path(__file__).parent
+LANG = os.environ.get("SITE_LANG", "en")  # "en" builds the site at /, "fr" builds the French pages at /fr/
 C = json.loads((ROOT / "content.json").read_text(encoding="utf-8"))
+
+
+def merge(base, extra):
+    """Overlay the translated content on the English content: dicts by key, lists of dicts by position."""
+    if isinstance(base, dict) and isinstance(extra, dict):
+        return {k: merge(base.get(k), extra[k]) if k in base else extra[k] for k in extra} | {k: v for k, v in base.items() if k not in extra}
+    if isinstance(base, list) and isinstance(extra, list) and all(isinstance(x, dict) for x in extra):
+        return [merge(b, x) for b, x in zip(base, extra)] + base[len(extra):]
+    return extra
+
+
+if LANG == "fr":
+    C = merge(C, json.loads((ROOT / "content_fr.json").read_text(encoding="utf-8")))
+OUT = ROOT if LANG == "en" else ROOT / "fr"
 SITE, BOOKS = C["site"], C["books"]
+# Pages that exist in both languages. The kids' corner and the legal pages are single-language for now.
+BILINGUAL = {"/", "/books/", "/shop/", "/faq/"} | {f"/books/{b['slug']}/" for b in BOOKS}
 
 
 def e(s):
@@ -110,8 +131,8 @@ def doodles(*items):
 
 
 def nav(current):
-    items = [("/", "Home", ""), ("/books/", "Books", "keep"), ("/play/", "Play", "keep"),
-             ("/ramadan/", "Ramadan", ""), ("/#author", "Author", ""), ("/shop/", "Shop", "keep")]
+    items = [("/books/", "Books", "keep"), ("/play/", "Play", "keep"),
+             ("/ramadan/", "Ramadan", ""), ("/#author", "Author", ""), ("/faq/", "FAQ", ""), ("/shop/", "Shop", "keep")]
     links = "\n        ".join(
         f'<a href="{href}" class="{cls}"{CURRENT if href == current else ""}>{label}</a>'
         for href, label, cls in items)
@@ -121,6 +142,7 @@ def nav(current):
     <div class="links">
         {links}
     </div>
+    <!--LANG-->
   </div>
 </nav>
 """
@@ -139,7 +161,7 @@ def footer():
         social.append(f'<a href="mailto:{e(ct["email"])}">{e(ct["email"])}</a>')
     return f"""<footer>
   <div class="inner">
-    <span>© 2026 {e(SITE['author'])} · {e(SITE['series'])} · <a href="/legal/">Legal notice</a> · <a href="/privacy/">Privacy</a></span>
+    <span>© 2026 {e(SITE['author'])} · {e(SITE['series'])} · <a href="/faq/">FAQ</a> · <a href="/legal/">Legal notice</a> · <a href="/privacy/">Privacy</a></span>
     <div class="social">{"".join(social)}</div>
     <a href="#top">Back to top</a>
   </div>
@@ -290,12 +312,76 @@ def gallery_section():
 
 
 def page(path, title, description, body, current, image="img/bee.webp", extra_head="", scripts=""):
-    out = ROOT / path.lstrip("/") / "index.html" if path.endswith("/") else ROOT / path.lstrip("/")
+    if LANG != "en" and path not in BILINGUAL:
+        return
+    out = OUT / path.lstrip("/") / "index.html" if path.endswith("/") else OUT / path.lstrip("/")
     out.parent.mkdir(parents=True, exist_ok=True)
     html = head(title, description, path, image, extra_head) + nav(current) + body + footer() + scripts + "</body>\n</html>\n"
     if path == "/bookmarks/":
         html = html.replace("<body>", '<body class="bm-page">', 1)
+    html = localize(html, path)
     out.write_text(html, encoding="utf-8")
+
+
+# ---------- languages ----------
+
+def lang_links(path):
+    """hreflang alternates for the head, and the EN / FR switch for the nav."""
+    if path not in BILINGUAL:
+        return "", ""
+    en, fr = SITE["domain"] + path, SITE["domain"] + "/fr" + path
+    alt = (f'<link rel="alternate" hreflang="en" href="{en}">\n<link rel="alternate" hreflang="fr" href="{fr}">\n'
+           f'<link rel="alternate" hreflang="x-default" href="{en}">\n')
+    switch = (f'<div class="lang-switch" aria-label="Language"><a href="{path}" lang="en" hreflang="en"{CURRENT if LANG == "en" else ""}>EN</a>'
+              f'<a href="/fr{path}" lang="fr" hreflang="fr"{CURRENT if LANG == "fr" else ""}>FR</a></div>')
+    return alt, switch
+
+
+def localize(html, path):
+    alt, switch = lang_links(path)
+    html = html.replace("</head>", alt + "</head>", 1)
+    if LANG == "en":
+        return html.replace("<!--LANG-->", switch)
+    html = html.replace('<html lang="en">', f'<html lang="{LANG}">', 1)
+    html = html.replace(f'href="{SITE["domain"]}{path}"', f'href="{SITE["domain"]}/{LANG}{path}"', 1)
+    html = html.replace(f'content="{SITE["domain"]}{path}"', f'content="{SITE["domain"]}/{LANG}{path}"', 1)
+
+    def relink(m):
+        url = m.group(1)
+        base = url.split("#")[0] or "/"
+        return f'href="/{LANG}{url}"' if base in BILINGUAL else m.group(0)
+    # Translate visible text, but leave scripts and JSON data blocks alone.
+    parts = re.split(r"(<script\b.*?</script>)", html, flags=re.S)
+    for i in range(0, len(parts), 2):
+        parts[i] = re.sub(r'href="(/[^"]*)"', relink, translate(parts[i]))
+    # The switch goes in last so its English link is not rewritten to French.
+    return "".join(parts).replace("<!--LANG-->", switch)
+
+
+def translate(chunk):
+    # The HTML escapes apostrophes and ampersands, so look for both spellings.
+    for en, fr in UI_LONG:
+        chunk = chunk.replace(en, fr).replace(e(en), e(fr))
+    for en, fr in UI_SHORT:
+        for a, b in {(en, fr), (e(en), e(fr))}:
+            chunk = re.sub(r'(?<=[>"])(\s*)' + re.escape(a) + r'(\s*)(?=[<"])', lambda m: m.group(1) + b + m.group(2), chunk)
+    for pat, rep_ in UI_RULES:
+        chunk = re.sub(pat, rep_, chunk)
+    return chunk
+
+
+FR = json.loads((ROOT / "ui_fr.json").read_text(encoding="utf-8")) if LANG == "fr" else {"long": [], "short": [], "rules": []}
+UI_LONG = sorted(FR["long"], key=lambda p: -len(p[0]))
+UI_SHORT = sorted(FR["short"], key=lambda p: -len(p[0]))
+UI_RULES = FR["rules"]
+
+
+def t(en):
+    """Text used inside scripts or data, where the HTML translation does not reach."""
+    for a, b in FR["long"] + FR["short"]:
+        if a == en:
+            return b
+    return en
 
 
 # ---------- pages ----------
@@ -372,7 +458,7 @@ home = f"""<header class="hero" id="top">
     <h2>Play with the Quran Animals</h2>
     <p class="sec-intro">Games for little readers, safe to play with no ads and nothing to buy.</p>
     <div class="play-tiles">
-      <a class="play-tile" href="/bookmarks/"><svg viewBox="0 0 24 22" aria-hidden="true"><use href="#heart"/></svg><strong>Bookmarks</strong><span>Pick your favourite friends and print your own bookmarks.</span></a>
+      <a class="play-tile" href="/bookmarks/"><svg viewBox="0 0 24 22" aria-hidden="true"><use href="#heart"/></svg><strong>Bookmarks</strong><span>Duas, short surahs and Arabic to print and keep in your book.</span></a>
       <a class="play-tile" href="/alphabet/"><span class="tile-ar" lang="ar" aria-hidden="true">أ ب</span><strong>Alif Ba</strong><span>Learn the Arabic letters and trace them with your finger.</span></a>
       <a class="play-tile" href="/play/#memory"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#star"/></svg><strong>Find the pair</strong><span>Turn the cards and match the animal friends.</span></a>
       <a class="play-tile" href="/play/#quiz"><svg viewBox="0 0 24 22" aria-hidden="true"><use href="#heart"/></svg><strong>Who is my animal friend?</strong><span>A six-question quiz about the books.</span></a>
@@ -485,7 +571,13 @@ else:
         f'<div class="act-ghost"><span class="tag">Coming soon</span><strong>{e(h)}</strong><span>{e(p)}</span></div>'
         for h, p in ideas) + "</div>"
 ship_data = {"zones": C["shipping"]["zones"], "max_books": C["shipping"]["max_books"], "book_price": C["book_price"],
-             "bundles": [{"books": x["books"], "price": x["price"], "name": x["name"]} for x in C["bundles"]]}
+             "bundles": [{"books": x["books"], "price": x["price"], "name": x["name"]} for x in C["bundles"]],
+             "locale": "fr-FR" if LANG == "fr" else "en-GB",
+             "labels": {k: t(v) for k, v in {
+                 "shipping": "Shipping", "days": "Delivery time", "working": "working days", "books": "Books",
+                 "bundle": "bundle price", "total": "Total", "free": "Free", "freeFrom": "Free shipping from {n} books.",
+                 "uk": "Printed books have 0% VAT in the UK, so there is usually nothing extra to pay on delivery.",
+                 "pdf": "PDF activity books have no shipping."}.items()}}
 
 def bundle_card(x):
     full = C["book_price"] * x["books"] if C["book_price"] else None
@@ -555,6 +647,30 @@ shop = f"""<header class="inner" id="top" style="padding-block:48px 8px">
   </div>
 </section>
 """
+faq_items = "".join(f"""
+    <details class="faq-item"{" open" if i == 0 else ""}>
+      <summary>{e(f['q'])}</summary>
+      <p>{e(f['a'])}</p>
+    </details>""" for i, f in enumerate(C["faq"]))
+faq_ld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+    {"@type": "Question", "name": f["q"], "acceptedAnswer": {"@type": "Answer", "text": f["a"]}} for f in C["faq"]]}
+faq_page = f"""<header class="inner" id="top" style="padding-block:48px 8px">
+  <div class="eyebrow">FAQ</div>
+  <h1>Questions from parents</h1>
+  <p class="lede">Everything you may want to know before choosing a book.</p>
+</header>
+<section style="padding-top:24px">
+  <div class="inner faq">{faq_items}
+    <div class="faq-more">
+      <p>Another question? Write to us: <b>{e(C['contact']['email'])}</b></p>
+      <div class="cta"><a class="btn btn-gold" href="/books/">See all books</a><a class="btn btn-ghost" href="/shop/">Shop</a></div>
+    </div>
+  </div>
+</section>
+"""
+page("/faq/", f"Questions from parents · {SITE['series']}", "Answers for parents about the Quran Animals books: ages, languages, Quran verses, where to buy, shipping and dedications.",
+     faq_page, "/faq/", extra_head=f'<script type="application/ld+json">{json.dumps(faq_ld, ensure_ascii=False)}</script>\n')
+
 page("/shop/", f"Shop · {SITE['series']}", "Buy the Quran Animals books on Amazon or directly from the author, and printable activity books for Muslim children.",
      shop, "/shop/", scripts='<script src="/assets/shop.js" defer></script>\n')
 
@@ -908,11 +1024,17 @@ page("/404.html", f"Page not found · {SITE['series']}", SITE["seo"], f"""<heade
 </header>
 """, "")
 
+if LANG != "en":
+    print(f"Built French pages in /{LANG}/")
+    sys.exit(0)
+
 # sitemap + robots
-urls = ["/", "/books/", "/play/", "/alphabet/", "/bookmarks/", "/ramadan/", "/shop/", "/legal/", "/privacy/"] + [f"/books/{b['slug']}/" for b in BOOKS]
+urls = ["/", "/books/", "/play/", "/alphabet/", "/bookmarks/", "/ramadan/", "/shop/", "/faq/", "/legal/", "/privacy/"] + [f"/books/{b['slug']}/" for b in BOOKS]
+urls += [f"/fr{u}" for u in sorted(BILINGUAL)]
 (ROOT / "sitemap.xml").write_text(
     '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     + "".join(f"  <url><loc>{SITE['domain']}{u}</loc></url>\n" for u in urls) + "</urlset>\n", encoding="utf-8")
 (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {SITE['domain']}/sitemap.xml\n", encoding="utf-8")
 
 print(f"Built {len(urls)} pages + 404")
+subprocess.run([sys.executable, __file__], env={**os.environ, "SITE_LANG": "fr"}, check=True)
