@@ -53,7 +53,7 @@
       {
         "id": "fr",
         "name": "France",
-        "first": 5.0,
+        "first": 6.9,
         "extra": 1.5,
         "days": "2–4",
         "free_from": null
@@ -61,9 +61,9 @@
       {
         "id": "eu",
         "name": "EU (Belgium, Germany, Spain, Italy…)",
-        "first": 9.0,
+        "first": 11.5,
         "extra": 2.5,
-        "days": "4–8",
+        "days": "3–5",
         "free_from": null
       },
       {
